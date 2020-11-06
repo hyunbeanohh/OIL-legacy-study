@@ -1,6 +1,7 @@
 time = int(input())
 count = 0
 
+# 3중 반복문 사용
 for i in range(time +1):
   for j in range(60):
     for k in range(60):

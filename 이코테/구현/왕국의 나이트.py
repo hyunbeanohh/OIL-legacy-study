@@ -1,4 +1,4 @@
-#나이트 위치 구하기
+# 나이트 위치 구하기
 n = input()
 row = int(n[1])
 column = int(ord(n[0])) - int(ord('a')) + 1 # ord : 아스키코드로 변환

@@ -1,0 +1,26 @@
+/* body{
+  background-image: url("../img/fifa.png");
+  background-repeat: no-repeat;
+  background-size: cover; //화면에가득참
+  background-position: center;
+  background-attachment: fixed;  // 스크롤을 내려도 배경화면은 고정
+
+} */
+
+div{
+  float: ;
+}
+.text{
+  border: 1px  solid black;
+  text-align: center;
+}
+
+.going{
+    border: 1px  solid black;
+  text-align: right;
+}
+
+.is{
+    border: 1px  solid black;
+  text-align: left;
+}

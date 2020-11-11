@@ -1,0 +1,34 @@
+body{
+  background-image: url("../img/DAEJIN_Background2.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  }
+img{
+  margin: 0;
+  padding: 0;
+}
+.mainframe{
+  width:850px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+#logo{
+  margin-top: 50px;
+}
+
+.menu-img{
+  float: left;
+}
+.menu{
+  margin-top: 50px;
+  padding: 0px;
+  /*
+  마진과 패딩값을 0으로 줘도 빈칸이 남으면 플롯값을 적용
+  */
+}
+.copyright{
+  margin-top: 50px;
+}

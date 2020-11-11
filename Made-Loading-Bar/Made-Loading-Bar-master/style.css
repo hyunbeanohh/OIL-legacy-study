@@ -1,0 +1,68 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+#main {
+  background: url("https://pixabay.com/get/57e8dc404d5aaf14f6d1867dda6d49214b6ac3e45659754d712b7fd69f/texture-1893783_1920.jpg")
+    no-repeat;
+  background-size: cover;
+  background-position: center;
+  width: 100vw;
+  height: 100vh;
+  font-family: "Questrial", sans-serif;
+}
+
+#contents {
+  color: white;
+  text-align: center;
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  transform: (translateY(-50%));
+}
+
+#contents h1 {
+  font-family: "Dancing Script", cursive;
+  font-size: 70px;
+  margin-bottom: 16px;
+}
+#contents p {
+  font-size: 23px;
+  margin-bottom: 16px;
+}
+
+#contents a {
+  display: inline-block;
+  border: 2px solid white;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 17px;
+  font-weight: bold;
+  transition: all 0.5s;
+}
+#contents a:hover {
+  background-color: gray;
+}
+@media (max-width: 769px) {
+  #contents h1 {
+    font-size: 50px;
+  }
+  #contents p {
+    font-size: 20px;
+  }
+  #contents a {
+    font-size: 14px;
+  }
+}

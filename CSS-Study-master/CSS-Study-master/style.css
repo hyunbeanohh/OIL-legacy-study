@@ -1,0 +1,47 @@
+
+  body{
+    margin :0;
+  }
+  a {
+    color:black;
+    text-decoration: none;
+  }
+  h1{
+    font-size: 80px;
+    text-align: center;
+    border-bottom: 1px solid gray;
+    margin :0;
+    padding :20px;
+  }
+  ol{
+    border-right: 1px solid gray;
+    width : 150px;
+    margin :0;
+    padding: 32px;
+  }
+  #active{ <!-- id선택자가 class 선택자보다 우선순위이고 , class선택자와 태그 선택자가 붙으면 class선택자가 우선순위이다 . id>clss>tag -->
+    color:red;
+  }
+  #grid{
+    display: grid;
+    grid-template-columns: 200px 1fr;
+  }
+  #grid ol{
+    padding-left: 25px
+  }
+  #article{
+    padding: 25px;
+  }
+  @media(max-width : 800px){
+    #grid{
+      display: block;
+
+    }
+    ol{
+      border-right: none;
+    }
+    h1{
+      border-bottom: none;
+
+    }
+  }

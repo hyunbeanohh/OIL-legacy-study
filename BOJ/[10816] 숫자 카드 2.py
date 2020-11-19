@@ -18,3 +18,13 @@ for t in target:
     sys.stdout.write(str(dic[t])+" ")
   else:
     sys.stdout.write("0 ")
+
+#collections라이브러리 Cunter함수 활용
+
+_= stdin.readline()
+N = stdin.readline().split()
+_= stdin.readline()
+M = stdin.readline().split()
+
+C=Counter(N)
+print(' '.join(f'{C[m]}' if m in C else '0' for m in M))

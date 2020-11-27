@@ -7,6 +7,6 @@ Algorithm
 
 >>[백준온라인저지](https://www.acmicpc.net/problemset "BOJ Link")
 
->>이것이코딩테스트다(나동빈저)
+>>[이것이코딩테스트다(나동빈저)](https://book.naver.com/bookdb/book_detail.nhn?bid=16439154, "Book Link")
 
 >>etc..

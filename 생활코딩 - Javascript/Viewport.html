@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viewport</title>
+</head>
+<body>
+    <style>
+        body{
+            padding: 0;
+            margin: 0;
+        }
+        div{
+            border:50px solid #1065e6;
+            padding:50px;
+            margin:50px;
+        }
+        #target{
+            width:100px;
+            height: 2000px;
+        }
+    </style>
+    
+        <input type="button" id="scrollBtn" value ="scroll(0,1000)"/>
+        <script>
+            // let t = document.getElementById('target')
+            // setInterval(function(){ //setInterval -> 함수부분을 1초에 한번씩 반복적으로 호출하는 함수.
+            //     console.log('getBoundingClientRect :', t.getBoundingClientRect().top, 'pageYOffset: ',window.pageYOffset)
+            // },1000)
+            document.getElementById('scrollBtn').addEventListener('click', ()=>{
+                window.scrollTo(0,1000)
+            })
+            console.log('window.innerWidth:', window.innerWidth, 'window.innerHeight:', window.innerHeight)
+            console.log('screen.width:', screen.width ,'screen.height:', screen.height)
+            </script>
+            <div>
+                <div id="target">
+                    Coding
+                </div>
+            </div>
+</body>
+</html>

@@ -5,4 +5,6 @@ Web - Front end
 
 >>[인프런](https://www.inflearn.com/ "infrean Link")
 
->> 공부하는 목록이 늘어날수록 늘리겠습니다.
+>>[생활코딩](https://www.opentutorials.org/ "생활코딩 링크")
+
+

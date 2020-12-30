@@ -1,0 +1,22 @@
+<html>
+    <body>
+        <input type="button" onclick="alert(window.location)" value="alert(window.href)"/>
+        <input type="button" onclick="window.open(demo.html)" value="alert(window.open)"/>
+        <input type="text" onchange="alert(this.value)"/>
+
+        <input type="button" id="target" value="button"/>
+        <script>
+            // let t = document.getElementById('target');
+            // t.onclick = (event) =>{
+            //     alert('Hello World');
+            // }
+
+            let t = document.getElementById('target');
+            t.onclick = function(event){
+                let event = event || window.event; //만약에 지역변수가 없다면 window.event 를 쓰겠다.
+                let tatget = event.target || event.srcElement
+                console.log(target);
+            }
+        </script>
+    </body>
+</html> 

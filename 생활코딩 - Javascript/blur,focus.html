@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>blur,focus</title>
+</head>
+<body>
+    <input type="name" id="target"/>
+    <script>
+        let t = document.getElementById('target')
+        t.addEventListener('blur',(event)=>{
+            alert('blur');
+        })
+        t.addEventListener('focus',(event)=>{
+            alert('focus');
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>form</title>
+</head>
+<body>
+    <form id = "target" action="result.html">
+        <label for="name">name</label> <input type="name" id = "name"/>
+        <input type="submit"/>
+    </form>
+    <script>
+        let t = document.getElementById('target');
+        t.addEventListener('submit',(evnet) =>{
+            if(document.getElementById('name').value.length === 0){
+                alert('Name 필드의 값이 누락되었습니다.');
+                evnet.preventDefault();
+            }
+        })
+    </script>
+</body>
+</html>

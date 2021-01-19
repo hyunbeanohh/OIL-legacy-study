@@ -7,4 +7,7 @@ Web - Front end
 
 >>[생활코딩](https://www.opentutorials.org/ "생활코딩 링크")
 
+>>[Nomad Corder](https://nomadcoders.co/ "노마드코더 링크")
+
+
 

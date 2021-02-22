@@ -1,13 +1,11 @@
 # 집의 개수와 공유기의 개수 입력받기
-n,c = list(map(int,input().split()))
+n,c = list(map(int,input().split(' ')))
 
 # 전체 집의 좌표 정보를 입력받기
-array =[]
-for _ in range(n):
-  array.append(int(input()))
+array = [int(sys.stdin.readline()) for _  in range(n)]
 array.sort() # 이진 탐색을 위해 정렬 수행
 
-start = array[1] - array[0] # 집의 좌표 중에 가장 작은 값
+start = 1 # 집의 좌표 중에 가장 작은 값 , 집은 중복 값을 가지지 않고 한칸 씩 띄어져 있기 때문에 1
 end = array[-1] - array[0] # 집의 좌표 중에 가장 큰 값
 result = 0
 

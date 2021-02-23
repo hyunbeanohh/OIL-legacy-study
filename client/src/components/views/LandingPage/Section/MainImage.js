@@ -11,7 +11,7 @@ function MainImage(props){
             backgroundSize:'100%,cover',
             backgroundPosition:'center,center',
             width:'100%',
-            position:'absolute'
+            position:'relative'
         }}>
             <div>
                 <div style ={{position : 'absolute', maxWidth:'500px', bottom:'2rem', marginLeft:'2rem'}}>

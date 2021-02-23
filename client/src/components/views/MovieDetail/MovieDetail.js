@@ -5,7 +5,8 @@ import MainImage from '../LandingPage/Section/MainImage'
 import MovieInfo from './Section/MovieInfo'
 import GridCard  from '../commons/GridCard'
 import  {Row}  from  'antd'
-
+import Favorite from './Section/Favorite'
+ 
 function MovieDetail(props) {
     let movieId = props.match.params.movieId
     const [Movie, setMovie] = useState([])
@@ -18,7 +19,7 @@ function MovieDetail(props) {
         fetch(endpointInfo)
         .then(response => response.json())
         .then(response=>{
-            console.log(response)
+            //console.log(response)
             setMovie(response)
         })
 
@@ -27,7 +28,7 @@ function MovieDetail(props) {
         fetch(endpointCrew)
         .then(response => response.json())
         .then(response=>{
-            console.log('responseForCrew', response)
+            //console.log('responseForCrew', response)
             setCasts(response.cast)
         })
 
@@ -53,6 +54,11 @@ function MovieDetail(props) {
 
             {/*Body */}
             <div style ={{width:'85%', margin:'1rem auto'}}>
+
+                <div style={{display:'flex', justifyContent:'flex-end'}}>
+                    <Favorite  movieInfo = {Movie} movieId = {movieId} userFrom = {localStorage.getItem('userId')}/>
+                </div>
+
 
                 {/*Movie Info*/}
                 <MovieInfo

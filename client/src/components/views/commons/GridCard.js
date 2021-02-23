@@ -4,7 +4,7 @@ import {Col} from 'antd'
 
 function GridCard(props) {
 
-    if(props.Landingpage) {    
+    if(props.landingPage) {    
         return (
             <Col lg={6} md={8} xs={24}>
                 <div style={{position:'relative'}}>

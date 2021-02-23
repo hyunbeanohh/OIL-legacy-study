@@ -15,6 +15,7 @@ const config = require("./config/key");
 //   .catch(err => console.error(err));
 
 const mongoose = require("mongoose");
+const router = require("./routes/favorite");
 const connect = mongoose.connect(config.mongoURI,
   {
     useNewUrlParser: true, useUnifiedTopology: true,
@@ -34,7 +35,9 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 app.use('/api/users', require('./routes/users'));
-
+app.use('/api/favorite', require('./routes/favorite')); 
+// endpoint 주소를 찾아서 경로에 맞게 이동하게 함.
+// 따로 명시해 줌으로써 index.js를 무조건 통과하지 않도록 함
 
 //use this to show the image you have in node js server to client (react js)
 //https://stackoverflow.com/questions/48914987/send-image-path-from-node-js-express-server-to-react-client
@@ -52,6 +55,7 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.resolve(__dirname, "../client", "build", "index.html"));
   });
 }
+
 
 const port = process.env.PORT || 5000
 

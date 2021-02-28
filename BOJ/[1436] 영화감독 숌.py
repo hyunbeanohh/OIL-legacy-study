@@ -1,4 +1,3 @@
-```
 n = int(input())
 hellnum = 666
 while(n):
@@ -7,4 +6,4 @@ while(n):
   hellnum += 1 #hellnum + 1 해주고 다시 n - 1이 되니 반복문 벗어난 후 정답 출력.
 a
 print(hellnum-1)
-```
+

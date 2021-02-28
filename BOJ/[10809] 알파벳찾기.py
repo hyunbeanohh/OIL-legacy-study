@@ -1,4 +1,3 @@
-```
 n = input()
 arr = [-1 for _ in range(26)]
 
@@ -10,4 +9,3 @@ for i in range(len(n)):
 
 for i in range(26):
   print(arr[i], end= ' ')
-```

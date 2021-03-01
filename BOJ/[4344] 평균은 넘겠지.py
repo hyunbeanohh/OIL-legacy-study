@@ -1,4 +1,3 @@
-```
 n = int(input())
 
 for i in range(n):
@@ -12,4 +11,3 @@ for i in range(n):
     #stdavg = format(cnt/answer[0]*100,'.3f')
   #print(f'{stdavg}%')
   print(str('%.3f' % round(cnt/answer[0]*100, 3)) + '%')
-```

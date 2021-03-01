@@ -1,4 +1,3 @@
-```
 def solution(bridge_length, weight, truck_weights):
     cnt = 0
     current_truck = [0] * bridge_length
@@ -14,4 +13,3 @@ def solution(bridge_length, weight, truck_weights):
                 current_truck.append(0)
     
     return cnt
- ```

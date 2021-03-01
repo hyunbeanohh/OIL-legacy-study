@@ -1,4 +1,3 @@
-```
 n = int(input())
 
 for i in range(n):
@@ -7,5 +6,3 @@ for i in range(n):
   for i in s:
     str += i*int(num)
   print(str)
-
-```

@@ -1,5 +1,4 @@
-```
-  import heapq #힙 선언
+import heapq #힙 선언
 def solution(scoville, K):
     heap = []
     answer = 0
@@ -14,11 +13,9 @@ def solution(scoville, K):
             return -1
         cnt += 1
     return cnt
-```
 
 
-```
-  import heapq
+import heapq
 def solution(scoville, K):
     
     answer = -1
@@ -44,4 +41,4 @@ def solution(scoville, K):
         answer = cnt
         
     return answer
-```
+

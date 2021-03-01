@@ -1,6 +1,4 @@
-```
 n = int(input())
-
 
 for i in range(n):
   answer = list(input())
@@ -13,4 +11,3 @@ for i in range(n):
     if j =='X':
       cnt = 0
   print(sumanswer)      
-```

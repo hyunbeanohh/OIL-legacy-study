@@ -1,4 +1,3 @@
-```
 def solution(s):
     li = list()
     for i in s:
@@ -12,9 +11,7 @@ def solution(s):
                 return False
         
     return len(li) == 0
-```
 
-```
 def solution(s):
 
     from collections import deque
@@ -29,4 +26,4 @@ def solution(s):
             
     if len(deque) != 0:
         return False
- ```
+

@@ -1,4 +1,3 @@
-```
 a,b,c = list(map(int,input().split()))
 break_point = 0
 
@@ -8,4 +7,3 @@ else:
   break_point = a//(c-b)+1
 
 print(break_point)
-```

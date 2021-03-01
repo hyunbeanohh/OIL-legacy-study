@@ -1,4 +1,3 @@
-```
 d = [0] * 101
 d[0] = 1
 d[1] = 1
@@ -12,5 +11,3 @@ num = int(input())
 for j in range(num):
   data = int(input())
   print(d[data-1])
-
-```

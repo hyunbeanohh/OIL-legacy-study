@@ -1,4 +1,3 @@
-```
 #플로이드 워셜 알고리즘
 
 INF = int(1e9) # 무한을 의미하는 값으로 10억 설정
@@ -30,11 +29,10 @@ for k in range(1,node+1):
 for a in range(1,node+1):
   for b in range(1,node+1):
     #도달할 수 없는 경우, 무한(INF)으로 출력
-    if graph[a][b] == 'INF':
+    if graph[a][b] == INF:
       print('INF',end = ' ')
     #도달할 수 있는 경우 거리를 출력
     else:
       print(graph[a][b],end =' ')
   print()
 
-```

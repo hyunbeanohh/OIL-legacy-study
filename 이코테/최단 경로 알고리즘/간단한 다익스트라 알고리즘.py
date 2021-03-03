@@ -1,5 +1,4 @@
-```
-  import sys
+import sys
 input = sys.stdin.readline
 INF  = int(1e9) #무한을 의미하는 값으로 10억 설정
 
@@ -59,4 +58,4 @@ for i in range(1,n+1):
   #도달할 수 있는 경우 거리를 출력
   else:
     print(distance[i])
-```
+

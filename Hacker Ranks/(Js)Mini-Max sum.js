@@ -1,4 +1,3 @@
-```
 'use strict';
 
 process.stdin.resume();
@@ -37,4 +36,3 @@ function main() {
 
     miniMaxSum(arr);
 }
-```

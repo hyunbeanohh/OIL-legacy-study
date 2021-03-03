@@ -1,4 +1,3 @@
-```
 import sys
 import heapq
 input = sys.stdin.readline
@@ -49,4 +48,4 @@ for i in range(1,n+1):
   #도달핧 수 있는 경우 거리 출력
   else:
     print(distance[i])
-```
+

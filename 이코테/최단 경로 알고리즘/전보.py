@@ -1,4 +1,3 @@
-```
 import heapq
 import sys
 
@@ -49,4 +48,3 @@ for d in distance :
     max_distance = max(max_distance,d)
 #시작 노드는 제외 해야 하므로 count -1 출력
 print(count-1,max_distance)
-```

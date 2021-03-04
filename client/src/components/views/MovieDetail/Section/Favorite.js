@@ -11,6 +11,7 @@ function Favorite(props) {
 
     const [FavoriteNumber, setFavoriteNumber] = useState(0)
     const [Favorited, setFavorited] = useState(false)
+    
     let variables ={
         userFrom,
         movieId

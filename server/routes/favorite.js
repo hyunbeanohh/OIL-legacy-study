@@ -32,7 +32,7 @@ router.post('/favorited',(req,res)=>{
     Favorite.findOneAndDelete({movieId:req.body.movieId, userFrom:req.body.userFrom})
     .exec((err,doc)=>{
         if(err) return res.status(400).send(err)
-        res.status(200).json({success:true,doc]})
+        res.status(200).json({success:true,doc})
     })
  })
  
@@ -50,6 +50,14 @@ router.post('/favorited',(req,res)=>{
     .exec((err,favorites)=>{
         if(err) return res.status(400).send(err)
         return res.status(200).json({success:true,favorites})   
+    })
+ })
+
+ router.post('/removeFavorite',(req,res)=>{
+    Favorite.findOneAndDelete({movieId:req.body.movieId, userFrom:req.body.userFrom})
+    .exec((err,result)=>{
+        if(err) return res.status(400).send(err)
+        return res.status(200).json({success:true})
     })
  })
 

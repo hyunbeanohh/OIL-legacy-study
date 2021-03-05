@@ -1,4 +1,3 @@
-```
 def isCheck(result) :
     if result>1:
         for i in range(2,result):
@@ -16,9 +15,9 @@ def solution(nums):
                 if isCheck(result) == True:
                     answer += 1
     return answer
-```
 
-```
+
+
 def isCheck(a,b,c) :
     result = a+b+c
     
@@ -37,4 +36,3 @@ def solution(nums):
     for i in combi:
         if isCheck(i[0],i[1],i[2]) == True: answer += 1
     return answer
-```

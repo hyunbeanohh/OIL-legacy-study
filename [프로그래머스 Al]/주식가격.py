@@ -1,4 +1,3 @@
-```
 # for i in range(len(a)-1):
 #   print(i,i+1)
 #   if a[i] > a[i+1]: # 현재 주식이 다음 주식보다 가격이 낮다면 배열에 1추가
@@ -16,4 +15,4 @@ for i in range(len(a)-1):
     else:
       answer[i] += 1
 print(answer)
-```
+

@@ -17,3 +17,14 @@ def dfs(start,graph):
 
 dfs(1,graph) # 1번 컴퓨터가 바이러스에 걸림
 print(len(visited)-1) # 1번 컴퓨터 까지 배열에 추가되므로 -1
+
+def bfs(start,graph):
+  queue = [start]
+  while queue:
+    for i in graph[queue.pop()]:
+      if i not in visited:
+        visited.append(i)
+        queue.append(i)
+
+bfs(1,graph)
+print(len(graph)-1)

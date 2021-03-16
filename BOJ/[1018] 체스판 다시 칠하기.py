@@ -1,4 +1,3 @@
-```
 n,m = map(int,input().split())
 board = list()
 for _ in range(n):
@@ -24,4 +23,3 @@ for i in range(n-7):# 8*8로 잘라야 하기 때문에 i-7 만큼 ,j-7만큼 �
     repair.append(W)
     repair.append(B)
 print(min(repair))
-```

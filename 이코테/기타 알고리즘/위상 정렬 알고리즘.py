@@ -25,7 +25,7 @@ def topology_sort():
   for i in range(1, v+1):
     if indegree[i] == 0:
       q.append(i)
-  # 큐가 빌ㄷ 때까지 반복
+  # 큐가 빌 때까지 반복
   while q:
     # 큐에서 원소 꺼내기
     now = q.popleft()

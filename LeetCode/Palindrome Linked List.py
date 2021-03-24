@@ -1,8 +1,3 @@
-# Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
 class Solution:
     def isPalindrome(self, head: ListNode) -> bool:
         """
@@ -21,6 +16,7 @@ class Solution:
             if q.pop(0) != q.pop():
                 return False
         return True"""
+     
         q: Deque = collections.deque()
         
         if not head:
@@ -37,3 +33,5 @@ class Solution:
                 return False
             
         return True
+        # 연결 리스트의 풀이 -> 1300ms
+        # 데큐의 풀이 -> 800ms 

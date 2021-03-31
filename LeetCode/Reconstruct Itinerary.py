@@ -15,3 +15,18 @@ class Solution(object):
         dfs('JFK')
         # 다시 뒤집어 어휘 순 결과로 출력
         return route[::-1]
+
+# 스택구조를 활용하여 pop(0) -> O(n) 에서 pop() -> O(1)로 시간 복잡도 개선
+class Solution(object):
+    def findItinerary(self, tickets):
+        graph = collections.defaultdict(list)
+        for a,b in sorted(tickets,reverse = True):
+            graph[a].append(b)
+        route = []
+        def dfs(a):
+            while graph[a]:
+                dfs(graph[a].pop())
+            route.append(a)
+        print(graph)
+        dfs('JFK')
+        return route[::-1]

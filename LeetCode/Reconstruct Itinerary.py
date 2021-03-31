@@ -30,3 +30,17 @@ class Solution(object):
         print(graph)
         dfs('JFK')
         return route[::-1]
+# 재귀구조를 사용하지 않고 일정 그래프 반복
+class Solution(object):
+    def findItinerary(self, tickets):
+        graph = collections.defaultdict(list)
+        for a,b in sorted(tickets):
+            graph[a].append(b)
+        
+        route,stack = [],['JFK']
+        
+        while stack:
+            while graph[stack[-1]]:
+                stack.append(graph[stack[-1]].pop(0))
+            route.append(stack.pop())
+        return route[::-1]

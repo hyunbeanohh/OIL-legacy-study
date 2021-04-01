@@ -9,12 +9,12 @@ import Favorite from './Section/Favorite'
  
 function MovieDetail(props) {
 
-    let movieId = props.match.params.movieId // movieId : "45445" 처럼 되어있기 때문에 형식에 맞게 가져와야 함.
+    let movieId = props.match.params.movieId // (movieId : "45445") 처럼 되어있기 때문에 형식에 맞게 가져와야 함.
     const [Movie, setMovie] = useState([])
     const [Casts, setCasts] = useState([])
-    const [ActorToggle, setActorToggle] = useState(false) //초기 값은 false 이기 때문에 클릭시 ture가 되고 배우가 표시 됨.
+    const [ActorToggle, setActorToggle] = useState(false) // initial state를 false로 설정 후 버튼 클릭시 true가 되고 배우가 표시 됨.
 
-    useEffect(() => { // useEffect -> 처음 렌더링을 시작할 때 정보를 가져오는 것 
+    useEffect(() => {
 
         let endpointCrew = `${API_URL}movie/${movieId}/credits?api_key=${API_KEY}`;
         let endpointInfo = `${API_URL}movie/${movieId}?api_key=${API_KEY}`;
@@ -34,7 +34,7 @@ function MovieDetail(props) {
          })
     }, [])
 
-    const toggleActorView = () =>{
+    const toggleActorView = () =>{ //Actor View
         setActorToggle(!ActorToggle)
     }
 

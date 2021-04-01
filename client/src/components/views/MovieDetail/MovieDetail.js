@@ -8,11 +8,14 @@ import  {Row}  from  'antd'
 import Favorite from './Section/Favorite'
  
 function MovieDetail(props) {
+
     let movieId = props.match.params.movieId
     const [Movie, setMovie] = useState([])
     const [Casts, setCasts] = useState([])
     const [ActorToggle, setActorToggle] = useState(false)
-    useEffect(() => {
+
+    useEffect(() => { // useEffect -> 처음 렌더링을 시작할 때 정보를  가져오는 것 
+        
         let endpointCrew = `${API_URL}movie/${movieId}/credits?api_key=${API_KEY}`;
         let endpointInfo = `${API_URL}movie/${movieId}?api_key=${API_KEY}`;
 

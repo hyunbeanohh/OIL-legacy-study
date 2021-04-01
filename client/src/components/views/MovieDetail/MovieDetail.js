@@ -9,13 +9,13 @@ import Favorite from './Section/Favorite'
  
 function MovieDetail(props) {
 
-    let movieId = props.match.params.movieId
+    let movieId = props.match.params.movieId // movieId : "45445" 처럼 되어있기 때문에 형식에 맞게 가져와야 함.
     const [Movie, setMovie] = useState([])
     const [Casts, setCasts] = useState([])
-    const [ActorToggle, setActorToggle] = useState(false)
+    const [ActorToggle, setActorToggle] = useState(false) //초기 값은 false 이기 때문에 클릭시 ture가 되고 배우가 표시 됨.
 
-    useEffect(() => { // useEffect -> 처음 렌더링을 시작할 때 정보를  가져오는 것 
-        
+    useEffect(() => { // useEffect -> 처음 렌더링을 시작할 때 정보를 가져오는 것 
+
         let endpointCrew = `${API_URL}movie/${movieId}/credits?api_key=${API_KEY}`;
         let endpointInfo = `${API_URL}movie/${movieId}?api_key=${API_KEY}`;
 
@@ -26,15 +26,12 @@ function MovieDetail(props) {
             setMovie(response)
         })
 
-
-
         fetch(endpointCrew)
         .then(response => response.json())
         .then(response=>{
             //console.log('responseForCrew', response)
             setCasts(response.cast)
-        })
-
+         })
     }, [])
 
     const toggleActorView = () =>{
@@ -48,7 +45,7 @@ function MovieDetail(props) {
 
             {/* Hearder */}
 
-            <MainImage
+            <MainImage //MainImage 틀을 가져와 데이터의 값만 수정
                 image={`${IMAGE_BASE_URL}w1280${Movie.backdrop_path}`}
                 title={Movie.original_title}
                 text={Movie.overview}

@@ -7,8 +7,8 @@ import {Row} from 'antd'
 
 
 function LandingPage() {
-    const [Movies, setMovies] = useState([])
-    const [MainMovieImage, setMainMovieImage] = useState(null)
+    const [Movies, setMovies] = useState([]) // console.log(response) -> result -> 배열 형태이기에 기본 값은 베열
+    const [MainMovieImage, setMainMovieImage] = useState(null) // 
     const [CurrentPage, setCurrentPage] = useState(0)
     
     useEffect(() => {
@@ -22,7 +22,7 @@ function LandingPage() {
         .then(response=>{
             //console.log(response.results)
             setMovies([...Movies,...response.results])
-            setMainMovieImage(response.results[0])
+            setMainMovieImage(response.results[0]) // MainImage는 result의 첫 번째 배열
             setCurrentPage(response.page)
         })
     }
@@ -37,7 +37,7 @@ function LandingPage() {
         <div style={{ width: '100%', margin: '0' }}>
 
         {/* Main Image */}
-        {MainMovieImage &&
+        {MainMovieImage && // && -> MainMovieImage가 존재한다면  MainImage를 렌더링해라 
             <MainImage
                 image={`${IMAGE_BASE_URL}w1280${MainMovieImage.backdrop_path}`}
                 title={MainMovieImage.original_title}

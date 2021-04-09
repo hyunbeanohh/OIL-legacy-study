@@ -53,4 +53,3 @@ if len(answer) == 0:
     print([0])
 else:
     print(answer)
-

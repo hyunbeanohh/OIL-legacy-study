@@ -37,3 +37,20 @@ class Solution:
                 if low <= node.val <= high:
                     sum += node.val
         return sum
+# 반복 구조 BFS로 필요한 노드 탐색
+class Solution:
+    def rangeSumBST(self, root: TreeNode, low: int, high: int) -> int:
+        queue,sum = [root], 0
+        
+        while queue:
+            node = queue.pop(0)
+            if node:
+                if node.val > low :
+                    queue.append(node.left)
+                if node.val < high:
+                    queue.append(node.right)
+                if low <= node.val <= high:
+                    sum += node.val
+           
+        return sum
+        

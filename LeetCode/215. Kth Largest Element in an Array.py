@@ -21,3 +21,4 @@ class Solution(object):
         
         return heapq.nlargest(k,nums)[-1]
         ###
+        return sorted(nums,reverse=True)[k-1]

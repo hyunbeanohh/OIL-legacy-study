@@ -76,8 +76,3 @@ for _ in range(t):
         bfs(i,j)
         
   print(cnt)
-
-
-
-
-

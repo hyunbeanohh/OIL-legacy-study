@@ -27,7 +27,9 @@ function VideoUploadPage() {
     const [Private, setPrivate] = useState(0) 
     {/* Private = 0 , Public = 1 */}
     const [Category, setCategory] = useState("Film& Animation")
-    
+    const [FilePath, setFilePath] = useState("")
+    const [Duration, setDuration] = useState("")
+    const [ThumbnailPath, setThumbnailPath] = useState("")
 
 
     /* TextArea에 텍스트를 입력하기 위해서 설정해줘야 한다.*/
@@ -45,24 +47,42 @@ function VideoUploadPage() {
     }
     const onDrop = (files) => {
 
-        let formData = new FormData
+        let formData = new FormData();
         const config = {
-            header : {'content-type' : 'multipart/form-data'}
+            header: { 'content-type': 'multipart/form-data' }
         }
-        //console.log(files)
-        formData.append("file",files[0])
+        console.log(files)
+        formData.append("file", files[0])
 
         Axios.post('/api/video/uploadfiles', formData, config)
-        .then(response=>{
-            if(response.data.success){ // success 즉 성공했다면
-                console.log(response.data)
-            }else{
-                alert('비디오 업로드를 실패했습니다.')
-                //console.log(response.data)
-            }
-        })
-    }
+            .then(response => {
+                if (response.data.success) {
 
+                    let variable = {
+                        filePath: response.data.filePath,
+                        fileName: response.data.fileName
+                    }
+                    setFilePath(response.data.filePath)
+
+                    //gerenate thumbnail with this filepath ! 
+
+                    Axios.post('/api/video/thumbnail', variable)
+                        .then(response => {
+                            if (response.data.success) {
+                                setDuration(response.data.fileDuration)
+                                setThumbnailPath(response.data.thumbsFilePath)
+                            } else {
+                                alert('Failed to make the thumbnails');
+                            }
+                        })
+
+
+                } else {
+                    alert('failed to save the video in server')
+                }
+            })
+
+    }
 
     return (
         <div style={{maxWidth:'700px', margin:'2rem auto'}}>
@@ -91,10 +111,14 @@ function VideoUploadPage() {
 
                     </Dropzone>
                     {/*Thumbnail */}
+
+                    {ThumbnailPath &&
                     <div>
-                        <img src alt/>
+                        <img src={`http://localhost:5000/${ThumbnailPath}`} alt="thumbnail"/>
                     </div>
-                </div>
+                    }
+                    
+        </div>
         <br/>
         <br/>
         <label>Title</label>

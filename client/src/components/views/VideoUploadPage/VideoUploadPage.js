@@ -2,6 +2,7 @@ import React,{useState} from 'react'
 import {Typography, Button, Form,message,Input,Icon} from 'antd'
 import Dropzone from 'react-dropzone'
 import Axios from 'axios'
+import {useSelector} from 'react-redux'
 
 const {TextArea} = Input
 const {Title} = Typography
@@ -19,8 +20,8 @@ const CategoryOptions = [
 ]
 
 
-function VideoUploadPage() {
-    
+function VideoUploadPage(props) {
+    const user = useSelector(state => state.user)
     {/*useState는 값을 저장한다 . 저장 후 서버에 보낼때 state에 있는 것들을 한꺼번에 보낸다. */}
     const [VideoTitle, setVideoTitle] = useState("")
     const [Description, setDescription] = useState("")
@@ -84,27 +85,55 @@ function VideoUploadPage() {
 
     }
 
+    const onSumit = (e) => {
+        e.preventDefault() // 하고 싶은 동작을 할 수 있도록 방지
+        
+        const variable = {
+            writer :user.userData._id,
+            title :VideoTitle,
+            description:Description,
+            privacy:Private,
+            filePath:FilePath,
+            category:Category,
+            duration:Duration,
+            thumbnail:ThumbnailPath
+        }
+
+
+        Axios.post('/api/video/uploadVedio',variable)
+        .then(response=>{
+            if(response.data.success){
+                message.success('upload success!') // 성공 알람
+
+                setTimeout(()=>{ //3초뒤에 푸쉬
+                    props.history.push('/')
+                },3000)
+
+            }else{
+                alert('vedio upload fail!!')
+            }
+        })
+        
+
+    }
+
     return (
         <div style={{maxWidth:'700px', margin:'2rem auto'}}>
             <div style={{ textAlign:'center', marginBottom:'2rem'}}>
                 <Title level={2}>Upload Video</Title>
             </div>
 
-            <Form onSubmit>
-                <div style={{display :'flex', justifyContent:'spaece-between'}}>
+            <Form onSubmit = {onSumit}>
+                <div style={{display :'flex', justifyContent:'space-between'}}>
                     {/*Drop zone */}
-
                     <Dropzone
                     //accept = "video/*"
-                    onDrop = {onDrop}
-                    multiple = {false}
-                    maxSzie = {10000000}
-                    >
+                        onDrop = {onDrop}
+                        multiple = {false}
+                        maxSzie = {800000000}>
                     {({ getRootProps, getInputProps }) => (
-                        <div style ={{ cursor:'pointer',width:'300px' , height:'240px',border:'1px solid lightgray' , display:'flex',
-                                        alignItems:'center' , justifyContent:'center'}}{...getRootProps()}>
+                        <div style ={{ width: '300px', height: '240px', border: '1px solid lightgray', display: 'flex', alignItems: 'center', justifyContent: 'center'}}{...getRootProps()}>
                                      <input {...getInputProps()}/>
-                                     
                                      <Icon type ='plus' style={{fontSize:'3rem'}} />
                         </div>
                     )}
@@ -112,12 +141,11 @@ function VideoUploadPage() {
                     </Dropzone>
                     {/*Thumbnail */}
 
-                    {ThumbnailPath &&
-                    <div>
-                        <img src={`http://localhost:5000/${ThumbnailPath}`} alt="thumbnail"/>
-                    </div>
+                    {ThumbnailPath !== "" &&
+                        <div>
+                            <img src={`http://localhost:5000/${ThumbnailPath}`} alt="Thumbnail" />
+                        </div>
                     }
-                    
         </div>
         <br/>
         <br/>
@@ -150,7 +178,7 @@ function VideoUploadPage() {
         </select>
         <br/>
         <br/>
-        <Button type ="primary" size = "large" onClick>
+        <Button type ="primary" size = "large" onClick={onSumit}>
             Submit
         </Button>
             </Form>

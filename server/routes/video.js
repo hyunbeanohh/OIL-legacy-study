@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 var ffmpeg = require('fluent-ffmpeg')
-//const { Video } = require("../models/Video");
+const { Video } = require("../models/Video");
 
 //const { auth } = require("../middleware/auth");
 const multer = require("multer")
@@ -42,42 +42,46 @@ router.post('/uploadfiles', (req,res)=>{
     })
 })
 
-router.post('/thumbnail', (req,res)=>{ 
-    // 썸네일 생성하고 비디오 정보를 가져오기.
-    let thumbsFilePath = ""
-    let fileDuration = ""
-    // 비디오 정보 가져오기 
-    ffmpeg.ffprobe(req.body.filePath, function(err,metadata){
-        console.log(req.body.url)
-        console.dir(metadata)
-        console.log(metadata.format.duration)
-        
-        fileDuration = metadata.format.duration
+router.post('/uploadVedio', (req,res)=>{ 
+    // 비디오 정보들을 저장한다.
+    const video = new Video(req.body) // req.body - 클라이언트에서 보낸 variable을 모두 담는다. writer,title ...
+    
+    video.save((err,doc,)=>{
+        if(err) return res.json({success:false,err})
+        res.status(200).json({success:true})
     })
     
-    // 썸네일 생성 
-    ffmpeg(req.body.filePath) // 클라이언트에서 가져오는 비디오 저장 경로 -> upload
-    .on('filenames',function(filenames){
-        console.log('Will generate' + filenames.join(', '))
-        console.log(filenames)
-
-        thumbsFilePath = "uploads/thumbnails/" + filenames[0]
-    })
-    .on('end', function(){ // 썸네일 생성 후 무엇을 할 것인지 로직 작성.
-        console.log('Screenshots Taken')
-        return res.join({success:true ,thumbsFilePath:thumbsFilePath, fileDuration:fileDuration})
-    })
-    .on('err',function(err){ // 썸네일 생성 후 무엇을 할 것인지 로직 작성.
-        console.error('err')
-        return res.join({success:false, err})
-    })
-    .screenshots({
-        // Will take screens at 20%, 40%, 60% and 80% of the video
-        count: 3,
-        folder: 'uploads/thumbnails',
-        size:'320x240',
-        // %b input basename ( filename w/o extension )
-        filename:'thumbnail-%b.png'
-    })
 })
+
+
+router.post("/thumbnail", (req, res) => {
+
+    let thumbsFilePath ="";
+    let fileDuration ="";
+
+    ffmpeg.ffprobe(req.body.filePath, function(err, metadata){
+        console.dir(metadata);
+        console.log(metadata.format.duration);
+
+        fileDuration = metadata.format.duration;
+    })
+
+
+    ffmpeg(req.body.filePath)
+        .on('filenames', function (filenames) {
+            console.log('Will generate ' + filenames.join(', '))
+            thumbsFilePath = "uploads/thumbnails/" + filenames[0];
+        })
+        .on('end', function () {
+            console.log('Screenshots taken');
+            return res.json({ success: true, thumbsFilePath: thumbsFilePath, fileDuration: fileDuration})
+        })
+        .screenshots({
+            count: 3,
+            folder: 'uploads/thumbnails',
+            size:'320x240',
+            filename:'thumbnail-%b.png'
+        });
+
+});
 module.exports = router;

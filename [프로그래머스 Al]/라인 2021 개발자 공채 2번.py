@@ -98,6 +98,3 @@ print(solution("aaaaZZZZ)"))
 print(solution("CaCbCgCdC888834A"))
 print(solution("UUUUU"))
 print(solution("ZzZz9Z824"))
-
-
-

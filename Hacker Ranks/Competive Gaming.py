@@ -12,3 +12,4 @@ def numPlayers(k, scores):
         current_rank += j
     return answer
 print(numPlayers(k,scores))
+# 테스크 케이스 1개 다시 풀어보기

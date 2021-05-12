@@ -21,5 +21,3 @@ def bfs(n,graph):
         dist[j] = dist[x] + 1
   answer = dist.count((max(dist)))
   return answer
-
-        

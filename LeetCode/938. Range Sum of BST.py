@@ -53,4 +53,3 @@ class Solution:
                     sum += node.val
            
         return sum
-        

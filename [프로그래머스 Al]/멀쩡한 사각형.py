@@ -8,7 +8,5 @@ def solution(w,h):
         if w % i == 0 and  h % i == 0:
             idx = i
             break
-    answer = w*h-(w+h-idx)
-          
-        
+    answer = w*h-(w+h-idx)  
     return answer

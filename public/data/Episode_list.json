@@ -2,22 +2,22 @@
     "webtoonEpisodes": [
       {
         "id": 8250,
-        "title": "1화",
+        "title": "episode 0",
         "thumbnailImage": {
           "url": "http://t1.daumcdn.net/webtoon/op/188950e94e5e9f90ebf8fc20408e527b36232dcb"
         },
         "webtoonId" : 1,
         "images" : [
-          "https://cdn.pixabay.com/photo/2018/07/14/15/27/cafe-3537801__480.jpg",
-          "https://cdn.pixabay.com/photo/2018/07/12/02/32/basil-3532424__480.jpg",
-          "https://cdn.pixabay.com/photo/2018/07/12/11/45/sunrise-3533173__480.jpg",
-          "https://cdn.pixabay.com/photo/2018/05/30/15/31/rustic-3441673__480.jpg"
+          "http://www.kidaristudio.com/interview/01.jpg",
+          "http://www.kidaristudio.com/interview/02.jpg",
+          "http://www.kidaristudio.com/interview/03.jpg",
+          "http://www.kidaristudio.com/interview/04.jpg"
         ],
         "dateCreated" : "20180127000000"
       },
       {
         "id": 8269,
-        "title": "2화",
+        "title": "episode 1",
         "thumbnailImage": {
           "url": "http://t1.daumcdn.net/webtoon/op/f8991d9e6d190ecdb8edd30b4ddba1c7dd7eda7a"
         },
@@ -32,7 +32,7 @@
       },
       {
         "id": 8298,
-        "title": "3화",
+        "title": "episode 2",
         "thumbnailImage": {
           "url": "http://t1.daumcdn.net/webtoon/op/d57837df38acb34b2a2411fc9e50eb48195ec2db"
         },

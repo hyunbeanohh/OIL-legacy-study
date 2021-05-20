@@ -1,0 +1,67 @@
+{
+    "webtoonList" : [
+        {
+            "id" : 1,
+            "title" : "레바툰",
+            "artist" : "레진코믹스",
+            "day" : "mon",
+            "thumbnail" : "https://ifh.cc/g/s8Tmi2.jpg"
+        },
+        {
+            "id" : 2,
+            "title" : "무한도전",
+            "artist" : "김태호",
+            "day" : "mon",
+            "thumbnail" : "https://ifh.cc/g/s8Tmi2.jpg"
+        },
+        {
+            "id" : 3,
+            "title" : "런닝맨",
+            "artist" : "유재석",
+            "day" : "mon",
+            "thumbnail" : "https://ifh.cc/g/s8Tmi2.jpg"
+        },
+        {
+            "id" : 4,
+            "title" : "데몬헌터",
+            "artist" : "엔씨소프트",
+            "day" : "tue",
+            "thumbnail" : ""
+        },
+        {
+            "id" : 5,
+            "title" : "냉장고를 부탁해",
+            "artist" : "트와이스",
+            "day" : "tue",
+            "thumbnail" : ""
+        },
+        {
+            "id" : 6,
+            "title" : "케이할매",
+            "artist" : "JTBC",
+            "day" : "tue",
+            "thumbnail" : ""
+        },
+        {
+            "id" : 7,
+            "title" : "골목식당",
+            "artist" : "백종원",
+            "day" : "wed",
+            "thumbnail" : ""
+        },
+        {
+            "id" :  8,
+            "title" : "나 혼자 산다",
+            "artist" : "MBC",
+            "day" : "wed",
+            "thumbnail" : ""
+        },
+        {
+            "id" : 9,
+            "title" : "멸망이 찾아왔다.",
+            "artist" : "서인국",
+            "day" : "wed",
+            "thumbnail" : ""
+        }
+    ]
+}

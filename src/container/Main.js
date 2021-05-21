@@ -11,8 +11,11 @@ class Main extends Component{
     constructor(props){
         super(props)
 
+        const query = new URLSearchParams(props.location.search)
+        const day = query.get('day')
+
         this.state = {
-            day : 'mon', // default
+            day : day || 'mon',
             webtoon_list : []
         }
     }
@@ -20,7 +23,19 @@ class Main extends Component{
     componentDidMount(){
         this._getList()
     }
+    componentDidUpdate(prevProps){
+        let prevQuery = new URLSearchParams(prevProps.location.search)
+        let prevDay = prevQuery.get('day')
 
+        let query = new URLSearchParams(this.props.location.search)
+        let day = query.get('day')
+
+        if(prevDay != day){
+            this.setState({
+                day
+            })
+        }
+    }
     _getList(){
         //webtoon_list를 가져오기
         const api_path = 'data/Webtoon_list.json'

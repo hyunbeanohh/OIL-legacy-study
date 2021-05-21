@@ -1,8 +1,12 @@
 import React, { Component } from 'react'
 import Axios from 'axios'
 import {Link} from 'react-router-dom'
+import Toggle from '../component/Toggle'
 import btn_viewer_home from '../Btnimg/btn-viewer-home.svg'
 import btn_viewer_back from '../Btnimg/btn-nav-back-b-850.svg'
+import btn_nav_have_on from '../Btnimg/btn-nav-have-on.svg'
+import btn_nav_have_nor from '../Btnimg/btn-nav-have-nor.svg'
+
 
 class View extends Component{
     constructor(props){
@@ -10,8 +14,13 @@ class View extends Component{
 
         this.state = {
             episodeId : parseInt(props.match.params.episodeId,10),
-            episode : {}
+            episode : {},
+            licked : true,
+            have : btn_nav_have_on,
+            logo : btn_nav_have_nor,
+            image : btn_nav_have_nor
         }
+        this.change  = this.change.bind(this)
     }
 
     componentDidMount(){
@@ -34,18 +43,29 @@ class View extends Component{
         })
     }
 
+    change(){
+        if (this.state.clicked){
+            this.setState({image:this.state.have})
+        }else{
+            this.setState({image:this.state.logo})
+        }
+        this.setState({clicked: !this.state.clicked})
+    }
+
     render(){
         const episode = this.state.episode
+        const bomtoon_uri = "https://www.bomtoon.com/?NaPm=ct%3Dkox5b67j%7Cci%3Dcheckout%7Ctr%3Dds%7Ctrx%3D%7Chk%3D8d3ac72365dcae1f3771c915f0bb993647a9a126"
         return(
             <div className = 'wrap_viewer'>
                 {episode.id ? (
                     <div>
                         <div className = 'top_viewer'>
-                            <button><img src = {btn_viewer_back} onClick={console.log('클릭')}/></button>
+                            <button className = 'top_back_btn' onClick ={()=> console.log('click')}><img src = {btn_viewer_back}/></button>
                             {episode.title}
-                            <Link to = {`/webtoon/${episode.webtoonId}`} className = 'btn_close>' style ={{float:'right'}}><img src={btn_viewer_home}
-                            onClick={()=> window.open("https://www.bomtoon.com/?NaPm=ct%3Dkox5b67j%7Cci%3Dcheckout%7Ctr%3Dds%7Ctrx%3D%7Chk%3D8d3ac72365dcae1f3771c915f0bb993647a9a126")}
-                            /></Link>
+                            <Link to = {`/webtoon/${episode.webtoonId}`} className = 'btn_close' >
+                            <img src={btn_viewer_home}onClick={()=> window.open(bomtoon_uri)} />
+                            </Link>
+                            <img src={this.state.image} style ={{cursor:'Pointer'}} onClick ={this.change} className = 'change_img' />
                     </div>
                     
                     <div className = 'wrap_images'>

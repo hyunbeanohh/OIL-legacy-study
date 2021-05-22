@@ -1,8 +1,8 @@
+import classNames from 'classnames'
 import React, { Component } from 'react'
 import unlike from '../Btnimg/btn-nav-btm-like-nor.svg'
 import like from '../Btnimg/btn-nav-btm-like-on.svg'
-import AOS from 'aos'
-import 'aos/dist/aos.css'
+
 
 class ViewFooter extends Component{
     constructor(props){
@@ -12,16 +12,20 @@ class ViewFooter extends Component{
             clicked : true,
             unlike : unlike,
             like : like,
-            image : unlike
+            image : unlike,
+            hide : true,
+            prevScrollpos : window.pageYOffset
         }
         this.change  = this.change.bind(this)
-
+        this.handleScroll = this.handleScroll.bind(this)
     }
     componentDidMount(){
-        AOS.init({
-            duration:1500
-        })
+        window.addEventListener('scroll',this.handleScroll)
     }
+    componentWillUnmount(){
+        window.removeEventListener('scroll',this.handleScroll)
+    }
+
     change(){
         if (this.state.clicked){
             this.setState({image:this.state.like})
@@ -30,9 +34,22 @@ class ViewFooter extends Component{
         }
         this.setState({clicked: !this.state.clicked})
     }
+
+    handleScroll(){
+        const { prevScrollpos } = this.state
+        const currentScrollsPos = window.pageYOffset
+        const hide = prevScrollpos > currentScrollsPos
+
+        this.setState({
+            prevScrollpos : currentScrollsPos,
+            hide
+        })
+    }
     render(){
         return(
-            <div className = 'wrap_viewfooter'>
+            <div className = {classNames('wrap_viewfooter',{
+                'footer_hidden' : !this.state.hide
+                })}>
             <img src={this.state.image} style ={{cursor:'Pointer'}} onClick ={this.change} className = 'viewfooter' />
             </div>
         )

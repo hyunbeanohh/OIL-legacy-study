@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
+import Axios from 'axios'
 import styled from 'styled-components';
 import btn_viewer_home from '../Btnimg/btn-viewer-home.svg'
 import btn_viewer_back from '../Btnimg/btn-nav-back-b-850.svg'
@@ -26,9 +27,11 @@ const HeaderWrap = styled.div`
 `;
 
 const HideHeader = () => {
+
     const [hide, setHide] = useState(false);
     const [pageY, setPageY] = useState(0);
     const documentRef = useRef(document);
+
 
     const handleScroll = () => {
         const { pageYOffset } = window;

@@ -32,7 +32,7 @@ class ViewFooter extends Component{
     }
     render(){
         return(
-            <div className = 'wrap_viewfooter' data-aos = 'fade-up'>
+            <div className = 'wrap_viewfooter'>
             <img src={this.state.image} style ={{cursor:'Pointer'}} onClick ={this.change} className = 'viewfooter' />
             </div>
         )

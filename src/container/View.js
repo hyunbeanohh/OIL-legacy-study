@@ -4,14 +4,15 @@ import {Link} from 'react-router-dom'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 import ViewFooter from '../component/ViewFooter'
+import HideHeader from '../component/HideHeader'
 import btn_viewer_home from '../Btnimg/btn-viewer-home.svg'
 import btn_viewer_back from '../Btnimg/btn-nav-back-b-850.svg'
 import btn_nav_have_on from '../Btnimg/btn-nav-have-on.svg'
 import btn_nav_have_nor from '../Btnimg/btn-nav-have-nor.svg'
 
 
-
 class View extends Component{
+    
     constructor(props){
         super(props)
 
@@ -21,14 +22,22 @@ class View extends Component{
             licked : true,
             have : btn_nav_have_on,
             logo : btn_nav_have_nor,
-            image : btn_nav_have_nor
+            image : btn_nav_have_nor,
         }
         this.change  = this.change.bind(this)
     }
 
     componentDidMount(){
-        AOS.init()
+        AOS.init({
+            duration: 1500
+        })
         this._getEpisodeList()
+        
+        window.addEventListener('scroll',this.handleScroll)
+        
+    }
+    componentWillUnmount(){
+        window.removeEventListener('scroll',this.handleScroll)
     }
 
     _getEpisodeList(){
@@ -56,6 +65,7 @@ class View extends Component{
         this.setState({clicked: !this.state.clicked})
     }
 
+
     render(){
         const episode = this.state.episode
         const bomtoon_uri = "https://www.bomtoon.com/?NaPm=ct%3Dkox5b67j%7Cci%3Dcheckout%7Ctr%3Dds%7Ctrx%3D%7Chk%3D8d3ac72365dcae1f3771c915f0bb993647a9a126"
@@ -63,22 +73,24 @@ class View extends Component{
         return(
             <div className = 'wrap_viewer'>
                 {episode.id ? (
-                    <div >
-                        <div className = 'top_viewer' data-aos = "fade-down">
+                    
+                    <div>
+                        
+                        <div className = 'top_viewer' data-aos = 'fade-down'>
                             <button className = 'top_back_btn' onClick ={()=> console.log('click')}><img src = {btn_viewer_back}/></button>
                             <span className = 'top_title' >{episode.title}</span>
                             <Link to = {`/webtoon/${episode.webtoonId}`} className = 'btn_close' >
                             <img src={btn_viewer_home}onClick={()=> window.open(bomtoon_uri)} />
                             </Link>
                             <img src={this.state.image} style ={{cursor:'Pointer'}} onClick ={this.change} className = 'change_img' />
-                    </div>
+                        </div>
                     
-                    <div className = 'wrap_images'>
-                        {episode.images.map((img,index)=>(
-                            <img key={index} src = {img}/>
+                        <div className = 'wrap_images'> 
+                            {episode.images.map((img,index)=>(
+                                <img key={index} src = {img}/>
                         ))}
+                        </div>
                     </div>
-                </div>
                 ):(
                     <span>Loading...</span>
                 )}

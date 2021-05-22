@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import unlike from '../Btnimg/btn-nav-btm-like-nor.svg'
 import like from '../Btnimg/btn-nav-btm-like-on.svg'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 
 class ViewFooter extends Component{
     constructor(props){
@@ -15,6 +17,11 @@ class ViewFooter extends Component{
         this.change  = this.change.bind(this)
 
     }
+    componentDidMount(){
+        AOS.init({
+            duration:1500
+        })
+    }
     change(){
         if (this.state.clicked){
             this.setState({image:this.state.like})
@@ -25,7 +32,7 @@ class ViewFooter extends Component{
     }
     render(){
         return(
-            <div className = 'wrap_viewfooter'>
+            <div className = 'wrap_viewfooter' data-aos = 'fade-up'>
             <img src={this.state.image} style ={{cursor:'Pointer'}} onClick ={this.change} className = 'viewfooter' />
             </div>
         )

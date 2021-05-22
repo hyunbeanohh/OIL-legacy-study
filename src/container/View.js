@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
 import Axios from 'axios'
 import {Link} from 'react-router-dom'
-import Toggle from '../component/Toggle'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
+import ViewFooter from '../component/ViewFooter'
 import btn_viewer_home from '../Btnimg/btn-viewer-home.svg'
 import btn_viewer_back from '../Btnimg/btn-nav-back-b-850.svg'
 import btn_nav_have_on from '../Btnimg/btn-nav-have-on.svg'
 import btn_nav_have_nor from '../Btnimg/btn-nav-have-nor.svg'
+
 
 
 class View extends Component{
@@ -24,6 +27,7 @@ class View extends Component{
     }
 
     componentDidMount(){
+        AOS.init()
         this._getEpisodeList()
     }
 
@@ -55,13 +59,14 @@ class View extends Component{
     render(){
         const episode = this.state.episode
         const bomtoon_uri = "https://www.bomtoon.com/?NaPm=ct%3Dkox5b67j%7Cci%3Dcheckout%7Ctr%3Dds%7Ctrx%3D%7Chk%3D8d3ac72365dcae1f3771c915f0bb993647a9a126"
+        
         return(
             <div className = 'wrap_viewer'>
                 {episode.id ? (
-                    <div>
-                        <div className = 'top_viewer'>
+                    <div >
+                        <div className = 'top_viewer' data-aos = "fade-down">
                             <button className = 'top_back_btn' onClick ={()=> console.log('click')}><img src = {btn_viewer_back}/></button>
-                            {episode.title}
+                            <span className = 'top_title' >{episode.title}</span>
                             <Link to = {`/webtoon/${episode.webtoonId}`} className = 'btn_close' >
                             <img src={btn_viewer_home}onClick={()=> window.open(bomtoon_uri)} />
                             </Link>
@@ -77,10 +82,11 @@ class View extends Component{
                 ):(
                     <span>Loading...</span>
                 )}
+                <ViewFooter/>
             </div>
+            
         )
     }
 }
-
 
 export default View

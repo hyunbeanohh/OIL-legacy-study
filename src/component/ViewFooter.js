@@ -13,14 +13,13 @@ class ViewFooter extends Component{
             unlike : unlike,
             like : like,
             image : unlike,
-            hide : true,
-            prevScrollpos : window.pageYOffset
         }
+
         this.change  = this.change.bind(this)
-        this.handleScroll = this.handleScroll.bind(this)
     }
     componentDidMount(){
         window.addEventListener('scroll',this.handleScroll)
+    
     }
     componentWillUnmount(){
         window.removeEventListener('scroll',this.handleScroll)
@@ -35,22 +34,10 @@ class ViewFooter extends Component{
         this.setState({clicked: !this.state.clicked})
     }
 
-    handleScroll(){
-        const { prevScrollpos } = this.state
-        const currentScrollsPos = window.pageYOffset
-        const hide = prevScrollpos > currentScrollsPos
-
-        this.setState({
-            prevScrollpos : currentScrollsPos,
-            hide
-        })
-    }
     render(){
         return(
-            <div className = {classNames('wrap_viewfooter',{
-                'footer_hidden' : !this.state.hide
-                })}>
-            <img src={this.state.image} style ={{cursor:'Pointer'}} onClick ={this.change} className = 'viewfooter' />
+            <div className = 'wrap_viewfooter' >
+            <img src={this.state.image} onClick ={this.change} className = 'viewfooter' />
             </div>
         )
     }

@@ -56,7 +56,6 @@ class Main extends Component{
             <div>
                 <Header/>
                 <Week/>
-
                     {this.state.webtoon_list.length > 0 ? ( 
                         <Webtoon_List list = {
                             this.state.webtoon_list.filter(webtoon => (

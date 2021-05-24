@@ -1,16 +1,11 @@
 import React, { Component } from 'react'
 import Axios from 'axios'
 import {Link} from 'react-router-dom'
-import AOS from 'aos'
-import 'aos/dist/aos.css'
-import classNames from 'classnames';
 import ViewFooter from '../component/ViewFooter'
 import btn_viewer_home from '../Btnimg/btn-viewer-home.svg'
 import btn_viewer_back from '../Btnimg/btn-nav-back-b-850.svg'
 import btn_nav_have_on from '../Btnimg/btn-nav-have-on.svg'
 import btn_nav_have_nor from '../Btnimg/btn-nav-have-nor.svg'
-
-
 
 
 class View extends Component{
@@ -24,9 +19,8 @@ class View extends Component{
             clicked : true,
             have : btn_nav_have_on,
             unhave : btn_nav_have_nor,
-            default : btn_nav_have_nor,
-            hide : true,
-            prevScrollpos : window.pageYOffset
+            image : btn_nav_have_nor,
+            opacity : '1',
         }
         this.change  = this.change.bind(this)
         this.handleScroll = this.handleScroll.bind(this)
@@ -35,6 +29,8 @@ class View extends Component{
     componentDidMount(){
         this._getEpisodeList()
         window.addEventListener('scroll',this.handleScroll)
+
+       
     }
 
     componentWillUnmount(){
@@ -66,14 +62,32 @@ class View extends Component{
     }
 
     handleScroll(){
-        const { prevScrollpos } = this.state
-        const currentScrollsPos = window.pageYOffset
-        const hide = prevScrollpos > currentScrollsPos
+        if (typeof window !== "undefined") {
+            window.onscroll = () => {
+              let currentScrollPos = window.pageYOffset;
+              let maxScroll = document.body.scrollHeight - window.innerHeight;
+              // console.log(maxScroll)
+              if (currentScrollPos > 0 && currentScrollPos < maxScroll) {
+                this.setState({ opacity: "0" })
+                // console.log(currentScrollPos)
+              } else {
+                this.setState({ opacity: "1" })
+              }
+            }
+          }
+    }
 
-        this.setState({
-            prevScrollpos : currentScrollsPos,
-            hide
-        })
+    clickedScreen(){
+        if (typeof window !== "undefined") {
+            window.onclick = () =>{
+                let innerheight = window.innerHeight
+                let headerHeight = document.getElementsByClassName('top_viewer').clientHeight
+                let footerHeight = document.getElementsByClassName('wrap_viwefooter').clientHeight
+                let screenPos = innerheight - (headerHeight + footerHeight)
+
+                
+            }
+          }
     }
     
     render(){
@@ -83,16 +97,15 @@ class View extends Component{
             <div className = 'wrap_viewer'>
                 {episode.id ? (
                     <div>
-                        
-                        <div className = {classNames('top_viwer',{
-                            'top_hidden' : !this.state.hide
-                        })}>
+                        <div className = 'top_viewer' style={{ opacity: `${this.state.opacity}`}}>
                             <button className ='top_back_btn'><img src = {btn_viewer_back}/></button>
-                            <span className = 'top_title' >{episode.title}</span>
+                            <div className = 'top_title' >{episode.title}</div>
+
                             <Link to = {`/webtoon/${episode.webtoonId}`} className = 'btn_close' >
                             <img src={btn_viewer_home}onClick={()=> window.open(bomtoon_uri)} />
                             </Link>
-                            <img src={this.state.default} style ={{cursor:'Pointer'}} onClick ={this.change} className = 'change_img' />
+                            
+                            <img src={this.state.image} onClick ={this.change} className = 'change_img' />
                         </div>
         
                         <div className = 'wrap_images'> 
@@ -104,7 +117,9 @@ class View extends Component{
                 ):(
                     <span>Loading...</span>
                 )}
-                <ViewFooter/>
+                <div style={{ opacity: `${this.state.opacity}`}}>
+                <ViewFooter />
+                </div>
             </div>
             
         )

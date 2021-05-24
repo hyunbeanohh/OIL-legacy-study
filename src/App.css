@@ -23,9 +23,8 @@ address,caption,cite,code,dfn,em,var {font-style:normal;font-weight:normal}
 
 .header {padding:10px 0;font-size:20px;background-color:#3d414c;text-align:center;color:#fff}
 .footer {padding:10px 0;border-top:1px solid #d9d9d9;font-size:11px;font-size:12px;background-color:#f1f1f1;text-align:center;color:#888}
-.wrap_viewfooter {position: fixed; bottom: 0px; height: 80px; width: 100%; background-color:rgba(255, 255, 255, 0.674); ; border-top: 1px solid gray;}
-.wrap_viewfooter .footer_hidden {bottom: -50px; visibility: hidden;}
-.wrap_viewfooter .viewfooter {position: fixed; margin:15px 0px 0px 15px;  width: 25px;}
+.wrap_viewfooter {position: fixed; bottom: 0px; height: 80px; width: 100%; background-color:rgba(255, 255, 255, 0.674); ; border-top: 1px solid gray; transition: opacity .1s ease;}
+.wrap_viewfooter .viewfooter {position: fixed; margin:15px 0px 0px 15px;  width: 25px; cursor: pointer;}
 
 .week {overflow:hidden;background-color:#be3f2f}
 .week li {float:left;width:33.3%}
@@ -57,7 +56,7 @@ address,caption,cite,code,dfn,em,var {font-style:normal;font-weight:normal}
 .wrap_viewer .top_viewer .top_title {display:inline-block; margin-top:20px; font-size: 25px; font-weight: 600; }
 .wrap_viewer .top_viewer .top_back_btn {position: relative; margin-right: 20px;}
 .wrap_viewer .top_viewer .btn_close {position:relative;top:0;right:0;width:40px;height:40px; float: right;  margin-top: 20px; margin-left: 20px;}
-.wrap_viewer .top_viewer .change_img {position: relative; float: right;margin-top: 20px;}
+.wrap_viewer .top_viewer .change_img {position: relative; float: right;margin-top: 20px; cursor: pointer;}
 
 
 .wrap_viewer .wrap_images img {display:block;max-width:640px;min-width:320px;width:100%}

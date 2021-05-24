@@ -59,17 +59,17 @@ class Webtoon_Home extends Component{
                 {this.state.webtoon.id? (
                     <Webtoon_Info webtoon = {this.state.webtoon}/>
                 ):(
-                    <sapn>
+                    <div>
                         Loading...
-                    </sapn>
+                    </div>
                 )}
 
                 {this.state.episode_list.length > 0  ? (
                     <Episode_List episode = {this.state.episode_list}/>
                 ):(
-                    <span>
+                    <div>
                         Loading...
-                    </span>
+                    </div>
                 )}
                 <Footer/>
             </div>

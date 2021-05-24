@@ -21,20 +21,25 @@ class View extends Component{
             unhave : btn_nav_have_nor,
             image : btn_nav_have_nor,
             opacity : '1',
+
         }
+        
         this.change  = this.change.bind(this)
         this.handleScroll = this.handleScroll.bind(this)
+        this.setWrapperRef = this.setWrapperRef.bind(this)
+        this.clickedScreen = this.clickedScreen.bind(this)
+        
     }
 
     componentDidMount(){
         this._getEpisodeList()
         window.addEventListener('scroll',this.handleScroll)
-
-       
+        window.addEventListener('click',this.clickedScreen)
     }
 
     componentWillUnmount(){
         window.removeEventListener('scroll',this.handleScroll)
+        window.removeEventListener('click',this.clickedScreen)
     }
 
     _getEpisodeList(){
@@ -77,27 +82,30 @@ class View extends Component{
           }
     }
 
-    clickedScreen(){
-        if (typeof window !== "undefined") {
-            window.onclick = () =>{
-                let innerheight = window.innerHeight
-                let headerHeight = document.getElementsByClassName('top_viewer').clientHeight
-                let footerHeight = document.getElementsByClassName('wrap_viwefooter').clientHeight
-                let screenPos = innerheight - (headerHeight + footerHeight)
+    setWrapperRef(node){
+        this.wrapperRef = node;
+    }
 
-                
+    clickedScreen(e){
+        if(this.wrapperRef && !this.wrapperRef.contains(e.target)){
+            if(this.state.clicked){
+                this.setState({opacity:"0"})
+            }else{
+                this.setState({opacity:"1"})
             }
-          }
+            this.setState({clicked: !this.state.clicked})
+        }
     }
     
     render(){
         const episode = this.state.episode
         const bomtoon_uri = "https://bomtoon.com"
+        const {isVisible} = this.state
         return(
             <div className = 'wrap_viewer'>
                 {episode.id ? (
                     <div>
-                        <div className = 'top_viewer' style={{ opacity: `${this.state.opacity}`}}>
+                        <div className = 'top_viewer' style={{ opacity: `${this.state.opacity}`}}  ref = {this.setWrapperRef}>
                             <button className ='top_back_btn'><img src = {btn_viewer_back}/></button>
                             <div className = 'top_title' >{episode.title}</div>
 
@@ -108,14 +116,14 @@ class View extends Component{
                             <img src={this.state.image} onClick ={this.change} className = 'change_img' />
                         </div>
         
-                        <div className = 'wrap_images'> 
+                        <div className = 'wrap_images'  > 
                             {episode.images.map((img,index)=>(
                                 <img key={index} src = {img}/>
                         ))}
                         </div>
                     </div>
                 ):(
-                    <span>Loading...</span>
+                    <div>Loading...</div>
                 )}
                 <div style={{ opacity: `${this.state.opacity}`}}>
                 <ViewFooter />

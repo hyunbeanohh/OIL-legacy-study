@@ -1,4 +1,3 @@
-import classNames from 'classnames'
 import React, { Component } from 'react'
 import unlike from '../Btnimg/btn-nav-btm-like-nor.svg'
 import like from '../Btnimg/btn-nav-btm-like-on.svg'

@@ -63,9 +63,9 @@ class Main extends Component{
                             ))
                         }/>
                     ):(
-                        <span>
+                        <div>
                             Loading...
-                        </span>
+                        </div>
                     )}
                 <Footer/>
             </div>

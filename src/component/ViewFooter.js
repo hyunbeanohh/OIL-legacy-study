@@ -12,6 +12,7 @@ class ViewFooter extends Component{
             unlike : unlike,
             like : like,
             image : unlike,
+            opacity: '1'
         }
 
         this.change  = this.change.bind(this)

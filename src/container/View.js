@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Axios from 'axios'
 import {Link} from 'react-router-dom'
 import ViewFooter from '../component/ViewFooter'
+
 import btn_viewer_home from '../Btnimg/btn-viewer-home.svg'
 import btn_viewer_back from '../Btnimg/btn-nav-back-b-850.svg'
 import btn_nav_have_on from '../Btnimg/btn-nav-have-on.svg'
@@ -88,25 +89,28 @@ class View extends Component{
 
     clickedScreen(e){
         if(this.wrapperRef && !this.wrapperRef.contains(e.target)){
+            
             if(this.state.clicked){
                 this.setState({opacity:"0"})
             }else{
                 this.setState({opacity:"1"})
             }
             this.setState({clicked: !this.state.clicked})
+        
         }
     }
     
     render(){
         const episode = this.state.episode
         const bomtoon_uri = "https://bomtoon.com"
-        const {isVisible} = this.state
+        
         return(
             <div className = 'wrap_viewer'>
                 {episode.id ? (
                     <div>
-                        <div className = 'top_viewer' style={{ opacity: `${this.state.opacity}`}}  ref = {this.setWrapperRef}>
-                            <button className ='top_back_btn'><img src = {btn_viewer_back}/></button>
+                        
+                        <div className = 'top_viewer' style={{ opacity: `${this.state.opacity}`}} ref = {this.setWrapperRef }>
+                            <button className ='top_back_btn' onClick ={()=> console.log('click')}><img src = {btn_viewer_back}/></button>
                             <div className = 'top_title' >{episode.title}</div>
 
                             <Link to = {`/webtoon/${episode.webtoonId}`} className = 'btn_close' >
@@ -115,7 +119,7 @@ class View extends Component{
                             
                             <img src={this.state.image} onClick ={this.change} className = 'change_img' />
                         </div>
-        
+                        
                         <div className = 'wrap_images'  > 
                             {episode.images.map((img,index)=>(
                                 <img key={index} src = {img}/>
@@ -125,13 +129,14 @@ class View extends Component{
                 ):(
                     <div>Loading...</div>
                 )}
+                
                 <div style={{ opacity: `${this.state.opacity}`}}>
-                <ViewFooter />
+                    <ViewFooter />
                 </div>
+                
             </div>
             
         )
     }
 }
-
 export default View

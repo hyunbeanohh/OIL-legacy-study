@@ -6,7 +6,7 @@ import styled from 'styled-components'
 const Wrap_Viewer = styled.div`
 position: fixed; 
 bottom: 0px; 
-height: 80px; 
+height: 90px; 
 width: 100%; 
 background-color:rgba(255, 255, 255, 0.674);
 border-top: 1px solid gray;
@@ -15,7 +15,6 @@ border-top: 1px solid gray;
 const View_footer = styled.div`
    position: fixed; 
    margin:15px 0px 0px 15px;  
-   width: 25px; 
    cursor: pointer;
 `
 

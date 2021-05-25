@@ -15,7 +15,7 @@ color:#888
 `
 const Footer = () => (
     <FooterStyle>
-        @ 키다리 스튜디오
+        @오현빈 사전 과제
     </FooterStyle>
 )
 

@@ -3,7 +3,7 @@ import {Link} from "react-router-dom"
 
 const Episode_List = (props) => {
     return (
-        <ul className = "list_webtoon list_episode">
+        <ul className = 'list_webtoon list_episode'>
             {props.episode.map((episode,index)=>(
                 <li key = {index}>
                     <Link to = {`/viewer/${episode.id}`} className = 'link_webtoon'>

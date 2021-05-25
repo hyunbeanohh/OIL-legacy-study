@@ -8,8 +8,16 @@ const HeaderStyle = styled.div`
     text-align:center;
     color:#fff;
 `
+
+const BackHeader = styled.div`
+float:left
+margin-top:20px
+
+`
 const Header = () => (
-    <HeaderStyle>WEBTOON</HeaderStyle>
+    <HeaderStyle>
+        WEBTOON
+    </HeaderStyle>
 )
 
 export default Header

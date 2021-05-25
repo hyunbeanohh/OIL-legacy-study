@@ -15,6 +15,7 @@ const Week = (props) => (
         <li>
             <Link to = "/?day=wed" className = {props.day === 'mon' ? 'tab_day on' : 'tab_day'}>수요일</Link>
         </li>
+        
     </ul>
 )
 export default Week

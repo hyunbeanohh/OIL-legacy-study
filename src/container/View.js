@@ -2,26 +2,11 @@ import React, { Component } from 'react'
 import Axios from 'axios'
 import {Link} from 'react-router-dom'
 import ViewFooter from '../component/ViewFooter'
-import styled from 'styled-components'
 import btn_viewer_home from '../Btnimg/btn-viewer-home.svg'
 import btn_viewer_back from '../Btnimg/btn-nav-back-b-850.svg'
 import btn_nav_have_on from '../Btnimg/btn-nav-have-on.svg'
 import btn_nav_have_nor from '../Btnimg/btn-nav-have-nor.svg'
 
-
-const WrapViewer = styled.div`
-    padding-top:0px;
-`
-const TopViewer = styled.div`
-    position:fixed;
-    top:0px;
-    left:0;
-    width:100%;
-    height:60px;
-    line-height:30px;
-    border-bottom: 1px solid #f3f3f3;
-    background-color:rgba(255, 255, 255, 0.674);
-`
 class View extends Component{
     
     constructor(props){
@@ -82,16 +67,16 @@ class View extends Component{
     }
 
     handleScroll(){
-        if (typeof window !== "undefined") {
+        if (typeof window !== 'undefined') {
             window.onscroll = () => {
               let currentScrollPos = window.pageYOffset;
               let maxScroll = document.body.scrollHeight - window.innerHeight;
               // console.log(maxScroll)
               if (currentScrollPos > 0 && currentScrollPos < maxScroll) {
-                this.setState({ opacity: "0" ,transition:'all 0.3s ease-in'})
+                this.setState({ opacity: '0',transition:'all 0.3s ease-in'})
                 // console.log(currentScrollPos)
               } else {
-                this.setState({ opacity: "1" ,transition:'all 0.3s ease-in'})
+                this.setState({ opacity: '1' ,transition:'all 0.3s ease-in'})
               }
             }
           }
@@ -105,9 +90,9 @@ class View extends Component{
         if(this.wrapperRef && !this.wrapperRef.contains(e.target)){
 
             if(this.state.clicked){
-                this.setState({opacity:"0" ,transition:'all 0.3s ease-in'})
+                this.setState({opacity:'0' ,transition:'all 0.3s ease-in'})
             }else{
-                this.setState({opacity:"1" , trransition:'all 0.3s ease-in'})
+                this.setState({opacity:'1' , trransition:'all 0.3s ease-in'})
             }
             this.setState({clicked: !this.state.clicked})
         
@@ -116,22 +101,18 @@ class View extends Component{
     
     render(){
         const episode = this.state.episode
-        const bomtoon_uri = "https://bomtoon.com"
+        const bomtoon_uri = 'https://bomtoon.com'
         
         return(
             <div className ='wrap_viewer'>
                 {episode.id ? (
                     <div>
                         
-                        <div className = 'top_viewer' style={{ opacity: `${this.state.opacity}` ,transition: `${this.state.transition}`}} ref = {this.setWrapperRef }>
-                            <button className ='top_back_btn' onClick ={()=> console.log('click')}><img src = {btn_viewer_back}/></button>
+                        <div className = 'top_header' style={{ opacity: `${this.state.opacity}` ,transition: `${this.state.transition}`}} ref = {this.setWrapperRef }>
+                            <Link to = {`/webtoon/${episode.webtoonId}`}> <button className ='top_back_btn' onClick ={()=> console.log('click')}><img src = {btn_viewer_back}/></button></Link>
                             <div className = 'top_title' >{episode.title}</div>
-
-                            <Link to = {`/webtoon/${episode.webtoonId}`} className = 'btn_close' >
-                            <img src={btn_viewer_home}onClick={()=> window.open(bomtoon_uri)} />
-                            </Link>
-                            
-                            <img src={this.state.image} onClick ={this.change} className = 'change_img' />
+                            <img src={btn_viewer_home}onClick={()=> window.open(bomtoon_uri)} className = 'btn_home' />
+                            <img src={this.state.image} onClick ={this.change} className = 'have_img' />
                         </div>
                         
                         <div className = 'wrap_images'  > 

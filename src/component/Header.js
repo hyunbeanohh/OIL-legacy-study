@@ -1,9 +1,15 @@
 import React from 'react'
+import styled from 'styled-components'
 
+const HeaderStyle = styled.div`
+    padding:10px 0px;
+    font-size:20px;
+    background-color:#3d414c;
+    text-align:center;
+    color:#fff;
+`
 const Header = () => (
-    <div className="header">
-        WEBTOON
-    </div>
+    <HeaderStyle>WEBTOON</HeaderStyle>
 )
 
 export default Header

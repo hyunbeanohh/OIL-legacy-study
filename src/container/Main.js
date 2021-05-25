@@ -1,10 +1,10 @@
 import React,{Component} from 'react'
 import Axios from 'axios'
-
 import Header from '../component/Header'
 import Week from '../component/Week'
 import Footer from '../component/Footer'
 import Webtoon_List from '../component/Webtoon_List'
+import styled from 'styled-components'
 
 
 class Main extends Component{

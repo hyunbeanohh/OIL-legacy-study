@@ -41,7 +41,7 @@ class ViewFooter extends Component{
         
     }
 
-    change(){
+    change(){ //클릭 이벤트에 따라 이미지 변경 핸들러
         if (this.state.clicked){
             this.setState({image:this.state.like})
         }else{

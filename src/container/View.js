@@ -43,6 +43,7 @@ class View extends Component{
     }
 
     _getEpisodeList(){
+        //webtoon_list를 가져오기
         const api_path = '/data/Episode_list.json'
         Axios.get(api_path)
         .then(data => {
@@ -57,7 +58,7 @@ class View extends Component{
         })
     }
 
-    change(){
+    change(){ //클릭 이벤트에 따라 이미지 변경 핸들러
         if (this.state.clicked){
             this.setState({image:this.state.have})
         }else{
@@ -66,7 +67,7 @@ class View extends Component{
         this.setState({clicked: !this.state.clicked})
     }
 
-    handleScroll(){
+    handleScroll(){ //스크롤 이벤트에 따라 opacity 부여
         if (typeof window !== 'undefined') {
             window.onscroll = () => {
               let currentScrollPos = window.pageYOffset;
@@ -82,12 +83,13 @@ class View extends Component{
           }
     }
 
-    setWrapperRef(node){
+    setWrapperRef(node){ 
         this.wrapperRef = node;
     }
 
-    clickedScreen(e){
+    clickedScreen(e){ 
         if(this.wrapperRef && !this.wrapperRef.contains(e.target)){
+            //nod1.tains(node2)에 따라 포함이 되어 있는지 아닌지 확인 포함이 되어있다면 in 아니라면 out
 
             if(this.state.clicked){
                 this.setState({opacity:'0' ,transition:'all 0.3s ease-in'})
@@ -107,7 +109,6 @@ class View extends Component{
             <div className ='wrap_viewer'>
                 {episode.id ? (
                     <div>
-                        
                         <div className = 'top_header' style={{ opacity: `${this.state.opacity}` ,transition: `${this.state.transition}`}} ref = {this.setWrapperRef }>
                             <Link to = {`/webtoon/${episode.webtoonId}`}> <button className ='top_back_btn' onClick ={()=> console.log('click')}>
                                 <img src = {btn_viewer_back}/></button>

@@ -2,7 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 
 const Webtoon_List = (props) => {
-    return (
+    return ( // 웹툰 리스트 출력
         <ul className='list_webtoon'>
             {props.list.map((webtoon,index)=>(
                 <li key={index}>

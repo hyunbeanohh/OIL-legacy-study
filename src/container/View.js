@@ -109,7 +109,9 @@ class View extends Component{
                     <div>
                         
                         <div className = 'top_header' style={{ opacity: `${this.state.opacity}` ,transition: `${this.state.transition}`}} ref = {this.setWrapperRef }>
-                            <Link to = {`/webtoon/${episode.webtoonId}`}> <button className ='top_back_btn' onClick ={()=> console.log('click')}><img src = {btn_viewer_back}/></button></Link>
+                            <Link to = {`/webtoon/${episode.webtoonId}`}> <button className ='top_back_btn' onClick ={()=> console.log('click')}>
+                                <img src = {btn_viewer_back}/></button>
+                            </Link>
                             <div className = 'top_title' >{episode.title}</div>
                             <img src={btn_viewer_home}onClick={()=> window.open(bomtoon_uri)} className = 'btn_home' />
                             <img src={this.state.image} onClick ={this.change} className = 'have_img' />

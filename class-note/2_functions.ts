@@ -16,3 +16,10 @@ function sum(a:number,b:number): number {
 
 sum(10,20) // 30
 sum(10,20,30,40) // 불필요한 인자를 넘겨주는것을 잡아준다.
+
+//함수의 옵셔널 파라미터 (선택적  파라미터) 추가적으로 들어올 수 있는 파라미터에 대해서 정의
+function log(a: string, b?:string){
+    
+}
+log('hello world')
+log('hello ts', 'abs')

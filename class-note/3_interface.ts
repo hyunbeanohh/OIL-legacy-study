@@ -48,7 +48,7 @@ var obj: StringRegexDictionary = {
     jsFile: /\.js$/
 }
 
-obj['cssFile'] = 'a' //RegExp 할당이 되어야 함.
+obj['cssFile'] = /\.ts$/ //RegExp 할당이 되어야 함.
 
 Object.keys(obj).forEach(function(value){
 

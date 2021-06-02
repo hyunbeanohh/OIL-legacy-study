@@ -1,14 +1,14 @@
-<h1>영화 평점 웹 애플리케이션 / Movie API
+<h1>👉 영화 평점 웹 애플리케이션 / Movie API 👈
 
 
-<h3> 프로젝트 기간    
+<h3> 👨🏻‍💻 프로젝트 기간    
 <br/>
 <br/>
  
  + 2021.02~2021.03
  - - - - - - 
 
-<h3> 사용된 기술 & 라이브 러리
+<h3> 💁🏻 사용된 기술 & 라이브 러리
 <br/>
 <br/>
 
@@ -19,9 +19,10 @@
 + <img src="https://img.shields.io/badge/Redux-3766AB?style=flat-square&logo=Redux&logoColor=white"/><br/>
 + <img src="https://img.shields.io/badge/MongoDB-lightgray?style=flat-square&logo=MongoDB&logoColor=white"/><br/>
 + <img src="https://img.shields.io/badge/Ant Design-0170FE?style=flat-square&logo=Ant-Design&logoColor=white"/><br/>
-
-  
-<h3> 프로젝트 구현
+- - - - -
+ 
+ 
+<h3> 💻 프로젝트 구현 💻
 <br/>
 <br/>
  
@@ -92,6 +93,7 @@
         setActorToggle(!ActorToggle)
     }
 ```
+ - - - - -
  
  
 2.OPEN API를 이용한 영화 평점 서비스
@@ -109,9 +111,37 @@ export const IMAGE_BASE_URL = 'http://image.tmdb.org/t/p/';
 export const API_KEY = 'f42c1a467166f72d0b7c3992cedb8ee7'
 ```
  
+ - - - - -
  
- <h3> 프로젝트 결과 화면
+ 
+ <h3> 💡 프로젝트 결과 화면
+<br/>
+<br/>
   
-```ㄱㅕㄹ고ㅓ 
-```
+ + Main Page
+<br/>
+
+<img width="1280" alt="영화 메인 페이지" src="https://user-images.githubusercontent.com/39178226/120443599-c4099980-c3c1-11eb-8e6f-0d940947f26e.png">
+<br/>
+<br/>
+
+
++ Movie Detail Page  
+<br/>  
+<img width="1280" alt="영화 디테일 페이지" src="https://user-images.githubusercontent.com/39178226/120443871-0a5ef880-c3c2-11eb-881e-f3c6a8a3d0c0.png">
+  
+- - - - -
+
+<h3> ❗️ 만들면서 힘들었던 점 ❗️
  
+ 
+<h4> ❕ !CORS 보안 정책 ❕
+
+<br/>
+<br/>
+ 
+```
+서비스를 만들면서 클라이언트와 서버가 다른 포트를 가르키는 현상 때문에 브라우저 상에서 CORS 이슈라는 에러가 발생했습니다. 
+CORS 이슈는 Cross-Origin-Resource-Security 라는 것의 줄임말 이라는 것을 알게 되었고 클라이언트와 서버가 다른 포트를 가르키면서 나타나는 에러라는 것을 알게 되었습니다.
+검색을 통해서 여러가지 해결 방법이 있다는것을 알게 되었고 그 가운데 middleware인 createProxyMiddleware 를 http-proxy-middleware 를 통해 가져와 해결 할 수 있었습니다.
+```

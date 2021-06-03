@@ -135,7 +135,7 @@ export const API_KEY = 'f42c1a467166f72d0b7c3992cedb8ee7'
 <h3> ❗️ 만들면서 힘들었던 점 ❗️
  
  
-<h4> ❕ !CORS 보안 정책 ❕
+<h4> ❕ CORS 보안 정책 ❕
 
 <br/>
 <br/>

@@ -115,14 +115,17 @@ class AddressBook {
   }
   /* ------------------------------------------------ */
 }
-
-let human = [
-  { name: 'hb', age: 27 },
-  { name: 'sh', age: 27 },
-];
-human.map(function (item) {
-  return item.name;
-});
+let div = document.querySelector('div') as HTMLDivElement;
+if (div) {
+  div.innerText;
+}
+// let human = [
+//   { name: 'hb', age: 27 },
+//   { name: 'sh', age: 27 },
+// ];
+// human.map(function (item) {
+//   return item.name;
+// });
 // ['hb','sh']
 
 new AddressBook();

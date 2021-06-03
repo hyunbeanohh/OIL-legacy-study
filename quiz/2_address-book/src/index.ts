@@ -1,20 +1,6 @@
-interface PhoneNumberDictionary {
-  [phone: string]: {
-    num: number;
-  };
-}
+//import { PhoneNumberDictionary } from './interface';
+import { Contact, PhoneType } from './interface';
 
-interface Contact {
-  name: string;
-  address: string;
-  phones: PhoneNumberDictionary;
-}
-
-enum PhoneType {
-  Home = 'home',
-  Office = 'office',
-  Studio = 'studio',
-}
 // api
 /*
   fuction fetchItems(): Promise<string[]>{

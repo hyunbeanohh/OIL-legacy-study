@@ -3,7 +3,9 @@
         "allowJs": true,
         "target": "ES5",
         "outDir": "./built",
-        "moduleResolution": "Node" // Promise 인식
+        "moduleResolution": "Node", // Promise 인식
+        "lib": ["ES2015","DOM","DOM.Iterable"], //Primise , DOM 관련 에러가 생기지 않도록 설정
+        "noImplicitAny": true,
     },
     "include": ["./src/**/*"] // src폴더 내부만 컴파일 실시
 }

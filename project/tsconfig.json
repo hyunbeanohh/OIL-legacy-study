@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+        "allowJs": true,
+        "target": "ES5",
+        "outDir": "./built",
+        "moduleResolution": "Node" // Promise 인식
+    },
+    "include": ["./src/**/*"] // src폴더 내부만 컴파일 실시
+}

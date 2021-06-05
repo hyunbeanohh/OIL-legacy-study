@@ -1,3 +1,5 @@
+//@ts-check
+
 // utils
 function $(selector) {
   return document.querySelector(selector);
@@ -37,10 +39,23 @@ let isDeathLoading = false;
 let isRecoveredLoading = false;
 
 // api
+/**
+ * 
+ * @typedef {object} CovieSummary
+ * @property {Array<object>} Country
+ */
+
+/**
+ * 
+ * @returns {Promise<CovieSummary>}
+ */
 function fetchCovidSummary() {
   const url = 'https://api.covid19api.com/summary';
   return axios.get(url);
 }
+// fetchCovidSummary().then(res =>{ JSdoc 타입 정의
+//   console.log(res.Country)
+// })
 
 function fetchCountryInfo(countryCode, status) {
   // params: confirmed, recovered, deaths

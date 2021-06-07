@@ -16,14 +16,17 @@
     - `tsconfig.json` 파일에 `noImplicitAny` 값을 `true` 추가하기
     - 가능한 구체적인 타입으로 타입 정의
 <br/>
+
 3. 프로젝트 환경 구성
     - babel, eslint, prettier 등의 환경 설정
 <br/>
+
 4. 외부 라이브라리 모듈화
     - [x] npm i aixos
     - [x] npm i chart.js
     - [x] npm i @types/chart.js
 <br/>
+
 5. `strict` 옵션 추가 후 타입 정의
     - [strict 옵션 문서](https://www.typescriptlang.org/tsconfig#strict)
 

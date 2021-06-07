@@ -23,6 +23,9 @@
     - [x] npm i aixos
     - [x] npm i chart.js
     - [x] npm i @types/chart.js
+<br/>
+5. `strict` 옵션 추가 후 타입 정의
+    - [strict 옵션 문서](https://www.typescriptlang.org/tsconfig#strict)
 
 ### 참고 자료
 

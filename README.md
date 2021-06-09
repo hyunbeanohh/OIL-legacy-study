@@ -1,70 +1,99 @@
-# Getting Started with Create React App
+# 스타일 컴포넌트 📚 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 스타일 컴포넌트 설치❗️
 
-## Available Scripts
+`npm i styled-components`
 
-In the project directory, you can run:
+## 타입스크립트❗️
+`npm install @types/styled-components`
 
-### `yarn start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## 예시
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+``` JSX
+import React, { Component } from 'react'
+import styled,{createGlobalStyle,css,keyframes} from 'styled-components'
 
-### `yarn test`
+createGlobalStyle`
+body{
+  padding:0px;
+  margin: 0px;
+}`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+class App extends Component{
+  render(){
+    return(
+      <Container>
+        <Button>success</Button>
+        <Button danger rotationTime={1}>danger</Button>
+        <Anchor href = 'http://gogle.com'>gogle</Anchor>
+      </Container>
+    )
+  }
+}
 
-### `yarn build`
+const Container = styled.div`
+  height: 100vh;
+  width : 100%;
+  background-color: #bdc3c7;
+`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+const Button =styled.button`
+   border-radius: 50px;
+    padding: 5px;
+    min-width: 120px;
+    color:white;
+    font-weight: 600;
+    -webkit-appearance: none;
+    cursor:pointer;
+    &:active,
+    &focus{
+      outline:none;
+    }
+    background-color: ${props=> (props.danger ? "#e74c3c" : "#2ecc71")};
+    ${props=>{
+      if(props.danger){
+        return css `animation: ${rotation} ${props.rotationTime}s linear infinite`;
+      }
+    }}
+`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+const Anchor = styled(Button.withComponent("a"))`
+  text-decoration :none;
+`;
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+const rotation = keyframes`
+  from{
+    transform: rotate(0deg);
+  }
+  to{
+    transform: rotate(360deg);
+}
+`
 
-### `yarn eject`
+export default App;
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## 💁🏻 Why Styled-Component(CSS-IN-JS) ?
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+<br/>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- 직관적이며 css파일을 따로 생성하지 않는다.
+- Webpack이나 Sass 등을 따로 관리하지 않아도 된다.
+- 모바일 지원
+- 스타일 스코프
+- no-class-policy
+- 서버 사이드 렌더링 지원
+- CSS 테스팅
+- 스타일을 props에 따라 적용
+- 상속과 재사용
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+<br/>
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### 참고 자료💡
+- [노마드 코더](https://www.youtube.com/watch?v=MqGxMOhPqeI)
+- [Styled-Component 공식 홈페이지](https://styled-components.com/docs/api#css)
+- [8 reasons to use styled-components](https://blog.logrocket.com/8-reasons-to-use-styled-components-cf3788f0bb4d/)
+- [8 reasons to use styled-components 번역 블로그](https://analogcoding.tistory.com/181)
+- [flatuicolors.com](https://flatuicolors.com/)

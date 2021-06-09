@@ -1,15 +1,16 @@
 # 스타일 컴포넌트 📚 
 
-## 스타일 컴포넌트 설치❗️
 
+### 스타일 컴포넌트 설치❗️
 `npm i styled-components`
 
-## 타입스크립트❗️
+
+### 타입스크립트❗️
 `npm install @types/styled-components`
 
+- - - - -
 
-## 예시
-
+### 예시
 ``` JSX
 import React, { Component } from 'react'
 import styled,{createGlobalStyle,css,keyframes} from 'styled-components'
@@ -73,6 +74,7 @@ const rotation = keyframes`
 
 export default App;
 ```
+- - - - -
 
 ## 💁🏻 Why Styled-Component(CSS-IN-JS) ?
 
@@ -86,8 +88,9 @@ export default App;
 - 서버 사이드 렌더링 지원
 - CSS 테스팅
 - 스타일을 props에 따라 적용
-- 상속과 재사용
+- 상속과 
 
+- - - - -
 
 <br/>
 

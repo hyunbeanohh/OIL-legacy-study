@@ -1,62 +1,58 @@
-import React,{useEffect,useState} from 'react'
-import {Row,Col,List,Avatar} from 'antd'
+import React, { useEffect,useState } from 'react'
+import {Row,Col,Avatar,List} from 'antd'
 import Axios from 'axios'
 
-
 function VideoDetailPage(props) {
-
-    const [Video, setVideo] = useState([])
-    
     const videoId = props.match.params.videoId
-    const videoVariable = {
-        videoId: videoId
-    }
+    const variable = {videoId:videoId}
 
-
+    const [VideoDetail, setVideoDetail] = useState([])
     useEffect(() => {
 
-        Axios.post('/api/video/getVideoDetail', videoVariable.videoId)
-        .then(response => {
-            if (response.data.success) {
-                console.log(response.data.videoDetail)
-                setVideo(response.data.videoDetail)
-            } else {
-                alert('Failed to get video Info')
+        Axios.post('/api/video/getVideoDetail',variable)
+        .then(response=>{
+            if(response.data.success){
+                setVideoDetail(response.data.videoDetail)
+            }else{
+                alert('비디오 정보를 가져오는데 실패했습니다.')
             }
         })
-    }, [])
+    }, [variable])
 
-    if (Video.writer) {
-        return (
-            <Row gutter = {[16,16]}>
-                <Col lg = {18} xs = {24}>
-    
-                    <div style = {{width:'100%', padding:'3rem 4rem'}}>
-                        <video style={{width:'100%'}} src={`http://localhost:5000/${Video.filePath}`} controls/>
-    
+    if(VideoDetail.writer){ return (
+        
+            <Row gutter={[16,16]}>
+                <Col lg={18} xs ={24}>
+                    <div style = {{width:'100%', padding: '3rem 4rem'}}>
+                        <video style={{width:'100%'}} src={`http://localhost:5000/${VideoDetail.filePath}`} controls/>
+
                         <List.Item
-                            actions
+                            actions 
                         >
-                            <List.Item.Meta
-                                avatar={<Avatar src={Video.writer && Video.writer.image} />}
-                                title={<a href="https://ant.design">{Video.title}</a>}
-                                description={Video.description}
-                            />
-    
+                        <List.Item.Meta
+                            avatar = {<Avatar src={VideoDetail.writer.image}/>}
+                            title = {VideoDetail.writer.name}
+                            description = {VideoDetail.description}
+                        />
+
                         </List.Item>
-    
-                        {/* Comment */}
+                        {/*Comment Item */}
                     </div>
                 </Col>
-                <Col lg ={6} xs = {24}>
-                    Side Video
+
+                <Col lg={6} xs ={24}>
+                    Side bar
                 </Col>
             </Row>
-        )
+       
+    )
+
     }else{
-        return (<div>...loding</div>)
+        return(
+            <div>Loading...</div>
+        )
     }
-    
+
 }
 
 export default VideoDetailPage

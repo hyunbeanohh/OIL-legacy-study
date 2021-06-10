@@ -4,14 +4,24 @@
 2021.06~  🏃
 
 ### 💁🏻 사용된 기술 & 라이브러리
-
-
-### 💻 프로젝트 구현
++ <img src="https://img.shields.io/badge/React-blue?style=flat-square&logo=React&logoColor=white"/><br/>
++ <img src="https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=Node.js&logoColor=white"/><br/>
++ <img src="https://img.shields.io/badge/Javascript-important?style=flat-square&logo=Javascript&logoColor=white"/><br/>
++ <img src="https://img.shields.io/badge/Redux-3766AB?style=flat-square&logo=Redux&logoColor=white"/><br/>
++ <img src="https://img.shields.io/badge/MongoDB-lightgray?style=flat-square&logo=MongoDB&logoColor=white"/><br/>
++ <img src="https://img.shields.io/badge/Ant Design-0170FE?style=flat-square&logo=Ant-Design&logoColor=white"/><br/>
+- - - - -
+### 💻 프로젝트 구현
     - 프로젝트 끝나는데로 정리해서 추가.
+
+</br>
 
 
 ### 💡 프로젝트 결과
     - 프로젝트 끝나는데로 정리해서 추가.
+
+</br>
+
 
 ### ❗️느낀점 및 힘들었던 점
     - 프로젝트 끝나는데로 정리해서 추가.

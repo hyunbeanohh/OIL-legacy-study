@@ -54,7 +54,7 @@ router.post('/uploadVedio', (req,res)=>{
     
 })
 
-router.post("/getVideoDetail", (req, res) => {
+router.post('/getVideoDetail', (req, res) => {
 
     Video.findOne({ "_id" : req.body.videoId })
     .populate('writer')
@@ -64,7 +64,7 @@ router.post("/getVideoDetail", (req, res) => {
     })
 });
 
-router.get("/getVideos", (req, res) => {
+router.get('/getVideos', (req, res) => {
 
     Video.find()
         .populate('writer')
@@ -76,7 +76,7 @@ router.get("/getVideos", (req, res) => {
 });
 
 
-router.post("/thumbnail", (req, res) => {
+router.post('/thumbnail', (req, res) => {
 
     let thumbsFilePath ="";
     let fileDuration ="";

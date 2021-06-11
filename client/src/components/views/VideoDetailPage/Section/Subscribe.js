@@ -3,16 +3,17 @@ import Axios from 'axios'
 import React,{useEffect,useState} from 'react'
 
 function Subscribe(props) {
+    const userTo = props.userTo
+    const userFrom = props.userFrom
 
     const [SubscribeNumber, setSubscribeNumber] = useState(0)
     const [Subscribed, setSubscribed] = useState(false)
     
 
     useEffect(() => {
-        let variable = {userTo:props.userTo}
-        let subscribedvariable = {userTo:props.userTo, userFrom:localStorage.getItem('userId')}
+        let subscribedvariable = {userTo:userTo, userFrom:userFrom}
        
-       Axios.post('/api/subscribe/subscribeNumber',variable)
+       Axios.post('/api/subscribe/subscribeNumber',subscribedvariable)
        .then(response=>{
            if(response.data.success){
             setSubscribeNumber(response.data.subscribeNumber)
@@ -25,18 +26,19 @@ function Subscribe(props) {
        Axios.post('/api/subscribe/subscribed',subscribedvariable)
        .then(response=>{
            if(response.data.success){
+               console.log(subscribedvariable)
             setSubscribed(response.data.subscribed)
            }else{
                alert('구독자 수 정보를 받아오지 못했습니다.(Subscribed)')
            }
        })
-    }, [props.userTo])
+    }, [props.userFrom, props.userTo, userFrom, userTo])
 
     const onSubscribe = (props) => {
 
         let subscribeVariable = {
-            userTo:props.userTo,
-            userFrom:props.userFrom
+            userTo:userTo,
+            userFrom:userFrom
         }
 
         // 이미 구독중이라면

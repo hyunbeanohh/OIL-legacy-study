@@ -4,10 +4,8 @@
 2021.06~  🏃
 
 ### 💁🏻 사용된 기술 & 라이브러리
-<<<<<<< HEAD
-=======
 
->>>>>>> 5a3480e3320244501e1ee0ec9013a58fe0170d2b
+
 + <img src="https://img.shields.io/badge/React-blue?style=flat-square&logo=React&logoColor=white"/><br/>
 + <img src="https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=Node.js&logoColor=white"/><br/>
 + <img src="https://img.shields.io/badge/Javascript-important?style=flat-square&logo=Javascript&logoColor=white"/><br/>

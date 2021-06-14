@@ -4,12 +4,15 @@ import Axios from 'axios'
 import SideVideo from './Section/SideVideo'
 import Subscribe from './Section/Subscribe'
 import Comment from './Section/Comment'
+//import { response } from 'express'
 
 function VideoDetailPage(props) {
     const videoId = props.match.params.videoId
     const variable = {videoId:videoId}
 
     const [VideoDetail, setVideoDetail] = useState([])
+    const [Comments, setComments] = useState([])
+
     useEffect(() => {
 
         Axios.post('/api/video/getVideoDetail',variable)
@@ -20,7 +23,21 @@ function VideoDetailPage(props) {
                 alert('비디오 정보를 가져오는데 실패했습니다.')
             }
         })
+
+        Axios.post('/api/comment/getComments',variable)
+        .then(response=>{
+            if(response.data.success){
+                console.log(response.data.comments)
+                setComments(response.data.comments)
+            }else{
+                alert('댓글 정보를 가져오는데 실패했습니다.')
+            }
+        })
     }, [variable])
+
+    const refreshComment = (newComment) =>{
+        setComments(newComment.concat(newComment))
+    }
 
     if(VideoDetail.writer){ 
         const subscriptionBtn = VideoDetail.writer._id !== localStorage.getItem('userId') && <Subscribe userTo={VideoDetail.writer._id} userFrom = {localStorage.getItem('userId')}/>
@@ -42,7 +59,7 @@ function VideoDetailPage(props) {
 
                         </List.Item>
                         {/*Comment Items */}
-                        <Comment postId = {videoId}/>
+                        <Comment refreshComment = {refreshComment} CommentList = {Comments} postId = {videoId}/>
                     </div>
                 </Col>
 

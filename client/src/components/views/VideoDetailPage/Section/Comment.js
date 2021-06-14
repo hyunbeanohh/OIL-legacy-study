@@ -1,15 +1,15 @@
 import Axios from 'axios'
 import React,{useState }from 'react'
 import {useSelector} from 'react-redux'
-
+import SingleComment from './SingleComment'
 function Comment(props) {
 
     const videoId = props.postId 
     const user = useSelector(state=> state.user)
-    const [CommentValue, setsetCommentValue] = useState("")
+    const [CommentValue, setCommentValue] = useState("")
 
     const handleClick = (evt) =>{ // 타이핑을 할 수 있도록 구현
-        setsetCommentValue(evt.currentTarget.value)
+        setCommentValue(evt.currentTarget.value)
     }
     const variables ={
         content: CommentValue,
@@ -24,12 +24,12 @@ function Comment(props) {
         .then(response=>{
             if(response.data.success){
                 console.log(response.data.result)
+                setCommentValue("")
+                props.refreshComment(response.data.result)
             }else{
                 alert('댓글을 저장하지 못했습니다.')
             }
         })
-
-
     }
 
     return (
@@ -38,8 +38,14 @@ function Comment(props) {
            <p>Replies</p>
            <hr/>
 
-
+            {props.CommentList && props.CommentList.map((comment,i)=>(
+                (!comment.responseTo && 
+                    <SingleComment refreshComment={props.refreshComment} comment = {comment} postId = {videoId}/>
+                    )
+               
+            ))}
             {/*Comment list */}
+            
 
             {/*Roote Comment list */}
 

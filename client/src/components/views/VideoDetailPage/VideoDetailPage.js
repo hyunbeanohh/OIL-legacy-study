@@ -32,7 +32,7 @@ function VideoDetailPage(props) {
                             actions = {[<Subscribe userTo={VideoDetail.writer._id}/>]}
                         >
                         <List.Item.Meta
-                            avatar = {<Avatar src={VideoDetail.writer.image} userFrom = {localStorage.getItem('userId')}/>}
+                            avatar = {<Avatar src={VideoDetail.writer.image} userFrom = {localStorage.getItem('userid')}/>}
                             title = {VideoDetail.writer.name}
                             description = {VideoDetail.description}
                         />

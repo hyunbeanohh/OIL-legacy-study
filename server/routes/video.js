@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 var ffmpeg = require('fluent-ffmpeg')
 const { Video } = require("../models/Video");
-
+const {Subscriber} = require('../models/Subscriber')
 //const { auth } = require("../middleware/auth");
 const multer = require("multer");
 
@@ -105,5 +105,31 @@ router.post('/thumbnail', (req, res) => {
             filename:'thumbnail-%b.png'
         });
 
+});
+
+
+router.post('/getSubscriptionVideos', (req, res) => {
+    // 1. 자신의 아이디를 가지고 구독한 사람들을 찾기. (userFrom -> userTo)를 구독하는 형태.
+    Subscriber.find({userFrom:req.body.userFrom})
+        .exec((err,subscriberInfo)=>{
+            if(err) res.status(400).sned(err)
+            
+            let subscribedUser = []
+            subscriberInfo.map((subscriber,i)=>{
+                subscribedUser.push(subscriber.userTo)
+            })
+
+
+    // 2. 찾은 사람들의 비디오를 가지고 온다.
+            Video.find({wirter: {$in:subscribedUser}})
+            .populate('writer')
+            .exec((err,videoInfo)=>{
+                if(err) res.status(400).send(err)
+                res.status(200).json({success:true,videoInfo})
+            })
+
+        })
+
+    
 });
 module.exports = router;

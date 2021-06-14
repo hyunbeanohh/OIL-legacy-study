@@ -5,15 +5,16 @@
 
 ### 💁🏻 사용된 기술 & 라이브러리
 <<<<<<< HEAD
+=======
+
+>>>>>>> 5a3480e3320244501e1ee0ec9013a58fe0170d2b
 + <img src="https://img.shields.io/badge/React-blue?style=flat-square&logo=React&logoColor=white"/><br/>
 + <img src="https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=Node.js&logoColor=white"/><br/>
 + <img src="https://img.shields.io/badge/Javascript-important?style=flat-square&logo=Javascript&logoColor=white"/><br/>
 + <img src="https://img.shields.io/badge/Redux-3766AB?style=flat-square&logo=Redux&logoColor=white"/><br/>
 + <img src="https://img.shields.io/badge/MongoDB-lightgray?style=flat-square&logo=MongoDB&logoColor=white"/><br/>
 + <img src="https://img.shields.io/badge/Ant Design-0170FE?style=flat-square&logo=Ant-Design&logoColor=white"/><br/>
-=======
 
->>>>>>> c49650531eeb07106d1498843d5fcc4c8a5e1e90
 - - - - -
 ### 💻 프로젝트 구현
     - 프로젝트 끝나는데로 정리해서 추가.

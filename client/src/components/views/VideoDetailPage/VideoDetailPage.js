@@ -33,7 +33,7 @@ function VideoDetailPage(props) {
                 alert('댓글 정보를 가져오는데 실패했습니다.')
             }
         })
-    },[variable])
+    })
 
     const refreshFunction = (newComment) =>{
         setComments(Comments.concat(newComment))

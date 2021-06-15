@@ -2,6 +2,7 @@ import Axios from 'axios'
 import React,{useState }from 'react'
 import {useSelector} from 'react-redux'
 import SingleComment from './SingleComment'
+import ReplyComment from './ReplyComment'
 function Comment(props) {
 
     const user = useSelector(state=> state.user)
@@ -44,6 +45,7 @@ function Comment(props) {
                 (!comment.responseTo &&
                     <React.Fragment>
                         <SingleComment comment={comment} postId={props.postId} refreshFunction={props.refreshFunction} key={index}/>
+                        <ReplyComment parentCommentId = {comment._id} CommentLists = {props.CommentLists} refreshFunction={props.refreshFunction}/>
                     </React.Fragment>
                 )
             ))}

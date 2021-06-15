@@ -39,7 +39,7 @@ function SingleComment(props) {
         .then(response => {
             if (response.data.success) {
                 setCommentValue("")
-                setopenReply(!openReply)
+                setopenReply(false)
                 props.refreshFunction(response.data.result)
             } else {
                 alert('Failed to save Comment')

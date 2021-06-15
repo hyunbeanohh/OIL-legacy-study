@@ -4,28 +4,30 @@ import {useSelector} from 'react-redux'
 import SingleComment from './SingleComment'
 function Comment(props) {
 
-    const videoId = props.postId 
     const user = useSelector(state=> state.user)
     const [CommentValue, setCommentValue] = useState("")
 
     const handleClick = (evt) =>{ // 타이핑을 할 수 있도록 구현
         setCommentValue(evt.currentTarget.value)
     }
-    const variables ={
-        content: CommentValue,
-        writer: user.userData._id,
-        postId: videoId
-
-    }
+    
      
     const onSubmit = (evt) => {
         evt.preventDefault()
+
+        const variables ={
+            content: CommentValue,
+            writer: user.userData._id,
+            postId: props.postId
+    
+        }
+
         Axios.post('/api/comment/saveComment',variables)
         .then(response=>{
             if(response.data.success){
-                console.log(response.data.result)
+                //console.log(response.data.result)
                 setCommentValue("")
-                props.refreshComment(response.data.result)
+                props.refreshFunction(response.data.result)
             }else{
                 alert('댓글을 저장하지 못했습니다.')
             }
@@ -37,12 +39,13 @@ function Comment(props) {
            <br/>
            <p>Replies</p>
            <hr/>
-
-            {props.CommentList && props.CommentList.map((comment,i)=>(
-                (!comment.responseTo && 
-                    <SingleComment refreshComment={props.refreshComment} comment = {comment} postId = {videoId}/>
-                    )
-               
+            
+           {props.CommentLists && props.CommentLists.map((comment, index) => (
+                (!comment.responseTo &&
+                    <React.Fragment>
+                        <SingleComment comment={comment} postId={props.postId} refreshFunction={props.refreshFunction} key={index}/>
+                    </React.Fragment>
+                )
             ))}
             {/*Comment list */}
             

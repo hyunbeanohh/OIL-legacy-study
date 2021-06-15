@@ -27,16 +27,16 @@ function VideoDetailPage(props) {
         Axios.post('/api/comment/getComments',variable)
         .then(response=>{
             if(response.data.success){
-                console.log(response.data.comments)
+                //console.log(response.data.comments)
                 setComments(response.data.comments)
             }else{
                 alert('댓글 정보를 가져오는데 실패했습니다.')
             }
         })
-    }, [variable])
+    },[variable])
 
-    const refreshComment = (newComment) =>{
-        setComments(newComment.concat(newComment))
+    const refreshFunction = (newComment) =>{
+        setComments(Comments.concat(newComment))
     }
 
     if(VideoDetail.writer){ 
@@ -59,7 +59,7 @@ function VideoDetailPage(props) {
 
                         </List.Item>
                         {/*Comment Items */}
-                        <Comment refreshComment = {refreshComment} CommentList = {Comments} postId = {videoId}/>
+                        <Comment refreshFunction = {refreshFunction} CommentLists = {Comments} postId = {VideoDetail._id}/>
                     </div>
                 </Col>
 

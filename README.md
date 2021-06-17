@@ -58,16 +58,20 @@
 <img width="720" alt="LandingPage" src="https://user-images.githubusercontent.com/39178226/122348922-a1ad7980-cf86-11eb-81eb-c65b7343ed8d.png">
 </br>
 
+
 2.VideoUploadPage
 <img width="720" alt="VideoUploadPage" src="https://user-images.githubusercontent.com/39178226/122351874-8a23c000-cf89-11eb-9f63-4cfb61d064b1.png">
+
 
 3.VideoDetailPage
 <img width="720" alt="VideoDetailPage" src="https://user-images.githubusercontent.com/39178226/122349053-cd306400-cf86-11eb-9fa6-5bdb6bcf780a.png">
 </br>
 
+
 4.Comment
 <img width="720" alt="Comment Part" src="https://user-images.githubusercontent.com/39178226/122349192-f5b85e00-cf86-11eb-9c24-2ac6076d2816.png">
 </br>
+
 
 5.SubscriptionPage
 <img width="720" alt="SubscriptionPage" src="https://user-images.githubusercontent.com/39178226/122349278-11236900-cf87-11eb-95de-f6d3d1f75473.png">

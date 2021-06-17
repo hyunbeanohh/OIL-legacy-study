@@ -20,7 +20,6 @@
 </br>
 
 ### 💻 프로젝트 구현
-</br>
 
 #### 1.[LadingPage](https://github.com/hyunbeanohh/YoutubeClone/blob/main/client/src/components/views/LandingPage/LandingPage.js)
 + boiler-plate의 로그인 기능을 통해 로그인 후 동영상을 업로드 할 수 있도록 구현.
@@ -50,7 +49,7 @@
 + 비디오가 많아진다면 antd을 통해서 적절하게 나누어 질 수 있도록 lg,md,xs 마다 사이즈 구현.
 + 구독하고 있는 비디오의 썸네일을 map 함수를 통해 각각 썸네일 이미지를 출력 할 수 있도록 함.
 
-</br>
+- - - - -
 
 
 ### 💡 프로젝트 결과
@@ -77,6 +76,7 @@
 <img width="720" alt="SubscriptionPage" src="https://user-images.githubusercontent.com/39178226/122349278-11236900-cf87-11eb-95de-f6d3d1f75473.png">
 </br>
 
+- - - - -
 
 ### ❗️느낀점 및 힘들었던 점
     1.부모 컴포넌트와 자식 컴포넌트들의 props를 전달하는 방식이 어려워서 다양한 자료를 찾아가면서 공부를 하게 되었다.

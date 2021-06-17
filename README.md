@@ -17,10 +17,10 @@
     server - npm install
     client - npm install
     npm run dev
-
+</br>
 
 ### 💻 프로젝트 구현
-
+</br>
 
 #### 1.LandingPage
 + boiler-plate의 로그인 기능을 통해 로그인 후 동영상을 업로드 할 수 있도록 구현.
@@ -54,14 +54,34 @@
 
 
 ### 💡 프로젝트 결과
-    - 프로젝트 끝나는데로 정리해서 추가.
+</br>
+1. LadingPage
+<img width="720" alt="LandingPage" src="https://user-images.githubusercontent.com/39178226/122348922-a1ad7980-cf86-11eb-81eb-c65b7343ed8d.png">
+</br>
 
+2.VideoDetailPage
+<img width="720" alt="VideoDetailPage" src="https://user-images.githubusercontent.com/39178226/122349053-cd306400-cf86-11eb-9fa6-5bdb6bcf780a.png">
+</br>
+
+3.Comment
+<img width="720" alt="Comment Part" src="https://user-images.githubusercontent.com/39178226/122349192-f5b85e00-cf86-11eb-9c24-2ac6076d2816.png">
+</br>
+
+4.SubscriptionPage
+<img width="720" alt="SubscriptionPage" src="https://user-images.githubusercontent.com/39178226/122349278-11236900-cf87-11eb-95de-f6d3d1f75473.png">
 </br>
 
 
 ### ❗️느낀점 및 힘들었던 점
-    - 프로젝트 끝나는데로 정리해서 추가.
-
+    1.부모 컴포넌트와 자식 컴포넌트들의 props를 전달하는 방식이 어려워서 다양한 자료를 찾아가면서 공부를 하게 되었다.
+    2.route에서 client부분으로 DB의 정보들을 보내줄때 나타나는 에러들을 잡지 못했는데 proxy 관련 에러이기 때문에 공부를 더 해서 에러를 수정할 수 있도록 해야겠다.
+    3.DB의 스키마를 각각 구현하면서 프론트 단에 뿌려주는 것이 쉬운 작업이 아니라는것을 깨달았다.
+    4.antd을 사용하면서 간단한 디자인을 구현할 수 있게 되었다.
+    5.각각의 컴포넌트를 적절하게 활용하여 재사용할 수 있도록 관리해야 한다.
+    6.함수의 네이밍을 좀 더 알아볼 수 있도록 작성하고 코드 가독성을 높여야 한다.
+    7.댓글을 추가할 때 웹이 느려지는 경우가 있는데 최적화를 고민해봐야 겠다.
+    8.Redux를 이용한 상태관리가 매우 편하다는것을 알게 되었다.
+    9.두번째 클론코딩을 했는데 어느정도 눈에 들어온다는게 뿌듯했다.
 
 ### 참고자료
 [인프런](https://www.inflearn.com/course/%EB%94%B0%EB%9D%BC%ED%95%98%EB%A9%B0-%EB%B0%B0%EC%9A%B0%EB%8A%94-%EB%85%B8%EB%93%9C-%EB%A6%AC%EC%95%A1%ED%8A%B8-%EC%9C%A0%ED%8A%9C%EB%B8%8C-%EB%A7%8C%EB%93%A4%EA%B8%B0/dashboard)

@@ -69,9 +69,9 @@
 
 
 4.Comment
+<br/>
 <img width="720" alt="Comment Part" src="https://user-images.githubusercontent.com/39178226/122349192-f5b85e00-cf86-11eb-9c24-2ac6076d2816.png">
 </br>
-
 
 5.SubscriptionPage
 <img width="720" alt="SubscriptionPage" src="https://user-images.githubusercontent.com/39178226/122349278-11236900-cf87-11eb-95de-f6d3d1f75473.png">

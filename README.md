@@ -38,9 +38,9 @@
 + 댓글 정보는 몽고DB에서 저장하고 제일 최 상단의 댓글이면 보여지지 않도록 함.
 + 각 댓글에 대한 개수는 
     - [Comment](https://github.com/hyunbeanohh/YoutubeClone/blob/main/client/src/components/views/VideoDetailPage/Section/Comment.js)
-    3-1. VideoDetailPage의 Comment State에 저장되며 각 자식 컴포넌트들에게 전달되고 
-    3-2. ReplyComment에서 map 메서드를 통해 계산 후 
-    3-3. setChildStateNumner에 저장되어 ChildStateNumber로 렌더링 됨.
+        3-1. VideoDetailPage의 Comment State에 저장되며 각 자식 컴포넌트들에게 전달되고 
+        3-2. ReplyComment에서 map 메서드를 통해 계산 후 
+        3-3. setChildStateNumner에 저장되어 ChildStateNumber로 렌더링 됨.
 + SideVideo는 오른쪽 Nav에 렌더링되며 몽고DB에 저장되어 있는 비디오들의 정보를 가져와 출력함.
 + 각각의 SideVideo는 고유 id값이 링크되어 있으며 클릭시 해당 비디오 페이지로 이동함.
 + 좋아요,싫어요에 대한 기능을 구현하여 각각의 버튼 클릭시 좋아요,싫어요 숫자가 증가,감소함.

@@ -5,7 +5,9 @@
 [반응형 웹과 패턴](https://www.nextree.co.kr/p8622/)<br/>
 [브라우저 렌더링 과정과 최적화](https://velog.io/@ru_bryunak/%EB%A0%8C%EB%8D%94%EB%A7%81%EC%9D%B4%EB%9E%80)<br/>
 [함수형  프로그래밍이란?](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-functional-programming-7f218c68b3a0)<br/>
-[함수형 프로그래밍이란? 번역](https://sungjk.github.io/2017/07/17/fp.html)
+[함수형 프로그래밍이란? 번역](https://sungjk.github.io/2017/07/17/fp.html)<br/>
+[쿠키,세션에 대해서](https://jeong-pro.tistory.com/80)<br/>
+[웹 인증에 대해서](https://velog.io/@sdc337dc/%EC%9B%B9-%EC%9D%B8%EC%A6%9DAuthentication-%EC%9D%B8%EA%B0%80Authorization)
 
 
 

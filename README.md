@@ -4,6 +4,8 @@
 [웹 접근성과 웹 표준에 대하여](https://goddaehee.tistory.com/244)<br/>
 [반응형 웹과 패턴](https://www.nextree.co.kr/p8622/)<br/>
 [브라우저 렌더링 과정과 최적화](https://velog.io/@ru_bryunak/%EB%A0%8C%EB%8D%94%EB%A7%81%EC%9D%B4%EB%9E%80)<br/>
+[함수형  프로그래밍이란?](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-functional-programming-7f218c68b3a0)<br/>
+[함수형 프로그래밍이란? 번역](https://sungjk.github.io/2017/07/17/fp.html)
 
 
 

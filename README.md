@@ -16,7 +16,8 @@
 
 
 ### 인성(대표) 면접 질문 리스트
-[100가지 질문](https://healthy-saram.com/%EB%A9%B4%EC%A0%91-%EC%98%88%EC%83%81-%EC%A7%88%EB%AC%B8-%ED%95%84%EC%88%98-100%EA%B0%80%EC%A7%80%EB%B3%B4%EB%84%88%EC%8A%A4feat-%EB%8B%B5%EB%B3%80-%EC%9A%94%EB%A0%B9/)
+[100가지 질문](https://healthy-saram.com/%EB%A9%B4%EC%A0%91-%EC%98%88%EC%83%81-%EC%A7%88%EB%AC%B8-%ED%95%84%EC%88%98-100%EA%B0%80%EC%A7%80%EB%B3%B4%EB%84%88%EC%8A%A4feat-%EB%8B%B5%EB%B3%80-%EC%9A%94%EB%A0%B9/)<br/>
+[기업별/직군별 질문 리스트](https://www.midashri.com/blog/500interviewlist)
 
 
 ### 면접 후기

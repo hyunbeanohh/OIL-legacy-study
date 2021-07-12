@@ -35,5 +35,5 @@ ex)```<body> 결과물 </body>```
 - - - - -
 
 ### 참고 자료
-[selection MDN reference](https://developer.mozilla.org/ko/docs/Web/API/Selection)
+[selection MDN reference](https://developer.mozilla.org/ko/docs/Web/API/Selection)</br>
 [range MDN reference](https://developer.mozilla.org/ko/docs/Web/API/Range)

@@ -122,4 +122,4 @@ ex)```<body> 결과물 </body>```
 [selection MDN reference](https://developer.mozilla.org/ko/docs/Web/API/Selection)</br>
 [range MDN reference](https://developer.mozilla.org/ko/docs/Web/API/Range)</br>
 [selection interface](https://w3c.github.io/selection-api/#selection-interface)</br>
-[캐럿 브라우징에 대해서](https://zkim0115.tistory.com/1983)
+[캐럿 브라우징에 대해서](https://zkim0115.tistory.com/1983)<br/>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>addRange</title>
+    <script defer src="addRange.html">
+        let button = document.querySelector("button");
+
+        button.addEventListener('click', function(){
+            let sel = document.getSelection();
+            let str = document.getElementsByTagName("strong");
+
+            if(sel.rangeCount>0){
+                sel.removeAllRanges();
+            }
+
+            for(let i = 0; i < str.length; i++){
+                let rng = document.createRange();
+                rng.selectNode(str[i]);
+                sel.addRange(rng)
+                console.log(sel.addRange(rng))
+            }
+        })
+    </script>
+</head>
+<body>
+    <p>I <strong>insist</strong> that you <strong>try</strong> selecting the <strong>strong words</strong>.</p>
+    <button>Select strong words</button>
+</body>
+</html>

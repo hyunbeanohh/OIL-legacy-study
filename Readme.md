@@ -30,11 +30,11 @@ Selection는 사용자, 캐럿의 현재 위치에 의해 선택된 텍스트의
 + ```selection.addRange(range)``` - 현재 Selection에 Range를 추가합니다.
 + ```selection.collapse(node,offset)``` - 넘겨진 노드와 offset으로 Range를 접습니다.
 offset을 지정해 이동시킬 노드가 자식 노드를 갖고 있는 경우, 몇 번째 자식 노드에서 접을지 지정할 수 있습니다.
-+ ```selection.collapseToend()``` - 선택된 range의 끝 지점으로 접습니다.
++ ```selection.collapseToEnd()``` - 선택된 range의 끝 지점으로 접습니다.
     - 마우스로 드래그한 부분에서 끝 지점으로 캐럿이 이동합니다.
-+ ```selection.collapseTostart()``` - 선택된 range의 시작 지점으로 접습니다.
++ ```selection.collapseToStart()``` - 선택된 range의 시작 지점으로 접습니다.
     - 마우스로 드래그한 부분의 시작 지점으로 캐럿이 이동합니다.
-+ ```selection.containsNode(node, containmnet)``` - 주어진 노드가 선택된 범위 안에 존재하는지 확인하여 ```boolean``` 값으로 반환합니다.
++ ```selection.containsNode(node, containment)``` - 주어진 노드가 선택된 범위 안에 존재하는지 확인하여 ```boolean``` 값으로 반환합니다.
     - ```true``` : 노드와 선택된 범위가 동일할 때, 포함된 것으로 인식.
     - ```false``` : 노드와 선택된 범위가 동일할 때, 포함되지 않은 것으로 인식.
 + ```selection.deleteFromDocument()``` - 선택된 범위를 Document 객체에서 제거합니다. 

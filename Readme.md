@@ -54,23 +54,23 @@ offset을 지정해 이동시킬 노드가 자식 노드를 갖고 있는 경우
 
 
 # [Range](https://developer.mozilla.org/ko/docs/Web/API/Range)
-+ ```Range``` 객체는 주어진 document 내의 텍스트 노드들의 보분들과 documents의 단편화에 포함된 노드들을 나타내고 있다. 
-+ ```Rnage``` 오브젝트는 document 객체에 포함되어 있는 createRange 메소드를 사용하여 생성할 수 있다. 또한 selection 객체에 포함되어 있는 getRangeAt 메소드를 사용하여 추출할 수 있다.
-+ ```Selection.getRange(0);``` 을 통해 Range를 얻는다.
-+ 다중 선택시 rangeCount 값을 이용해 Range를 구할 수 있다.
-+ 일반적으로 하나의 Selection은 보통 하나의 Range를 갖고 있다. 하지만 Friefox의 경우, 한 Selection에 여러개의 Range객체를 가질수 있다.
-    - 위와 같은 특성으로 인해 해당 브라우저를 지원하는 경우, 브라우저를 대응하는 코드 작성이 필요할 수 있다.
++ ```Range``` 객체는 주어진 document 내의 텍스트 노드들의 부분들과 documents의 단편화에 포함된 노드들을 나타냅니다.
++ ```Rnage``` 오브젝트는 document 객체에 포함되어 있는 createRange 메소드를 사용하여 생성할 수 있습니다. 또한 Selection 객체에 포함되어 있는 getRangeAt 메소드를 사용하여 추출할 수 있습니다.
++ ```Selection.getRange(0);``` 을 통해 Range를 가져올 수 있습니다.
++ 다중 선택시 rangeCount 값을 이용해 Range를 구할 수 있습니다.
++ 일반적으로 하나의 Selection은 보통 하나의 Range를 갖고 있습니다. 하지만 Friefox의 경우, 한 Selection에 여러개의 Range객체를 가질수 있습니다.
+    - 위와 같은 특성으로 인해 해당 브라우저를 지원하는 경우, 브라우저를 대응하는 코드 작성이 필요합니다.
 
 ### property
-+ ```collapsed``` - Range의 시작점과 끝점이 같은 위치인지를 알 수 있는 boolean 값을 반환한다.
-+ ```commonAncestorContatiner``` - startContainer와 endContainer 노드들을 포함한 최상위 노드를 반환한다. 
-ex)```<body> 결과물 </body>```
-+ ```startContainer``` - 범위가 시작하는 부분을 포함하고 있는 노드
-+ ```endContainer``` - 범위가 끝나는 부분을 포함하고 있는 노드
-+ ```startOffset``` - ```startContainer``` 안에 있는 Range 시작을 나타내느 offset을 반환한다.
-    - ```startContainer``` 가 Text_Node 라면 문자의 갯수
-    - ```startContainer``` 가 Element_Node 라면 자식 노드의 인덱스
-+ ```endOffset``` - ```endContainer``` 안에 있는 Range 끝을 나타내는 offset을 반환한다.
++ ```collapsed``` - Range의 시작점과 끝점이 같은 위치인지를 알 수 있는 boolean 값을 반환합니다.
++ ```commonAncestorContatiner``` - startContainer와 endContainer 노드들을 포함한 최상위 노드를 반환합니다.
+ex)```<body> Text.... </body>```
++ ```startContainer``` - 범위가 시작하는 부분을 포함하고 있는 노드.
++ ```endContainer``` - 범위가 끝나는 부분을 포함하고 있는 노드.
++ ```startOffset``` - ```startContainer``` 안에 있는 Range 시작을 나타내느 offset을 반환합니다.
+    - ```startContainer``` 가 `Text_Node` 라면 문자의 갯수.
+    - ```startContainer``` 가 `Element_Node` 라면 자식 노드의 인덱스.
++ ```endOffset``` - ```endContainer``` 안에 있는 Range 끝을 나타내는 offset을 반환합니다.
 
 ### method
 + ```range.setStart(refNode,startOffset)``` - 범위의 시작 지점을 ```refNode```, ```startOffset으로``` 지정합니다.

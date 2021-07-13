@@ -6,13 +6,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>selection and Range </title>
 </head>
+
 <body contenteditable="true">
-    <script>
-       const sel = document.getSelection();
-       for(let i = 0 ; i<sel.rangeCount; i++){
-            console.log(sel.getRangeAt(0).cloneContents())
-       }
-       
+    <script type="text/javascript">
+        function SelectLine(el){
+            if (window.getSelection) {  // all browsers, except IE before version 9
+                var selection = window.getSelection ();
+                var rangeToSelect = document.createRange ();
+                rangeToSelect.selectNodeContents (el);
+
+                selection.removeAllRanges ();
+                selection.addRange (rangeToSelect);
+            } else {
+                if (document.body.createTextRange) {    // Internet Explorer
+                    var rangeToSelect = document.body.createTextRange ();
+                    rangeToSelect.moveToElementText (el);
+                    rangeToSelect.select ();
+                }
+            }
+        }
+
+        function SelectFirstLine () {
+            const elemToSelect = document.getElementById ("firstLine");
+            SelectLine(elemToSelect);
+        }
+        function SelectSecondLine(){
+            const elemToSelect = document.getElementById("secondLine");
+            SelectLine(elemToSelect);
+        }
+        function SelectionThirdLine(){
+            const elemToSelect = document.getElementById("thirdLine");
+            SelectLine(elemToSelect);
+            }
+        
+        function RemoveSelection(){
+            if(window.getSelection){
+                const sel = window.getSelection();
+                sel.deleteFromDocument();
+            }
+            if(!sel.isCollapsed){
+                const selRange = sel.getRangeAt(0);
+                selRange.deleteFromDocument();
+            }
+            if(sel.anchorNode){
+                sel.collapse(sel.anchorNode, sel.anchorOffset);
+            }else{
+                if(document.selection){
+                    document.selection.clear();
+                }
+            }
+        }
+        
     </script>
+
+    <button onclick="SelectFirstLine();">Select the first line!</button>
+    <button onclick="SelectSecondLine();">Select the second line!</button>
+    <button onclick="SelectionThirdLine();">Select the third line!</button>
+    <br /><br />
+    <div id = "firstLine">This is the first line.</div>
+    <div id = "secondLine" >This is the second line.</div>
+    <div id = "thirdLine">This is the third line.</div>
+    <div onmouseup="RemoveSelection();">문장을 드래그 해보세요.</div>
 </body>
 </html>

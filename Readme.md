@@ -20,13 +20,12 @@ selection검사 또는 조작을 위해 개체를 얻으려면 document.getSelec
     - 시작 노드가 Element_Node 이면 시작 노드보다 앞에 있는 자식 노드의 수
 + focusNode - 선택이 종료된 지점에 있는 노드를 반환합니다. 없다면 null을 반환합니다.
 + focusOffset - 선택이 종료된 노드에서 텍스트의 종료 지점을 의미합니다. 노드의 처음 시작점의 offset은 0 입니다.
-+ isCollapse - selection의 시작과 끝의 동일 여부를 반환합니다.
++ isCollapse - selection의 시작과 끝의 동일 여부를 반환합니다. -> 캐럿인지 판별
 + rangeCount - selection이 포함하고 있는 range의 수, 선택 영역의 범위 수를 반환합니다.
 + type
-    - Care: collapsed 상태
+    - Caret: collapsed 상태 
     - Range : 범위가 선택된 상태
     - None : 아무런 이벤트가 발생되지 않은 경우
-
 
 ### method
 + selection.getRangeAt(index) - index에 있는 Range 객체를 반환합니다.
@@ -103,7 +102,7 @@ ex)```<body> 결과물 </body>```
 + range.END_TO_END(2) - range의 끝점과 sourceRange의 끝점을 비교합니다.
 + range_END_TO_START(3) - range의 끝점과 sourceRange의 시작점을 비교합니다.
 
-    + ### 반환값 
+    + #### 반환값 
 + range의 비교 지점과 sourceRange의 비교 지점을 비교하여 반환합니다.
     - -1: range의 비교 지점이 앞에 있을 때
     - 0: range와 sourceRange의 비교 지점이 일치할 때
@@ -124,4 +123,5 @@ ex)```<body> 결과물 </body>```
 ### 참고 자료
 [selection MDN reference](https://developer.mozilla.org/ko/docs/Web/API/Selection)</br>
 [range MDN reference](https://developer.mozilla.org/ko/docs/Web/API/Range)</br>
-[selection interface](https://w3c.github.io/selection-api/#selection-interface)
+[selection interface](https://w3c.github.io/selection-api/#selection-interface)</br>
+[캐럿 브라우징에 대해서](https://zkim0115.tistory.com/1983)

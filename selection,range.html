@@ -11,12 +11,12 @@
     <script type="text/javascript">
         function SelectLine(el){
             if (window.getSelection) {  // all browsers, except IE before version 9
-                var selection = window.getSelection ();
-                var rangeToSelect = document.createRange ();
+                const sel = window.getSelection ();
+                const rangeToSelect = document.createRange ();
                 rangeToSelect.selectNodeContents (el);
 
-                selection.removeAllRanges ();
-                selection.addRange (rangeToSelect);
+                sel.removeAllRanges ();
+                sel.addRange (rangeToSelect);
             } else {
                 if (document.body.createTextRange) {    // Internet Explorer
                     var rangeToSelect = document.body.createTextRange ();

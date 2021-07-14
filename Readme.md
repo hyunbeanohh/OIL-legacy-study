@@ -40,7 +40,7 @@ offset을 지정해 이동시킬 노드가 자식 노드를 갖고 있는 경우
 + ```selection.deleteFromDocument()``` - 선택된 범위를 Document 객체에서 제거합니다. 
 (선택된 범위를 문서에서 제거합니다.)
 + ```selection.removeAllRanges()``` - Selection 객체 안에 모든 Range를 제거하여 아무것도 선택되지 않은 상태로 만듭니다.
-+ ```selection.removeRange(range```) - 특정 Range를 Selection 객체 안에서 제거합니다.
++ ```selection.removeRange(range)``` - 특정 Range를 Selection 객체 안에서 제거합니다.
 제거할 Range 객체는 Selection 객체 안에 포함되어 있어야 합니다.
 +``` selection.extend(node,offset)``` - anchor는 가만히 두고, focus만 주어진 노드와 offset으로 이동시킵니다.
 + ```setBaseAndExtend(anchorNode,anchorOffset,focusNode,focusOffset)``` - 주어진 노드로 선택 범위와 끝 지점을 지정합니다.
@@ -87,7 +87,7 @@ ex)```<body> Text.... </body>```
     - ```false``` : 끝점으로 접습니다.
 + ```range.cloneContents() ```- 범위를 복제한 뒤 , 복제한 범위의 DocumentFrament객체를 반환합니다.
 + ```range.deleteContents()``` - 범위를 제거합니다.
-+ ```range.extractContents()``` : 범위를 삭제한 뒤 , 삭제된 범위으 DocumentFragment 객체를 반환합니다.
++ ```range.extractContents()``` : 범위를 삭제한 뒤 , 삭제된 범위의 DocumentFragment 객체를 반환합니다.
 + ```range.insertNode(newNode)``` : 범위의 앞에 ```newNode```를 삽입합니다.
 + ```range.surroundContents(newNode)``` : 콘텐츠를 ```newNode```로 감쌉니다.
     - 범위를 추출합니다 (```extractContents```)

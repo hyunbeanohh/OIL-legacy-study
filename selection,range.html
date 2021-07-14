@@ -11,17 +11,17 @@
     <script type="text/javascript">
         function SelectLine(el){
             if (window.getSelection) {  // all browsers, except IE before version 9
-                const sel = window.getSelection ();
-                const rangeToSelect = document.createRange ();
-                rangeToSelect.selectNodeContents (el);
+                const sel = window.getSelection();
+                const rangeToSelect = document.createRange();
+                rangeToSelect.selectNodeContents(el);
 
                 sel.removeAllRanges ();
                 sel.addRange (rangeToSelect);
             } else {
                 if (document.body.createTextRange) {    // Internet Explorer
-                    var rangeToSelect = document.body.createTextRange ();
-                    rangeToSelect.moveToElementText (el);
-                    rangeToSelect.select ();
+                    var rangeToSelect = document.body.createTextRange();
+                    rangeToSelect.moveToElementText(el);
+                    rangeToSelect.select();
                 }
             }
         }
@@ -41,15 +41,17 @@
         
         function RemoveSelection(){
             if(window.getSelection){
-                const sel = window.getSelection();
+                const sel = document.getSelection();
                 sel.deleteFromDocument();
             }
             if(!sel.isCollapsed){
                 const selRange = sel.getRangeAt(0);
                 selRange.deleteFromDocument();
+                console.log('hit!')
             }
             if(sel.anchorNode){
                 sel.collapse(sel.anchorNode, sel.anchorOffset);
+                console.log('hit!')
             }else{
                 if(document.selection){
                     document.selection.clear();
@@ -69,7 +71,31 @@
                 }
             }
         }
-        
+        // window.setInterval(function(){
+        //     console.log(window.getSelection().rangeCount)
+        // },1000)
+        const button = document.getElementById('button')
+        button.addEventListener('click',function(){
+            let range = new Range();
+
+            range.setStart(p2,start.value);
+            range.setEnd(p2,end.value);
+
+        document.getSelection().removeAllRanges();
+        document.getSelection.addRange(range);
+        })
+
+        let input = document.querySelector(".input");
+        let button = document.querySelector(".button");
+        button.disabled = true;
+        input.addEventListener("change", stateHandle);
+        function stateHandle() {
+            if (document.querySelector(".input").value === "") {
+                button.disabled = true; 
+            } else {
+                button.disabled = false;
+            } 
+}
     </script>
 
     <button onclick="SelectFirstLine();" contenteditable="false">Select the first line!</button>
@@ -81,7 +107,18 @@
     <div id = "secondLine" >This is the second line.</div>
     <div id = "thirdLine">This is the third line.</div>
     <div onmouseup="RemoveSelection();">문장을 드래그 해보세요.</div>
-    <div> Select some text on this page and use the following button to get information about 
-        the placement of the <b id="boldText">bold text</b> relative to the selection.</div>
+    <p id = "p"> Select some text on this page and use the following button to get information about 
+        the placement of the <b id="boldText">bold text</b> relative to the selection.</p>
+    <!-- <table>
+        <tr><td>a.1<td>a.2
+        <tr><td>b.1<td>b.2
+        <tr><td>c.1<td>c.2
+    </table> -->
+    <p id="p2">Example: <i>italic</i> and <b>text bold</b></p>
+    From <input id="start" type="number" value = 1> - To <input id="end" type="number" value=4>
+    <button id = "button">Click to select</button>
+    </br></br>
+    <input class="input" type="text" placeholder="fill me">
+    <button class="button">Click Me</button>
 </body>
 </html>

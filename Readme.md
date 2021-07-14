@@ -125,3 +125,4 @@ ex)```<body> Text.... </body>```
 [selection interface](https://w3c.github.io/selection-api/#selection-interface)</br>
 [Runebook.dev](https://runebook.dev/ko/docs/dom/)</br>
 [캐럿 브라우징에 대해서](https://zkim0115.tistory.com/1983)<br/>
+[Selection and Range](https://javascript.info/selection-range)<br/>

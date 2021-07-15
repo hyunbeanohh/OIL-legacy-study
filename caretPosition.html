@@ -13,9 +13,27 @@
                 alert("Caret position: " + this.selectionStart)
             })
         })
+    function getCaretEvt(el){
+        let pos = 0;
+        const isSupported = typeof window.getSelection !== "undefined";
+        if (isSupported) {
+        const sel = window.getSelection();
+        if(sel.rangeCount !== 0){
+            const rng = window.getSelection().getRangeAt(0);
+            const preCaretRng = rng.cloneRange();
+            
+            preCaretRng.selectNodeContents(el);
+            preCaretRng.setEnd(rng.endContainer,rng.endOffset);
+            pos = preCaretRng.toString().length;
+        }
+    }
+    return pos;
+}
     </script>
 </head>
 <body>
-    <input type = "text">
+    <div style="border: 1px solid black;">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea ullam est esse. Quia minus optio a dignissimos totam saepe sit iure, esse error deleniti sequi reprehenderit hic, sint quidem. Sint.
+    </div>
 </body>
 </html>

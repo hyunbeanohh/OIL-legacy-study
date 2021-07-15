@@ -24,6 +24,19 @@ Selection는 사용자, 캐럿의 현재 위치에 의해 선택된 텍스트의
     - ```Caret```: collapsed 상태 
     - ```Range``` : 범위가 선택된 상태
     - ```None``` : 아무런 이벤트가 발생되지 않은 경우
+<table>
+    <td>anchorNode<td>Caret의 시작 노드<tr>
+    <td>anchorOffset</td><td>시작 노드에서의 Caret 위치(Offset)</td><tr>
+    <td>baseNode<td>Caret의 시작노드<tr>
+    <td>baseOffset</td><td>시작 노드에서의 caret의 위치(Offset)</td><tr>
+    <td>focusNode<td>caret의 끝 노드<tr>
+    <td>focusOffset</td><td>끝 노드에서 Caret의 위치(Offset)</td><tr>
+    <td>extentNode<td>Caret의 끝 노드<tr>
+    <td>extentOffset</td><td>끝 노드에서 Caret의 위치(Offset)</td><tr>
+    <td>isCollapsed</td><td>Caret의 시작과 끝 동일 여부</td>
+</table>
+</br>
+![캡처2](https://user-images.githubusercontent.com/39178226/125728131-1e95fdc2-6ca9-4a3c-990a-72724f6ec856.PNG)
 
 ### method
 + ```selection.getRangeAt(index)``` - index에 있는 Range 객체를 반환합니다.
@@ -62,6 +75,17 @@ offset을 지정해 이동시킬 노드가 자식 노드를 갖고 있는 경우
 + 다중 선택시 rangeCount 값을 이용해 Range를 구할 수 있습니다.
 + 일반적으로 하나의 Selection은 보통 하나의 Range를 갖고 있습니다. 하지만 Friefox의 경우, 한 Selection에 여러개의 Range객체를 가질수 있습니다.
     - 위와 같은 특성으로 인해 해당 브라우저를 지원하는 경우, 브라우저를 대응하는 코드 작성이 필요합니다.
+
+<table>
+    <td>startContainer<td>Caret의 시작 노드<tr>
+    <td>startOffset</td><td>시작 노드에서의 Caret 위치(Offset)</td><tr>
+    <td>endContainer<td>Caret의 시작노드<tr>
+    <td>endOffset</td><td>끝 노드에서 Caret의 위치(Offset)</td><tr>
+    <td>commonAncestorContainer<td>시작 노드와 끝 노드를 포함하고 있는 상위 노드<tr>
+    <td>collapsed</td><td>Caret의 시작과 끝 동일 여부</td>
+</table>
+</br>
+![캡처](https://user-images.githubusercontent.com/39178226/125728095-f9659510-1447-49f6-b74b-85ffff8a8bdd.PNG)
 
 ### property
 + ```collapsed``` - Range의 시작점과 끝점이 같은 위치인지를 알 수 있는 boolean 값을 반환합니다.

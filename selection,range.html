@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>selection and Range </title>
+
+    <link type="text/css" rel="stylesheet" href="./button.css"
 </head>
 
 <body contenteditable="true">
@@ -95,7 +97,32 @@
             } else {
                 button.disabled = false;
             } 
-}
+        }   
+        // setInterval(() => {
+        //     const spanList = document.querySelectorAll("span");
+
+        //     // 각 span으로 부터 TextNode로 가져오기
+        //     const startContainer = spanList[0].childNodes[0];
+        //     const startOffset = 2;
+
+        //     const endContainer = spanList[2].childNodes[0];
+        //     const endOffset = 1;
+            
+        //     //Range 설정
+        //     const newRng = document.createRange();
+        //     newRng.setStart(startContainer,startOffset);
+        //     newRng.setEnd(endContainer,endOffset);
+
+        //     //Selection에 전달
+        //     const sel = document.getSelection();
+        //     sel.removeAllRanges();
+        //     sel.addRange(newRng);
+
+        //     sel.setBaseAndExtent(sel.extentNode, sel.extentOffset,sel.baseNode,sel.baseOffset);
+        // }, 3000);
+
+
+        
     </script>
 
     <button onclick="SelectFirstLine();" contenteditable="false">Select the first line!</button>
@@ -103,22 +130,23 @@
     <button onclick="SelectionThirdLine();">Select the third line!</button>
     <button onclick="TestContainment();">Test placement</button>
     <br /><br />
+
     <div id = "firstLine">This is the first line.</div>
     <div id = "secondLine" >This is the second line.</div>
     <div id = "thirdLine">This is the third line.</div>
     <div onmouseup="RemoveSelection();">문장을 드래그 해보세요.</div>
+    
     <p id = "p"> Select some text on this page and use the following button to get information about 
         the placement of the <b id="boldText">bold text</b> relative to the selection.</p>
-    <!-- <table>
-        <tr><td>a.1<td>a.2
-        <tr><td>b.1<td>b.2
-        <tr><td>c.1<td>c.2
-    </table> -->
+    
     <p id="p2">Example: <i>italic</i> and <b>text bold</b></p>
     From <input id="start" type="number" value = 1> - To <input id="end" type="number" value=4>
     <button id = "button">Click to select</button>
     </br></br>
-    <input class="input" type="text" placeholder="fill me">
-    <button class="button">Click Me</button>
+    <button class="button" onclick="changeText();" [disabled] = "disabled">Clicked</button></br>
+
+    <span>가나다</span><span>라마바사</span><span>자카타</span>
+    <button class = 'active' contenteditable="false">Active</button>
+    <button class = 'focus' contenteditable="false">Focus</button>
 </body>
 </html>

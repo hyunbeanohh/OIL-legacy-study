@@ -28,8 +28,8 @@ Selection는 사용자, 캐럿의 현재 위치에 의해 선택된 텍스트의
     <td>anchorNode<td>Caret의 시작 노드<tr>
     <td>anchorOffset</td><td>시작 노드에서의 Caret 위치(Offset)</td><tr>
     <td>baseNode<td>Caret의 시작노드<tr>
-    <td>baseOffset</td><td>시작 노드에서의 caret의 위치(Offset)</td><tr>
-    <td>focusNode<td>caret의 끝 노드<tr>
+    <td>baseOffset</td><td>시작 노드에서의 Caret의 위치(Offset)</td><tr>
+    <td>focusNode<td>Caret의 끝 노드<tr>
     <td>focusOffset</td><td>끝 노드에서 Caret의 위치(Offset)</td><tr>
     <td>extentNode<td>Caret의 끝 노드<tr>
     <td>extentOffset</td><td>끝 노드에서 Caret의 위치(Offset)</td><tr>
@@ -148,5 +148,9 @@ ex)```<body> Text.... </body>```
 [range MDN reference](https://developer.mozilla.org/ko/docs/Web/API/Range)</br>
 [selection interface](https://w3c.github.io/selection-api/#selection-interface)</br>
 [Runebook.dev](https://runebook.dev/ko/docs/dom/)</br>
-[캐럿 브라우징에 대해서](https://zkim0115.tistory.com/1983)<br/>
-[Selection and Range](https://javascript.info/selection-range)<br/>
+[캐럿 브라우징에 대해서](https://zkim0115.tistory.com/1983)</br>
+[Selection and Range](https://javascript.info/selection-range)</br>
+div,iframe
++ [okky](https://okky.kr/article/91112)
++ [pythonq](https://okky.kr/article/91112) 
+</br>

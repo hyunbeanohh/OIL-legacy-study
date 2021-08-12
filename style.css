@@ -1,0 +1,116 @@
+body{
+    width:70%;
+    height:300px;
+    position:absolute;
+    left:30%;
+    top:40%;
+    margin-left:0px;
+    margin-top:-150px;
+}
+
+
+button{
+    float: left;
+    margin-left: 10px;
+    border:none;
+    outline: none;
+    width: 30px;
+    height: 25px;
+    cursor: pointer;
+    border-radius: 10px;
+    box-shadow: 3px 3px 3px rgba(0,0,0,0.5);
+}
+
+button:hover{
+    background-color:#bfefcf;
+}
+
+
+#header_section{
+    margin: 0 0 15px -10px;
+    width: 61%;
+}
+
+#footer{
+    background-color:white;
+    width: 60%;
+    height:30px;
+    margin: -4px 0 0 0;
+    border: 1px solid black;
+    text-align: center;
+    border-top: none;
+}
+
+#fixView,#sourceView,#afterView{
+    display:inline; line-height:30px; width: 15%; height: 30px; float:left; border-right: 1px solid black; cursor: pointer;
+}
+
+#boxId{
+    border-radius: 1px solid black; 
+    float:right;
+    width: 150px;
+    height: 23px;
+    text-align-last: center;
+    text-align: center; 
+}
+
+#output{
+    background-color: #ffffff;
+    border: 1px solid black;
+    width: 60%;
+    height: 350px;
+}
+
+
+#boldId,#italicId,#underlineId,#strikeId {
+    box-shadow: 0px -3px rgba(0,0,0,0.5);
+
+}
+
+#editorTextId{
+    position: relative;
+    left:25%;
+}
+
+#getValue, #setValue ,#getBodyValue, #setBodyValue{
+    margin : 10px 10px 10px 0;
+    width: 179px;
+    background-color: white;
+    border: 1px solid black;
+    cursor: pointer;
+    font-size: 16px;
+    width:195px;
+}
+
+#creText{
+    width: 60%;
+    height: 200px;;
+}
+
+.changeBold, .changeItalic, .changeUnderline, .changeStrike{
+    box-shadow: 0px -3px rgba(0,0,0,0.5);
+}
+
+
+@media screen and (max-width:1100px){
+    #footer{
+        font-size: 10px;
+    }
+    #editorTextId{
+        display: none;   
+    }
+    #output{
+        position: relative;
+        left:-190px;
+    }
+    #getValue, #setValue ,#getBodyValue, #setBodyValue{
+        font-size: 10px;
+        width: 91px;
+    }
+}
+
+@media screen and (max-width:840px) {
+    #boxId{
+        width:100px;
+    }
+}

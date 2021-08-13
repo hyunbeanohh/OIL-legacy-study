@@ -64,8 +64,8 @@ var getsetbtn = [
             this.setBodyValue(this.options.initValue)
         }
 
-        this.width = this.setWidth(node,"",width,"");
-        this.height = this.setHeight(node,"","",height);
+        // this.width = this.setWidth(node,"",width,"");
+        // this.height = this.setHeight(node,"","",height);
 
         console.log(this.element.root);
     };
@@ -82,18 +82,18 @@ var getsetbtn = [
         return b;
     };
 
-    SimpleEditor.prototype.setWidth = function(node,options,width,height){
-        var getNode = document.getElementById(node);
+    // SimpleEditor.prototype.setWidth = function(node,options,width,height){
+    //     var getNode = document.getElementById(node);
         
-        getNode.style.width = width;
-        console.log( getNode.style.width )
-    };
+    //     getNode.style.width = width;
+    //     console.log( getNode.style.width )
+    // };
 
-    SimpleEditor.prototype.setHeight = function(node,options,width,height){
-        var getNode = document.getElementById(node);
-        getNode.style.height = height;
-        console.log( getNode.style.height )
-    };
+    // SimpleEditor.prototype.setHeight = function(node,options,width,height){
+    //     var getNode = document.getElementById(node);
+    //     getNode.style.height = height;
+    //     console.log( getNode.style.height )
+    // };
 
     SimpleEditor.prototype.getValue = function (){
         var getValueBtn = this.element.root.querySelector("#getValue");
@@ -124,30 +124,33 @@ var getsetbtn = [
             var  getTextArea= document.getElementById("creText");
             edit.body.innerHTML = escapeParser(getTextArea.value);
             edit.body.focus();
-        }); 
-        
+        });
     };
     
     SimpleEditor.prototype.getBodyValue=  function(){
         var getBodyValueId = this.element.root.querySelector("#getBodyValue");
         var getTextArea = this.element.root.querySelector("#creText");
         var doc = this.getEditDocument();
+        
 
         getBodyValueId.addEventListener("click",function(){
             var edit = doc;
+            // var getState = state;
+            // console.log(getState);
+            console.log(this.currentState)
             getTextArea.value = escapeParser(edit.body.innerHTML);
 
-        })
+        }.bind(this))
     };
 
     SimpleEditor.prototype.setBodyValue=  function(){
         var setBodyValueId = this.element.root.querySelector("#setBodyValue");
         var getTextArea = this.element.root.querySelector("#creText");
         var doc = this.getEditDocument();
-
+        
         setBodyValueId.addEventListener("click",function(){
             var edit = doc;
-
+           
             edit.body.innerHTML = getTextArea.value;
             edit.body.focus();
         })
@@ -344,75 +347,72 @@ var getsetbtn = [
         creTa.id = "textAreaId";
         creTa.style ="width:100%; height:100%; margin :0; padding:0; font-size:16px; font-family:Apple SD Gothic Neo; border:1px solid white; outline:none; resize:none;";
          
-        var currentState = "Edit";
-       
+        this.currentState = "Edit";
+        //this = t;
     
         getfixView.addEventListener("click",function(){
-            //currentState = "Edit";
+            //this.currentState = "Edit";
             var getTextAreaId = edit.getElementById("textAreaId");
 
-            if(currentState === "HTML"){
+            if(this.currentState === "HTML"){
                 edit.body.designMode = "On";
                 edit.body.innerHTML = getTextAreaId.value;
-
-
-                currentState = "Edit";
-                console.log(currentState);
-            }else if(currentState === "PreView"){
+                this.currentState = "Edit";
+                console.log(this.currentState);
+            }else if(this.currentState === "PreView"){
                 edit.designMode = "On";
                 for(var i = 0; i<getBtn.length;i++){
                     getBtn[i].removeAttribute("disabled","");
                 }
                 getSelect.removeAttribute("disabled","")
-                currentState = "Edit";
+                this.currentState = "Edit";
             }
-        });
+        }.bind(this));
 
         getSource.addEventListener("click",function(e){ // 소스 보기
             
-            if(currentState === "Edit"){
+            if(this.currentState === "Edit"){
                 edit.designMode = "On";
-                
                 creTa.textContent = edit.body.innerHTML;
                 
                 edit.body.innerText= "";
                 getEdit.prepend(creTa);
-                currentState = "HTML";
-                console.log(currentState);
+                this.currentState = "HTML";
+                console.log(this.currentState);
                 
-            }else if(currentState === "PreView"){
+            }else if(this.currentState === "PreView"){
                 edit.designMode = "On";
                 for(var i = 0; i<getBtn.length;i++){
                     getBtn[i].removeAttribute("disabled","");
                 }
                 getSelect.removeAttribute("disabled","")
+
                 creTa.textContent = escapeParser(edit.body.innerHTML);
-                
                 edit.body.innerText= "";
                 getEdit.prepend(creTa);
-                currentState = "HTML";
-                console.log(currentState);
+                this.currentState = "HTML";
+                console.log(this.currentState);
             }
            
-        });
+        }.bind(this));
     
         getAfterView.addEventListener("click",function(){ // 미리 보기 
             for(var i = 0; i<getBtn.length; i++){
                 getBtn[i].setAttribute("disabled",true);
             }
             getSelect.setAttribute("disabled",true);
-            if(currentState === "HTML"){
+            if(this.currentState === "HTML"){
                 edit.designMode= "Off";
                 edit.body.innerHTML = creTa.value;
-                currentState="PreView";
-                console.log(currentState)
-            }else if(currentState === "Edit"){
+                this.currentState="PreView";
+                console.log(this.currentState)
+            }else if(this.currentState === "Edit"){
                 edit.designMode= "Off";
-                currentState="PreView";
-                console.log(currentState);
+                this.currentState="PreView";
+                console.log(this.currentState);
             }
             
-        });
+        }.bind(this));
     };
 
     SimpleEditor.prototype.titleText = function(){

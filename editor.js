@@ -16,9 +16,9 @@ var options = [
     ];
 
 var footerbtn = [
-    {key:"fixView", value:"편집"},
-    {key:"sourceView", value:"HTML"},
-    {key:"afterView", value:"미리 보기"},
+    {key:"toEdit", value:"편집"},
+    {key:"toHtml", value:"HTML"},
+    {key:"toPreView", value:"미리 보기"},
     // {key:"setBodyValue", value:"setBodyValue"},
     // {key:"getBodyValue", value:"getBodyValue"},
 ];
@@ -35,12 +35,12 @@ var getsetbtn = [
          * SimpleEditor(node:string||Element,options:string,left:string,right:string)
          * @typedef {object} SimpleEditor - editor Object
          * @property {string | Element} node - node type 
-         * @property {string| undefined} options - options type
+         * @property {string | undefined} options - options type
          * @property {string} left - left type
          * @property {string} right - left value
          */
 
-    function SimpleEditor(node,options,width,height){
+    function SimpleEditor(node,options,left,top){
         this.element = {
             root: document.getElementById(node),
             // Class , 여러가지 사항을 고려해야 함.
@@ -64,12 +64,12 @@ var getsetbtn = [
             this.setBodyValue(this.options.initValue)
         }
 
-        // this.width = this.setWidth(node,"",width,"");
-        // this.height = this.setHeight(node,"","",height);
-
+        // this.left = this.setLeft(node,"",left,"");
+        // this.right = this.setTop(node,top);
         console.log(this.element.root);
     };
 
+    
     function escapeParser(a){
         var b = '';
     
@@ -82,470 +82,553 @@ var getsetbtn = [
         return b;
     };
 
-    // SimpleEditor.prototype.setWidth = function(node,options,width,height){
+    // SimpleEditor.prototype.setLeft = function(node,options,left,top){
     //     var getNode = document.getElementById(node);
         
-    //     getNode.style.width = width;
-    //     console.log( getNode.style.width )
+    //     getNode.style.left = left;
     // };
 
-    // SimpleEditor.prototype.setHeight = function(node,options,width,height){
+    // SimpleEditor.prototype.setTop = function(node,options,left,top){
     //     var getNode = document.getElementById(node);
-    //     getNode.style.height = height;
-    //     console.log( getNode.style.height )
+    //     getNode.style.top = top;
     // };
 
-    SimpleEditor.prototype.getValue = function (){
-        var getValueBtn = this.element.root.querySelector("#getValue");
-        var doc = this.getEditDocument();
-        getValueBtn.addEventListener("click",function(e){
 
-                var getOut = doc;
-                var fullHtml = getOut.body.parentNode.outerHTML;
-                var getTextArea = document.getElementById("creText");
-                
-                
-                getTextArea.value = fullHtml;
-                // for(var i = 0; i< getTextArea.value.length; i++){
-                //     if(getTextArea.value[i] === ">"){
-                //         getTextArea.value[i+1].push("</br>");
-                //     }
-                // }
-            
-        })
-    };
-            
-    SimpleEditor.prototype.setValue = function(){
-        var setValueBtn = this.element.root.querySelector("#setValue");
-        var doc = this.getEditDocument();
-
-        setValueBtn.addEventListener("click",function(){
-            var edit = doc;
-            var  getTextArea= document.getElementById("creText");
-            edit.body.innerHTML = escapeParser(getTextArea.value);
-            edit.body.focus();
-        });
-    };
-    
-    SimpleEditor.prototype.getBodyValue=  function(){
-        var getBodyValueId = this.element.root.querySelector("#getBodyValue");
-        var getTextArea = this.element.root.querySelector("#creText");
-        var doc = this.getEditDocument();
-        
-
-        getBodyValueId.addEventListener("click",function(){
-            var edit = doc;
-            // var getState = state;
-            // console.log(getState);
-            console.log(this.currentState)
-            getTextArea.value = escapeParser(edit.body.innerHTML);
-
-        }.bind(this))
-    };
-
-    SimpleEditor.prototype.setBodyValue=  function(){
-        var setBodyValueId = this.element.root.querySelector("#setBodyValue");
-        var getTextArea = this.element.root.querySelector("#creText");
-        var doc = this.getEditDocument();
-        
-        setBodyValueId.addEventListener("click",function(){
-            var edit = doc;
-           
-            edit.body.innerHTML = getTextArea.value;
-            edit.body.focus();
-        })
-    };
     
     SimpleEditor.prototype.settingTag = function(){
+        var tempDiv = document.createElement("div");
+        tempDiv.id = "Editor"
+        this.element.root.append(tempDiv);
+
         var tagAttribute = ["header_section","edit_section","footer","getsetArea"];
-        //var getRoot = document.getElementById("root");
         
         for(var i = 0 ; i<tagAttribute.length; i++){
             var creDiv = document.createElement("div");
             creDiv.id = tagAttribute[i];
-            this.element.root.appendChild(creDiv);
+            tempDiv.appendChild(creDiv);
         }
     };
 
-    
-    SimpleEditor.prototype.addSelect = function(id,name,options){
-        var createSpan = document.createElement("span")
-        var getHeaderSection = this.element.root.querySelector("#header_section");
-    
-        createSpan.classList.add("select_box")
-        getHeaderSection.appendChild(createSpan);
-            
-            
-        var select = document.createElement("select");
-        select.id = id;
-        select.name = name;
+    SimpleEditor.prototype.renderHeader = function(){
 
-        var option = document.createElement("option");
-        option.value = "전체";
-        option.text = "제목1~6";
-    
-        select.appendChild(option);
-    
-        for(var i in options){
-            var option = document.createElement("option");
-            option.value = options[i].key;
-            option.text = options[i].value;
-            option.setAttribute("data-cmd",`${options[i].cmd}`);
-            select.appendChild(option)
-        }
-    
-        return select;
-    };
-    
-    SimpleEditor.prototype.addBtn = function(){
-        var getHeaderSection = this.element.root.querySelector("#header_section");
+        SimpleEditor.prototype.addSelect = function(id,name,options){
+            var createSpan = document.createElement("span")
+            var getHeaderSection = this.element.root.querySelector("#header_section");
         
-        for(var i = 0; i<toolbtn.length; i++){
-            var creBtn = document.createElement("button");
-            var creUI = document.createElement("i");
-
-            
-            creBtn.type = "button";
-            creBtn.title = toolbtn[i].value;
-            creBtn.id = toolbtn[i].id;
-            creBtn.setAttribute("data-cmd",`${toolbtn[i].cmd}`)
+            createSpan.classList.add("select_box")
+            getHeaderSection.appendChild(createSpan);
+                
+                
+            var select = document.createElement("select");
+            select.id = id;
+            select.name = name;
     
-            creUI.className = toolbtn[i].ui;
-            creBtn.appendChild(creUI);
-            
-            getHeaderSection.appendChild(creBtn);
+            var option = document.createElement("option");
+            option.value = "전체";
+            option.text = "제목1~6";
+        
+            select.appendChild(option);
+        
+            for(var i in options){
+                var option = document.createElement("option");
+                option.value = options[i].key;
+                option.text = options[i].value;
+                option.setAttribute("data-cmd",`${options[i].cmd}`);
+                select.appendChild(option)
+            }
+        
+            return select;
         };
         
-        var boldId = this.element.root.querySelector("#bold");
-        var italicId = this.element.root.querySelector("#italic");
-        var underlineId = this.element.root.querySelector("#underline");
-        var strikeId = this.element.root.querySelector("#strike");
-        var edit = this.element.root.querySelector("#output").contentWindow.document;
+        SimpleEditor.prototype.addSelectBtn = function(){
+            var getHeaderSection = this.element.root.querySelector("#header_section");
+            var select = this.addSelect('boxId','boxName',options);
+            getHeaderSection.appendChild(select);
+        };
     
-        boldId.addEventListener("click",function(e){
-           
-            if(boldId.className === ""){
-                boldId.className = "changeBold";
-            }else{
-                boldId.classList.remove("changeBold");
-        }
-        edit.body.focus();
-    });
-
-    
-        italicId.addEventListener("click",function(e){
-            if(italicId.className === ""){
-                italicId.className = "changeItalic";
-            }else{
-                italicId.classList.remove("changeItalic")
-            }
-            edit.body.focus();
-        });
-    
-        underlineId.addEventListener("click",function(e){
-           
-            if(underlineId.className === ""){
-                underlineId.className = "changeUnderline";
-            }else{
-                underlineId.classList.remove("changeUnderline");
-            }
-            edit.body.focus();
-    });
-    
-        strikeId.addEventListener("click",function(e){
-           
-            if(strikeId.className === ""){
-                strikeId.className = "changeStrike";
-            }else{
-                strikeId.classList.remove("changeStrike");
-            }
-            edit.body.focus();
-        });
-    };
-    
-    SimpleEditor.prototype.addEditView = function(){
-        var createIframeTag = document.createElement("iframe");
-        createIframeTag.id = "output";
-        createIframeTag.name = "textFiled";
-        this.editIframe = createIframeTag;
         
-        var getSection = this.element.root.querySelector("#edit_section");
-        getSection.appendChild(createIframeTag);
+
+        SimpleEditor.prototype.addBtn = function(){
+            var getHeaderSection = this.element.root.querySelector("#header_section");
+            
+            for(var i = 0; i<toolbtn.length; i++){
+                var creBtn = document.createElement("button");
+                var creUI = document.createElement("i");
     
-        var edit = this.element.root.querySelector("#output").contentWindow.document;
-        edit.body.className = "content";
-        edit.body.style ="word-break:break-all";
-        edit.body.innerHTML = "<p></br></P>";
-        edit.designMode = "On";
+                
+                creBtn.type = "button";
+                creBtn.title = toolbtn[i].value;
+                creBtn.id = toolbtn[i].id;
+                creBtn.setAttribute("data-cmd",`${toolbtn[i].cmd}`)
         
-    };
-    SimpleEditor.prototype.addSelectBtn = function(){
-        var getHeaderSection = this.element.root.querySelector("#header_section");
-        var select = this.addSelect('boxId','boxName',options);
-        getHeaderSection.appendChild(select);
-    };
+                creUI.className = toolbtn[i].ui;
+                creBtn.appendChild(creUI);
+                
+                getHeaderSection.appendChild(creBtn);
+            };
+        };
 
-    SimpleEditor.prototype.addGetSetBtn = function(){
-        var getArea = this.element.root.querySelector("#getsetArea");
-        var creDiv = document.createElement("div");
-        var creTextArea = document.createElement("textarea");
-        getArea.appendChild(creDiv);
-        creDiv.id = "creDivId";
-        creTextArea.id = "creText";
+        SimpleEditor.prototype.titleText = function(){
+            var getHeaderSection =this.element.root.querySelector("#header_section");
+            var creSpan = document.createElement("span");
+            var txt = document.createTextNode("💻");
+            creSpan.id = "editorTextId";
+            creSpan.appendChild(txt);
+            getHeaderSection.appendChild(creSpan);
+        };
 
-        for(var i = 0 ; i<getsetbtn.length; i++){
-            var creBtn = document.createElement("Input");
-            var getCreDivId = this.element.root.querySelector("#creDivId");
-            creBtn.id = getsetbtn[i].id;
-            creBtn.value = getsetbtn[i].value;
-            creBtn.type = "button";
+        this.addSelect();
+        this.addSelectBtn();
+        this.addBtn();
+        this.titleText();
+    }
+    
+    SimpleEditor.prototype.renderContent = function(){
+        
+        SimpleEditor.prototype.getEditDocument= function(){
+            return this.editIframe.contentWindow.document;
+        };
 
-            getCreDivId.appendChild(creBtn);
-        }
-        getArea.appendChild(creTextArea);
+
+        SimpleEditor.prototype.addEditView = function(){
+            var createIframeTag = document.createElement("iframe");
+            createIframeTag.id = "output";
+            createIframeTag.name = "textFiled";
+            this.editIframe = createIframeTag;
+            
+            var getSection = this.element.root.querySelector("#edit_section");
+            getSection.appendChild(createIframeTag);
+        
+            var edit = this.element.root.querySelector("#output").contentWindow.document;
+            edit.body.className = "content";
+            edit.body.style ="word-break:break-all";
+            edit.body.innerHTML = "<p></br></P>";
+            edit.designMode = "On";
+            
+        };
+        this.addEditView();
     }
 
-    SimpleEditor.prototype.footerView = function(){
-        var getFooter = this.element.root.querySelector("#footer");
-    
-        for(var i = 0; i<footerbtn.length; i++){
+    SimpleEditor.prototype.renderFooter = function(){
+        SimpleEditor.prototype.footerView = function(){
+            var getFooter = this.element.root.querySelector("#footer");
+        
+            for(var i = 0; i<footerbtn.length; i++){
+                var creDiv = document.createElement("div");
+                creDiv.innerHTML = footerbtn[i].value;
+                creDiv.id = footerbtn[i].key;
+                getFooter.appendChild(creDiv);
+            }
+        };
+        this.footerView();
+    }
+
+    SimpleEditor.prototype.renderAPI = function(){
+
+        SimpleEditor.prototype.addGetSetBtn = function(){
+            var getArea = this.element.root.querySelector("#getsetArea");
             var creDiv = document.createElement("div");
-            creDiv.innerHTML = footerbtn[i].value;
-            creDiv.id = footerbtn[i].key;
-            getFooter.appendChild(creDiv);
+            var creTextArea = document.createElement("textarea");
+            getArea.appendChild(creDiv);
+            creDiv.id = "creDivId";
+            creTextArea.id = "creText";
+    
+            for(var i = 0 ; i<getsetbtn.length; i++){
+                var creBtn = document.createElement("Input");
+                var getCreDivId = this.element.root.querySelector("#creDivId");
+                creBtn.id = getsetbtn[i].id;
+                creBtn.value = getsetbtn[i].value;
+                creBtn.type = "button";
+    
+                getCreDivId.appendChild(creBtn);
+            }
+            getArea.appendChild(creTextArea);
         }
-    };
-
-    SimpleEditor.prototype.getEditDocument= function(){
-        return this.editIframe.contentWindow.document;
-    };
-
-    SimpleEditor.prototype.fontFunction = function(){
-        var buttons = this.element.root.querySelectorAll("button");
-        var doc = this.getEditDocument();
-
-        for(var i = 0; i<buttons.length; i++){
-        
-            buttons[i].addEventListener('click',function(){
-            var cmd = this.getAttribute('data-cmd');
-            doc.execCommand(cmd,false,null);
-            })
-        }
-    };
-  
-
-    SimpleEditor.prototype.footerFunction = function(){
-        var getfixView = this.element.root.querySelector("#fixView");
-        var getSource = this.element.root.querySelector("#sourceView");
-        var getAfterView = this.element.root.querySelector("#afterView");
-        var edit = this.getEditDocument();
-        var getEdit = edit.getElementsByClassName("content")[0];
-        var creTa = document.createElement("textarea");
-        var getBtn = this.element.root.querySelectorAll("button");
-        var getSelect = this.element.root.querySelector("#boxId");
-
-        creTa.id = "textAreaId";
-        creTa.style ="width:100%; height:100%; margin :0; padding:0; font-size:16px; font-family:Apple SD Gothic Neo; border:1px solid white; outline:none; resize:none;";
-         
-        this.currentState = "Edit";
-        //this = t;
-    
-        getfixView.addEventListener("click",function(){
-            //this.currentState = "Edit";
-            var getTextAreaId = edit.getElementById("textAreaId");
-
-            if(this.currentState === "HTML"){
-                edit.body.designMode = "On";
-                edit.body.innerHTML = getTextAreaId.value;
-                this.currentState = "Edit";
-                console.log(this.currentState);
-            }else if(this.currentState === "PreView"){
-                edit.designMode = "On";
-                for(var i = 0; i<getBtn.length;i++){
-                    getBtn[i].removeAttribute("disabled","");
-                }
-                getSelect.removeAttribute("disabled","")
-                this.currentState = "Edit";
-            }
-        }.bind(this));
-
-        getSource.addEventListener("click",function(e){ // 소스 보기
-            
-            if(this.currentState === "Edit"){
-                edit.designMode = "On";
-                creTa.textContent = edit.body.innerHTML;
-                
-                edit.body.innerText= "";
-                getEdit.prepend(creTa);
-                this.currentState = "HTML";
-                console.log(this.currentState);
-                
-            }else if(this.currentState === "PreView"){
-                edit.designMode = "On";
-                for(var i = 0; i<getBtn.length;i++){
-                    getBtn[i].removeAttribute("disabled","");
-                }
-                getSelect.removeAttribute("disabled","")
-
-                creTa.textContent = escapeParser(edit.body.innerHTML);
-                edit.body.innerText= "";
-                getEdit.prepend(creTa);
-                this.currentState = "HTML";
-                console.log(this.currentState);
-            }
-           
-        }.bind(this));
-    
-        getAfterView.addEventListener("click",function(){ // 미리 보기 
-            for(var i = 0; i<getBtn.length; i++){
-                getBtn[i].setAttribute("disabled",true);
-            }
-            getSelect.setAttribute("disabled",true);
-            if(this.currentState === "HTML"){
-                edit.designMode= "Off";
-                edit.body.innerHTML = creTa.value;
-                this.currentState="PreView";
-                console.log(this.currentState)
-            }else if(this.currentState === "Edit"){
-                edit.designMode= "Off";
-                this.currentState="PreView";
-                console.log(this.currentState);
-            }
-            
-        }.bind(this));
-    };
-
-    SimpleEditor.prototype.titleText = function(){
-        var getHeaderSection =this.element.root.querySelector("#header_section");
-        var creSpan = document.createElement("span");
-        var txt = document.createTextNode("💻");
-        creSpan.id = "editorTextId";
-        creSpan.appendChild(txt);
-        getHeaderSection.appendChild(creSpan);
-    };
-    
-    SimpleEditor.prototype.newWriteFunction = function(){
-        var getnewWriteId = this.element.root.querySelector("#newWrite");
-        var edit = this.getEditDocument();
-        var boldId = this.element.root.querySelector("#bold");
-        var italicId = this.element.root.querySelector("#italic");
-        var underlineId = this.element.root.querySelector("#underline");
-        var strikeId = this.element.root.querySelector("#strike");
-
-        getnewWriteId.addEventListener("click",function(){
-            var confirmVal = window.confirm('저장되어 있던 글이 모두 삭제됩니다.');
-            
-            
-            if(confirmVal === true){
-                edit.body.innerHTML = "<p></br></p>";
-                
-                boldId.className = "bold";
-                italicId.className = "italic";
-                underlineId.className = "underline";
-                strikeId.className = "strike";
-        
-                edit.body.focus();
-        
-            }else{
-                return
-            }
-        })
-    };
-    
-    SimpleEditor.prototype.backspacePrevent = function(e){
-        var edit = this.element.root.querySelector("#output").contentWindow.document;
-        edit.addEventListener("keyup",function(evt){
-            if(evt.defaultPrevented){
-                return
-            }
-            var handled = false;
-            if(event.keyCode === 8 && edit.body.innerHTML === ""){
-                handled = true;
-                edit.body.innerHTML = "<p></br></p>";
-            }
-        },true)
-    };
-    
-    SimpleEditor.prototype.btnCheck = function(){
-        var editChange = this.element.root.querySelector("#output").contentWindow.document;
-        //var editSel = document.getElementById("output").contentWindow.document.getSelection();
-        
-        var boldId = this.element.root.querySelector("#bold");
-        var italicId = this.element.root.querySelector("#italic");
-        var underlineId =this.element.root.querySelector("#underline");
-        var strikeId =this.element.root.querySelector("#strike");
-    
-        editChange.addEventListener("selectionchange",function(){
-            //var getOut = this.element.root.querySelector("#output");
-            var boldCheck = editChange.queryCommandState("bold");
-            var italicCheck = editChange.queryCommandState("italic");
-            var underlineCheck = editChange.queryCommandState("underline");
-            var strikeCheck = editChange.queryCommandState("strikethrough");
-    
-            if(boldCheck === true){
-                boldId.className = "changeBold";
-            }else{
-                boldId.classList.remove("changeBold");
-            }
-            
-            if(italicCheck === true){
-                italicId.className = "changeItalic";
-            }else{
-                italicId.classList.remove("changeItalic")
-            }
-    
-            if(underlineCheck === true){
-                underlineId.className = "changeUnderline";
-            }else{
-                underlineId.classList.remove("changeUnderline")
-            }
-    
-            if(strikeCheck === true){ 
-                strikeId.className = "changeStrike";
-            }else{
-                strikeId.classList.remove("changeStrike")
-            }
-        })
-    };
-    
-    SimpleEditor.prototype.startEditor = function(){
-        this.settingTag();
-    
-        this.addEditView();
-        this.addBtn();
-        this.addSelectBtn();
-        this.titleText();
-        this.footerView();
-        this.fontFunction();
-        this.backspacePrevent();
-        this.newWriteFunction();
-        this.btnCheck();
-        this.footerFunction();
-    };
-
-    SimpleEditor.prototype.startDevEditor = function(){
-        // Editor View Part
-        this.settingTag();
-        this.addEditView();
-        this.addBtn();
-        this.addSelectBtn();
         this.addGetSetBtn();
-        this.titleText();
-        this.footerView();
-        // Editor View Part
+    }
+   
+    SimpleEditor.prototype.addHeaderEvt = function(){
+       
+            var boldId = this.element.root.querySelector("#bold");
+            var italicId = this.element.root.querySelector("#italic");
+            var underlineId = this.element.root.querySelector("#underline");
+            var strikeId = this.element.root.querySelector("#strike");
+            var edit = this.element.root.querySelector("#output").contentWindow.document;
+        
+            boldId.addEventListener("click",function(e){
+               
+                if(boldId.className === ""){
+                    boldId.className = "changeBold";
+                }else{
+                    boldId.classList.remove("changeBold");
+            }
+            edit.body.focus();
+        });
+    
+        
+            italicId.addEventListener("click",function(e){
+                if(italicId.className === ""){
+                    italicId.className = "changeItalic";
+                }else{
+                    italicId.classList.remove("changeItalic")
+                }
+                edit.body.focus();
+            });
+        
+            underlineId.addEventListener("click",function(e){
+               
+                if(underlineId.className === ""){
+                    underlineId.className = "changeUnderline";
+                }else{
+                    underlineId.classList.remove("changeUnderline");
+                }
+                edit.body.focus();
+        });
+        
+            strikeId.addEventListener("click",function(e){
+               
+                if(strikeId.className === ""){
+                    strikeId.className = "changeStrike";
+                }else{
+                    strikeId.classList.remove("changeStrike");
+                }
+                edit.body.focus();
+            });
+        
+        SimpleEditor.prototype.newWriteFunction = function(){
+            var getnewWriteId = this.element.root.querySelector("#newWrite");
+            var edit = this.getEditDocument();
+            var boldId = this.element.root.querySelector("#bold");
+            var italicId = this.element.root.querySelector("#italic");
+            var underlineId = this.element.root.querySelector("#underline");
+            var strikeId = this.element.root.querySelector("#strike");
+            
+            getnewWriteId.addEventListener("click",function(){
+                var confirmVal = window.confirm('저장되어 있던 글이 모두 삭제됩니다.');
+                
+                
+                if(confirmVal === true){
+                    edit.body.innerHTML = "<p></br></p>";
+                    
+                    boldId.className = "bold";
+                    italicId.className = "italic";
+                    underlineId.className = "underline";
+                    strikeId.className = "strike";
+                    this.curState = "Edit";
+                    console.log(this.curState);
+                    edit.body.focus();
+            
+                }else{
+                    return
+                }
+            })
 
+        };
 
-        // Editor Func Part
-        this.fontFunction();
+        SimpleEditor.prototype.fontFunction = function(){
+            var buttons = this.element.root.querySelectorAll("button");
+            var doc = this.getEditDocument();
+    
+            for(var i = 0; i<buttons.length; i++){
+            
+                buttons[i].addEventListener('click',function(){
+                var cmd = this.getAttribute('data-cmd');
+                doc.execCommand(cmd,false,null);
+                })
+            }
+        };
+      this.newWriteFunction();
+      this.fontFunction();
+    }
+
+    SimpleEditor.prototype.addContentEvt = function(){
+
+        SimpleEditor.prototype.backspacePrevent = function(e){
+            var edit = this.element.root.querySelector("#output").contentWindow.document;
+            edit.addEventListener("keyup",function(evt){
+                if(evt.defaultPrevented){
+                    return
+                }
+                var handled = false;
+                if(event.keyCode === 8 && edit.body.innerHTML === ""){
+                    handled = true;
+                    edit.body.innerHTML = "<p></br></p>";
+                }
+            },true)
+        };
+        
+        SimpleEditor.prototype.btnCheck = function(){
+            var editChange = this.element.root.querySelector("#output").contentWindow.document;
+            //var editSel = document.getElementById("output").contentWindow.document.getSelection();
+            
+            var boldId = this.element.root.querySelector("#bold");
+            var italicId = this.element.root.querySelector("#italic");
+            var underlineId =this.element.root.querySelector("#underline");
+            var strikeId =this.element.root.querySelector("#strike");
+        
+            editChange.addEventListener("selectionchange",function(){
+                //var getOut = this.element.root.querySelector("#output");
+                var boldCheck = editChange.queryCommandState("bold");
+                var italicCheck = editChange.queryCommandState("italic");
+                var underlineCheck = editChange.queryCommandState("underline");
+                var strikeCheck = editChange.queryCommandState("strikethrough");
+        
+                if(boldCheck === true){
+                    boldId.className = "changeBold";
+                }else{
+                    boldId.classList.remove("changeBold");
+                }
+                
+                if(italicCheck === true){
+                    italicId.className = "changeItalic";
+                }else{
+                    italicId.classList.remove("changeItalic")
+                }
+        
+                if(underlineCheck === true){
+                    underlineId.className = "changeUnderline";
+                }else{
+                    underlineId.classList.remove("changeUnderline")
+                }
+        
+                if(strikeCheck === true){ 
+                    strikeId.className = "changeStrike";
+                }else{
+                    strikeId.classList.remove("changeStrike")
+                }
+            })
+        };
+
         this.backspacePrevent();
-        this.newWriteFunction();
         this.btnCheck();
-        this.footerFunction();
+    }
+
+    SimpleEditor.prototype.addFooterEvt = function(){
+            var getToEdit = this.element.root.querySelector("#toEdit");
+            var getToHtml = this.element.root.querySelector("#toHtml");
+            var getToPreView = this.element.root.querySelector("#toPreView");
+
+            var edit = this.getEditDocument();
+            var getEditSection = this.element.root.querySelector("#edit_section");
+
+           
+            var getBtn = this.element.root.querySelectorAll("button");
+            var getBoxId = this.element.root.querySelector("#boxId");
+            var getIframe = this.element.root.querySelector("Iframe");
+           
+            var creTa = document.createElement("textarea");
+            creTa.id = "textAreaId";
+
+            t = this;
+            t.currentState = "Edit";
+            getToEdit.addEventListener("click",function(){
+                
+                
+    
+                if(t.currentState === "HTML"){
+                    for(var i =0; i<getBtn.length;i++){
+                        getBtn[i].removeAttribute("disabled","");
+                    }
+                    getBoxId.removeAttribute("disabled","");
+                    
+                    edit.body.designMode = "On";
+                    edit.body.innerHTML = getEditSection.childNodes[1].value;
+                    
+                    getIframe.style.display= "";
+                    getEditSection.childNodes[1].style.display ="none";
+
+                    t.currentState = "Edit";
+                    console.log(t.currentState);
+                    
+                    
+                }else if(t.currentState === "PreView"){
+                    edit.designMode = "On";
+                    for(var i = 0; i<getBtn.length;i++){
+                        getBtn[i].removeAttribute("disabled","");
+                    }
+                    getBoxId.removeAttribute("disabled","");
+                    t.currentState = "Edit";
+                   
+                    console.log(t.currentState);
+                
+                }   
+            }.bind(t));
+    
+            getToHtml.addEventListener("click",function(e){ // 소스 보기
+                
+                for(var i = 0; i<getBtn.length;i++){
+                    getBtn[i].setAttribute("disabled",true);
+                }
+                getBoxId.setAttribute("disabled",true);
+    
+                if(t.currentState === "Edit"){
+                    edit.designMode = "On";
+                   
+                    getEditSection.appendChild(creTa);
+                    creTa.value = edit.body.innerHTML;
+                   
+                    getIframe.style.display = "none";
+                    getEditSection.childNodes[1].style = "width:802px; height:348px; resize:none; font-size:16px; outline:none; font-family: Malgum Gothic; color:#000000; border:1px solid black";
+                    
+                    
+                    t.currentState = "HTML";
+                    console.log(t.currentState);
+                    
+                }else if(t.currentState === "PreView"){
+
+                    edit.designMode = "On";
+                    creTa.value = escapeParser(edit.body.innerHTML);
+                    
+                    
+                    getEditSection.appendChild(creTa);
+                    t.currentState = "HTML";
+                  
+                    console.log(t.currentState);
+                    
+                }
+               
+            }.bind(t));
+        
+            getToPreView.addEventListener("click",function(){ // 미리 보기 
+                for(var i = 0; i<getBtn.length;i++){
+                    getBtn[i].setAttribute("disabled",true);
+                }
+                getBoxId.setAttribute("disabled",true);
+                if(t.currentState === "HTML"){
+
+                    getIframe.style.display= "";
+                    getEditSection.childNodes[1].style.display ="none";
+
+                    edit.designMode= "Off";
+                    edit.body.innerHTML = getEditSection.childNodes[1].value;
+                    t.currentState="PreView";
+                    console.log(t.currentState)
+                    
+    
+                }else if(this.currentState === "Edit"){
+                    edit.designMode= "Off";
+                    t.currentState="PreView";
+                  
+                    console.log(t.currentState);
+                    
+                }
+                
+            }.bind(t));
+    };
+
+    SimpleEditor.prototype.addAPIEvt = function(){
+
+        SimpleEditor.prototype.getValue = function (){
+            var getValueBtn = this.element.root.querySelector("#getValue");
+            var doc = this.getEditDocument();
+            getValueBtn.addEventListener("click",function(e){
+                var getOut = doc;
+                var fullHtml = getOut.body.parentNode.outerHTML;
+                var getTextArea = document.getElementById("creText");
+                getTextArea.value = fullHtml;
+            })
+        };
+                
+        SimpleEditor.prototype.setValue = function(){
+            var setValueBtn = this.element.root.querySelector("#setValue");
+            var doc = this.getEditDocument();
+            var getEditSection = this.element.root.querySelector("#edit_section");
+            var getCreText = document.getElementById("creText");
+            setValueBtn.addEventListener("click",function(){
+                var edit = doc;
+                var getTextAreaId= document.getElementById("textAreaId");
+
+                if(t.currentState === "HTML"){
+                    getTextAreaId.value = escapeParser(getCreText.innerHTML);
+                    edit.body.focus();
+                }else if(t.currentState === "PreView"){
+                    return false;
+                }else{
+                    edit.body.value = getCreText.value;
+                    edit.body.focus();
+                }
+                
+            }); 
+            
+        };
+        
+        SimpleEditor.prototype.getBodyValue=  function(){
+            var getBodyValueId = this.element.root.querySelector("#getBodyValue");
+            var getTextArea = this.element.root.querySelector("#creText");
+            var getEditSection = this.element.root.querySelector("#edit_section").childNodes[1];
+            
+            var doc = this.getEditDocument();
+          
+            
+    
+            getBodyValueId.addEventListener("click",function(){
+                var edit = doc;
+                
+                if(t.currentState === "HTML"){
+                    var getTextAreaId = edit.getElementById("textAreaId");
+                    
+                    getTextArea.value = getEditSection.value;
+                   
+                }else{
+                    getTextArea.value = escapeParser(edit.body.innerHTML);
+                }
+            })
+        };
+    
+        SimpleEditor.prototype.setBodyValue=  function(e){
+            var setBodyValueId = this.element.root.querySelector("#setBodyValue");
+            var getTextArea = this.element.root.querySelector("#creText");
+            var doc = this.getEditDocument();
+    
+            setBodyValueId.addEventListener("click",function(){
+                var edit = doc;
+                if(t.currentState === "HTML"){
+                    var getTextAreaId = edit.getElementById("textAreaId");
+                    //console.log(getTextAreaId.value);
+                    edit.body.innerHTML = getTextArea.value;
+                    edit.body.focus();
+                }else if(t.currentState === "PreView"){
+                    return false;
+                }else{
+                    edit.body.innerHTML = getTextArea.value;
+                    edit.body.focus();
+                }
+               
+            })
+        };
+
         this.getValue();
         this.setValue();
         this.getBodyValue();
         this.setBodyValue();
-         // Editor Func Part
+    }
+
+
+    SimpleEditor.prototype.startEditor = function(){
+        this.settingTag();
+    
+        this.renderHeader();
+        this.renderContent();
+        this.renderFooter();
+
+        this.addHeaderEvt();
+        this.addContentEvt();
+        this.addFooterEvt();
+        
+    };
+
+    SimpleEditor.prototype.startDevEditor = function(){
+        this.settingTag();
+    
+        this.renderHeader();
+        this.renderContent();
+        this.renderFooter();
+        this.renderAPI();
+
+        this.addHeaderEvt();
+        this.addContentEvt();
+        this.addFooterEvt();
+        this.addAPIEvt();
     };
     
     global.SimpleEditor = SimpleEditor;

@@ -208,25 +208,25 @@ var getsetbtn = [
         }
     };
 
-    SimpleEditor.prototype.addGetSetBtn = function(){
-        var getArea = this.element.root.querySelector("#getsetArea");
-        var creDiv = document.createElement("div");
-        var creTextArea = document.createElement("textarea");
-        getArea.appendChild(creDiv);
-        creDiv.id = "creDivId";
-        creTextArea.id = "creText";
+    // SimpleEditor.prototype.addGetSetBtn = function(){
+    //     var getArea = this.element.root.querySelector("#getsetArea");
+    //     var creDiv = document.createElement("div");
+    //     var creTextArea = document.createElement("textarea");
+    //     getArea.appendChild(creDiv);
+    //     creDiv.id = "creDivId";
+    //     creTextArea.id = "creText";
 
-        for(var i = 0 ; i<getsetbtn.length; i++){
-            var creBtn = document.createElement("Input");
-            var getCreDivId = this.element.root.querySelector("#creDivId");
-            creBtn.id = getsetbtn[i].id;
-            creBtn.value = getsetbtn[i].value;
-            creBtn.type = "button";
+    //     for(var i = 0 ; i<getsetbtn.length; i++){
+    //         var creBtn = document.createElement("Input");
+    //         var getCreDivId = this.element.root.querySelector("#creDivId");
+    //         creBtn.id = getsetbtn[i].id;
+    //         creBtn.value = getsetbtn[i].value;
+    //         creBtn.type = "button";
 
-            getCreDivId.appendChild(creBtn);
-        }
-        getArea.appendChild(creTextArea);
-    }
+    //         getCreDivId.appendChild(creBtn);
+    //     }
+    //     getArea.appendChild(creTextArea);
+    // }
    
     SimpleEditor.prototype.toolbarEvt = function(){
         var boldId = this.element.root.querySelector("#bold");
@@ -488,26 +488,29 @@ var getsetbtn = [
     };
 
     SimpleEditor.prototype.getValue = function(){
-        var getValueBtn = this.element.root.querySelector("#getValue");
+        var getValueBtn = document.querySelector("#getValue");
         var getEditSection = this.element.root.querySelector("#edit_section");
-        var getCreText = this.element.root.querySelector("#creText");
+        var getCreText = document.querySelector("#creText");
         var doc = this.getEditDocument();
         var getIframe = this.element.root.querySelector("Iframe");
 
         getValueBtn.addEventListener("click",function(e){
             var edit = doc;
             var fullHtml = edit.body.parentNode.outerHTML;
-            var getTextArea = document.getElementById("creText");
-            getTextArea.value = fullHtml;
+           
 
+            if(t.currentState === "Edit"){
+                getCreText.value = fullHtml;
+            }
+        
             if(t.currentState === "HTML"){
                 var getTextAreaId = getEditSection.childNodes[1];
                 getIframe.style.display = "";
                 getIframe.style = "left: -10000px; top: -10000px; position:fixed;";
                 
-                getCreText.value = getIframe.body.value;
+                getCreText.value = fullHtml;
 
-                console.log(getIframe.body.value)
+                
                 getIframe.style.display="none";
             }
         })
@@ -516,35 +519,35 @@ var getsetbtn = [
 
         
 SimpleEditor.prototype.setValue = function(){
-var setValueBtn = this.element.root.querySelector("#setValue");
-var getEditSection = this.element.root.querySelector("#edit_section");
-var getCreText = this.element.root.querySelector("#creText");
-var doc = this.getEditDocument();
+    var setValueBtn = document.getElementById("setValue");
+    var getEditSection = this.element.root.querySelector("#edit_section");
+    var getCreText = document.querySelector("#creText");
+    var doc = this.getEditDocument();
 
-setValueBtn.addEventListener("click",function(){
-    var edit = doc;
+    setValueBtn.addEventListener("click",function(){
+        var edit = doc;
 
-    if(t.currentState === "Edit"){
-        edit.body.innerHTML = getCreText.value;
-        edit.body.focus();
-    }
-    else if(t.currentState === "HTML"){
-        var getTextAreaId = getEditSection.childNodes[1];
-        
-        getTextAreaId.value = setValueParser(getCreText.value);
-        getTextAreaId.focus();
+        if(t.currentState === "Edit"){
+            edit.body.innerHTML = getCreText.value;
+            edit.body.focus();
+        }
+        else if(t.currentState === "HTML"){
+            var getTextAreaId = getEditSection.childNodes[1];
+            
+            getTextAreaId.value = setValueParser(getCreText.value);
+            getTextAreaId.focus();
 
-    }else if(t.currentState === "PreView"){
-        return false;
+        }else if(t.currentState === "PreView"){
+            return false;
 
-    }
-}); 
+        }
+    }); 
 };
    
 
 SimpleEditor.prototype.getBodyValue =  function(){
-    var getBodyValueId = this.element.root.querySelector("#getBodyValue");
-    var getCreTa = this.element.root.querySelector("#creText");
+    var getBodyValueId = document.querySelector("#getBodyValue");
+    var getCreTa = document.querySelector("#creText");
     var getEditSection = this.element.root.querySelector("#edit_section");
     var doc = this.getEditDocument();
     //console.log(getEditSection.childNodes[1])
@@ -563,8 +566,8 @@ SimpleEditor.prototype.getBodyValue =  function(){
 };
 
 SimpleEditor.prototype.setBodyValue=  function(e){
-    var setBodyValueId = this.element.root.querySelector("#setBodyValue");
-    var getCreTa = this.element.root.querySelector("#creText");
+    var setBodyValueId = document.querySelector("#setBodyValue");
+    var getCreTa = document.querySelector("#creText");
     var getEditSection = this.element.root.querySelector("#edit_section");
     var doc = this.getEditDocument();
 
@@ -638,21 +641,8 @@ SimpleEditor.prototype.setBodyValue=  function(e){
         this.addHeaderEvt();
         this.addContentEvt();
         this.addFooterEvt();
-        
-    };
-
-    SimpleEditor.prototype.startDevEditor = function(){
-        this.settingTag();
-    
-        this.renderHeader();
-        this.renderContent();
-        this.renderFooter();
-        this.renderAPI();
-
-        this.addHeaderEvt();
-        this.addContentEvt();
-        this.addFooterEvt();
         this.addAPIEvt();
+        
     };
     
     global.SimpleEditor = SimpleEditor;

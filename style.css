@@ -6,7 +6,7 @@ body{
     height:300px;
     position:absolute;
     left:30%;
-    top:40%;
+    top:25%;
     margin-left:0px;
     margin-top:-150px;
 }
@@ -82,18 +82,22 @@ button:hover{
 }
 
 #getValue, #setValue ,#getBodyValue, #setBodyValue{
-    margin : 10px 10px 10px 0;
-    width: 179px;
-    background-color: white;
+    margin : 10px 10px 20px 10px;
+    width: 200px;
+    height: 30px;
+    background-color: #dfe6e9;
     border: 1px solid black;
     cursor: pointer;
     font-size: 16px;
-    width:195px;
+    text-align: center;
+    line-height: 30px;
 }
 
 #creText{
-    width: 60%;
+    width: 100%;
     height: 200px;;
+    outline: none;
+    border: 1px solid black;;
 }
 
 .changeBold, .changeItalic, .changeUnderline, .changeStrike{

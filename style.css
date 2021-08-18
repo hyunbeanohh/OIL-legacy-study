@@ -1,3 +1,6 @@
+iframe{
+    word-break: break-all;
+}
 body{
     width:70%;
     height:300px;

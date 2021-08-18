@@ -82,6 +82,20 @@ var getsetbtn = [
         return b;
     };
 
+    function setValueParser(a){
+        var b = '';
+    
+        b = a.replace(/<html>/g,'');
+        b = b.replace(/<body>/g,'');
+        b = b.replace(/<head>/g,'');
+        b = b.replace(/<body>/g,'');
+        b = b.replace("</head>",''); 
+        b = b.replace("</body>",''); 
+        b = b.replace("</html>",''); 
+    
+        return b;
+    };
+
     // SimpleEditor.prototype.setLeft = function(node,options,left,top){
     //     var getNode = document.getElementById(node);
         
@@ -200,8 +214,8 @@ var getsetbtn = [
             getSection.appendChild(createIframeTag);
         
             var edit = this.element.root.querySelector("#output").contentWindow.document;
-            edit.body.className = "content";
-            edit.body.style ="word-break:break-all";
+            
+            
             edit.body.innerHTML = "<p></br></P>";
             edit.designMode = "On";
             
@@ -296,16 +310,16 @@ var getsetbtn = [
             });
         
         SimpleEditor.prototype.newWriteFunction = function(){
-            var getnewWriteId = this.element.root.querySelector("#newWrite");
-            var edit = this.getEditDocument();
-            var boldId = this.element.root.querySelector("#bold");
-            var italicId = this.element.root.querySelector("#italic");
-            var underlineId = this.element.root.querySelector("#underline");
-            var strikeId = this.element.root.querySelector("#strike");
+           var getnewWriteId = this.element.root.querySelector("#newWrite");
             
             getnewWriteId.addEventListener("click",function(){
                 var confirmVal = window.confirm('저장되어 있던 글이 모두 삭제됩니다.');
                 
+                var edit = this.getEditDocument();
+                var boldId = this.element.root.querySelector("#bold");
+                var italicId = this.element.root.querySelector("#italic");
+                var underlineId = this.element.root.querySelector("#underline");
+                var strikeId = this.element.root.querySelector("#strike");
                 
                 if(confirmVal === true){
                     edit.body.innerHTML = "<p></br></p>";
@@ -422,9 +436,7 @@ var getsetbtn = [
             t = this;
             t.currentState = "Edit";
             getToEdit.addEventListener("click",function(){
-                
-                
-    
+
                 if(t.currentState === "HTML"){
                     for(var i =0; i<getBtn.length;i++){
                         getBtn[i].removeAttribute("disabled","");
@@ -432,11 +444,11 @@ var getsetbtn = [
                     getBoxId.removeAttribute("disabled","");
                     
                     edit.body.designMode = "On";
-                    edit.body.innerHTML = getEditSection.childNodes[1].value;
-                    
+
                     getIframe.style.display= "";
                     getEditSection.childNodes[1].style.display ="none";
 
+                    edit.body.innerHTML = getEditSection.childNodes[1].value;
                     t.currentState = "Edit";
                     console.log(t.currentState);
                     
@@ -447,6 +459,7 @@ var getsetbtn = [
                         getBtn[i].removeAttribute("disabled","");
                     }
                     getBoxId.removeAttribute("disabled","");
+
                     t.currentState = "Edit";
                    
                     console.log(t.currentState);
@@ -477,12 +490,10 @@ var getsetbtn = [
                 }else if(t.currentState === "PreView"){
 
                     edit.designMode = "On";
-                    creTa.value = escapeParser(edit.body.innerHTML);
-                    
-                    
-                    getEditSection.appendChild(creTa);
+                    getIframe.style.display= "none";
+                    getEditSection.childNodes[1].style.display ="";
+                    creTa.value = edit.body.innerHTML;
                     t.currentState = "HTML";
-                  
                     console.log(t.currentState);
                     
                 }
@@ -494,17 +505,16 @@ var getsetbtn = [
                     getBtn[i].setAttribute("disabled",true);
                 }
                 getBoxId.setAttribute("disabled",true);
-                if(t.currentState === "HTML"){
 
+                if(t.currentState === "HTML"){
+                    edit.designMode= "Off";
                     getIframe.style.display= "";
                     getEditSection.childNodes[1].style.display ="none";
 
-                    edit.designMode= "Off";
                     edit.body.innerHTML = getEditSection.childNodes[1].value;
                     t.currentState="PreView";
                     console.log(t.currentState)
-                    
-    
+
                 }else if(this.currentState === "Edit"){
                     edit.designMode= "Off";
                     t.currentState="PreView";
@@ -518,66 +528,81 @@ var getsetbtn = [
 
     SimpleEditor.prototype.addAPIEvt = function(){
 
-        SimpleEditor.prototype.getValue = function (){
             var getValueBtn = this.element.root.querySelector("#getValue");
+            var getEditSection = this.element.root.querySelector("#edit_section");
+            var getCreText = this.element.root.querySelector("#creText");
             var doc = this.getEditDocument();
+            var getIframe = this.element.root.querySelector("Iframe");
+
             getValueBtn.addEventListener("click",function(e){
-                var getOut = doc;
-                var fullHtml = getOut.body.parentNode.outerHTML;
+                var edit = doc;
+                var fullHtml = edit.body.parentNode.outerHTML;
                 var getTextArea = document.getElementById("creText");
                 getTextArea.value = fullHtml;
-            })
-        };
-                
-        SimpleEditor.prototype.setValue = function(){
-            var setValueBtn = this.element.root.querySelector("#setValue");
-            var doc = this.getEditDocument();
-            var getEditSection = this.element.root.querySelector("#edit_section");
-            var getCreText = document.getElementById("creText");
-            setValueBtn.addEventListener("click",function(){
-                var edit = doc;
-                var getTextAreaId= document.getElementById("textAreaId");
 
                 if(t.currentState === "HTML"){
-                    getTextAreaId.value = escapeParser(getCreText.innerHTML);
-                    edit.body.focus();
-                }else if(t.currentState === "PreView"){
-                    return false;
-                }else{
-                    edit.body.value = getCreText.value;
+                    var getTextAreaId = getEditSection.childNodes[1];
+                    getIframe.style.display = "";
+                    getIframe.style = "left: -10000px; top: -10000px; position:fixed;";
+                    
+                    getCreText.value = getIframe.body.value;
+
+                    console.log(getIframe.body.value)
+                    getIframe.style.display="none";
+                }
+            })
+        
+                
+       
+            var setValueBtn = this.element.root.querySelector("#setValue");
+            
+            
+            setValueBtn.addEventListener("click",function(){
+                var edit = doc;
+                
+
+                if(t.currentState === "Edit"){
+                    edit.body.innerHTML = getCreText.value;
                     edit.body.focus();
                 }
-                
+                else if(t.currentState === "HTML"){
+                    var getTextAreaId = getEditSection.childNodes[1];
+                    
+                    getTextAreaId.value = setValueParser(getCreText.value);
+                    getTextAreaId.focus();
+
+                }else if(t.currentState === "PreView"){
+                    return false;
+
+                }
             }); 
             
-        };
+        
         
         SimpleEditor.prototype.getBodyValue=  function(){
             var getBodyValueId = this.element.root.querySelector("#getBodyValue");
-            var getTextArea = this.element.root.querySelector("#creText");
-            var getEditSection = this.element.root.querySelector("#edit_section").childNodes[1];
-            
+            var getCreTa = this.element.root.querySelector("#creText");
+            var getEditSection = this.element.root.querySelector("#edit_section");
             var doc = this.getEditDocument();
-          
+            //console.log(getEditSection.childNodes[1])
             
     
             getBodyValueId.addEventListener("click",function(){
                 var edit = doc;
                 
                 if(t.currentState === "HTML"){
-                    var getTextAreaId = edit.getElementById("textAreaId");
-                    
-                    getTextArea.value = getEditSection.value;
+                    getCreTa.value = getEditSection.childNodes[1].value;
                    
                 }else{
-                    getTextArea.value = escapeParser(edit.body.innerHTML);
+                    getCreTa.value = edit.body.innerHTML;
                 }
             })
         };
     
         SimpleEditor.prototype.setBodyValue=  function(e){
             var setBodyValueId = this.element.root.querySelector("#setBodyValue");
-            var getTextArea = this.element.root.querySelector("#creText");
+            var getCreTa = this.element.root.querySelector("#creText");
+            var getEditSection = this.element.root.querySelector("#edit_section");
             var doc = this.getEditDocument();
     
             setBodyValueId.addEventListener("click",function(){
@@ -585,20 +610,19 @@ var getsetbtn = [
                 if(t.currentState === "HTML"){
                     var getTextAreaId = edit.getElementById("textAreaId");
                     //console.log(getTextAreaId.value);
-                    edit.body.innerHTML = getTextArea.value;
+                    getEditSection.childNodes[1].value = setValueParser(getCreTa.value);
                     edit.body.focus();
                 }else if(t.currentState === "PreView"){
                     return false;
                 }else{
-                    edit.body.innerHTML = getTextArea.value;
+                    edit.body.innerHTML = getCreTa.value;
                     edit.body.focus();
                 }
                
             })
         };
 
-        this.getValue();
-        this.setValue();
+        
         this.getBodyValue();
         this.setBodyValue();
     }

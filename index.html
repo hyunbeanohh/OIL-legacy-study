@@ -27,11 +27,74 @@
         <textarea id = "creText"></textarea>
     </div>
     
-    <script  src="./excute.js";></script>
-    <!-- <script>
+    <!-- 사용자 API 영역 -->
+    <script> 
+        var editor = new SimpleEditor("root");
+        editor.startEditor()
+        var getCreText = document.querySelector("#creText");
+
+        
         var getValueHandler = document.getElementById("getValue");
-        getValueHandler.addEventListener("click",editor.getValue());
-    </script> -->
+
+        getValueHandler.addEventListener("click" , function(){
+            var temp = editor.getValue();
+            if(t.currentState === "Edit"){
+                getCreText.value = temp;
+            }else if(t.currentState === "HTML"){
+                getCreText.value = temp;
+            }else if(t.currentState === "PreView"){
+                getCreText.value = temp;
+            }
+        });
+
+        var getBodyValueHandler = document.getElementById("getBodyValue");
+
+        getBodyValueHandler.addEventListener("click",function(){
+            var temp = editor.getBodyValue();
+            if(t.currentState === "Edit"){
+                getCreText.value = temp;
+            }else if(t.currentState === "HTML"){
+                getCreText.value = temp;
+            }else if(t.currentState === "PreView"){
+                getCreText.value = temp;
+            }
+        });
+        
+        var setValue = document.getElementById("setValue");
+
+        setValue.addEventListener("click",function(){
+            var temp = editor.setValue();
+            var getOut = document.getElementById("output");
+            var getDoc = getOut.contentWindow.document;
+            var getTextAreaId = document.getElementById("textAreaId");
+             if(t.currentState === "Edit"){
+                getDoc.body.innerHTML = temp;
+                getDoc.body.focus();
+             }else if(t.currentState === "HTML"){
+                getTextAreaId.value = temp;
+                getDoc.body.focus();
+             }else if(t.currentState === "PreView"){
+                 return;
+             }
+        })
+
+        var setBodyValueHandler = document.getElementById("setBodyValue");
+        setBodyValueHandler.addEventListener("click",function(){
+            var temp = editor.setBodyValue();
+            var getOut = document.getElementById("output");
+            var getDoc = getOut.contentWindow.document;
+            var getTextAreaId = document.getElementById("textAreaId");
+            if(t.currentState === "Edit"){
+                getDoc.body.innerHTML = temp;
+                getDoc.body.focus();
+             }else if(t.currentState === "HTML"){
+                getTextAreaId.value = temp;
+                getDoc.body.focus();
+             }else if(t.currentState === "PreView"){
+                 return;
+             }
+        });
+    </script>
 </body>
 </html>
 

@@ -36,8 +36,8 @@ var getsetbtn = [
          * @typedef {object} SimpleEditor - editor Object
          * @property {string | Element} node - node type 
          * @property {string | undefined} options - options type
-         * @property {string} left - left type
-         * @property {string} right - left value
+         * @property {string} width - editor widht type
+         * @property {string} height - editor height type
          */
 
     function SimpleEditor(node,options,left,top){
@@ -207,26 +207,6 @@ var getsetbtn = [
             getFooter.appendChild(creDiv);
         }
     };
-
-    // SimpleEditor.prototype.addGetSetBtn = function(){
-    //     var getArea = this.element.root.querySelector("#getsetArea");
-    //     var creDiv = document.createElement("div");
-    //     var creTextArea = document.createElement("textarea");
-    //     getArea.appendChild(creDiv);
-    //     creDiv.id = "creDivId";
-    //     creTextArea.id = "creText";
-
-    //     for(var i = 0 ; i<getsetbtn.length; i++){
-    //         var creBtn = document.createElement("Input");
-    //         var getCreDivId = this.element.root.querySelector("#creDivId");
-    //         creBtn.id = getsetbtn[i].id;
-    //         creBtn.value = getsetbtn[i].value;
-    //         creBtn.type = "button";
-
-    //         getCreDivId.appendChild(creBtn);
-    //     }
-    //     getArea.appendChild(creTextArea);
-    // }
    
     SimpleEditor.prototype.toolbarEvt = function(){
         var boldId = this.element.root.querySelector("#bold");
@@ -406,10 +386,9 @@ var getsetbtn = [
                 
                 edit.body.designMode = "On";
 
-                getIframe.style.display= "";
                 getEditSection.childNodes[1].style.display ="none";
-
                 edit.body.innerHTML = getEditSection.childNodes[1].value;
+                getIframe.style =  "";
                 t.currentState = "Edit";
                 console.log(t.currentState);
                 
@@ -488,104 +467,63 @@ var getsetbtn = [
     };
 
     SimpleEditor.prototype.getValue = function(){
-        var getValueBtn = document.querySelector("#getValue");
         var getEditSection = this.element.root.querySelector("#edit_section");
-        var getCreText = document.querySelector("#creText");
         var doc = this.getEditDocument();
         var getIframe = this.element.root.querySelector("Iframe");
-
-        getValueBtn.addEventListener("click",function(e){
-            var edit = doc;
-            var fullHtml = edit.body.parentNode.outerHTML;
-           
-
-            if(t.currentState === "Edit"){
-                getCreText.value = fullHtml;
-            }
-        
-            if(t.currentState === "HTML"){
-                var getTextAreaId = getEditSection.childNodes[1];
-                getIframe.style.display = "";
-                getIframe.style = "left: -10000px; top: -10000px; position:fixed;";
-                
-                getCreText.value = fullHtml;
-
-                
-                getIframe.style.display="none";
-            }
-        })
-    }
-    
-
-        
-SimpleEditor.prototype.setValue = function(){
-    var setValueBtn = document.getElementById("setValue");
-    var getEditSection = this.element.root.querySelector("#edit_section");
-    var getCreText = document.querySelector("#creText");
-    var doc = this.getEditDocument();
-
-    setValueBtn.addEventListener("click",function(){
         var edit = doc;
-
+        var fullHtml = edit.body.parentNode.outerHTML;
         if(t.currentState === "Edit"){
-            edit.body.innerHTML = getCreText.value;
-            edit.body.focus();
+            return fullHtml
         }
         else if(t.currentState === "HTML"){
-            var getTextAreaId = getEditSection.childNodes[1];
-            
-            getTextAreaId.value = setValueParser(getCreText.value);
-            getTextAreaId.focus();
-
+            getIframe.style.display = "";
+            getIframe.style = "left: -10000px; top: -10000px; position:fixed;";
+            edit.body.innerHTML = getEditSection.childNodes[1].value;
+            fullHtml = edit.body.parentNode.outerHTML;
+            return fullHtml;
         }else if(t.currentState === "PreView"){
-            return false;
-
+            return fullHtml;
         }
-    }); 
+    }
+           
+SimpleEditor.prototype.setValue = function(){
+    var getCreText = document.querySelector("#creText");
+    if(t.currentState === "Edit"){
+        return getCreText.value;
+    }
+    else if(t.currentState === "HTML"){
+        return setValueParser(getCreText.value);
+    }else if(t.currentState === "PreView"){
+        return false;
+    }
 };
    
 
 SimpleEditor.prototype.getBodyValue =  function(){
-    var getBodyValueId = document.querySelector("#getBodyValue");
-    var getCreTa = document.querySelector("#creText");
     var getEditSection = this.element.root.querySelector("#edit_section");
     var doc = this.getEditDocument();
-    //console.log(getEditSection.childNodes[1])
-    
-
-    getBodyValueId.addEventListener("click",function(){
-        var edit = doc;
+    var edit = doc;
+    if(t.currentState === "Edit"){
+        return edit.body.innerHTML;
+    }
+    else if(t.currentState === "HTML"){
+        return getEditSection.childNodes[1].value;
         
-        if(t.currentState === "HTML"){
-            getCreTa.value = getEditSection.childNodes[1].value;
-           
-        }else{
-            getCreTa.value = edit.body.innerHTML;
-        }
-    })
+    }else if(t.currentState === "PreView"){
+        return edit.body.innerHTML;
+    }
 };
 
 SimpleEditor.prototype.setBodyValue=  function(e){
-    var setBodyValueId = document.querySelector("#setBodyValue");
     var getCreTa = document.querySelector("#creText");
-    var getEditSection = this.element.root.querySelector("#edit_section");
-    var doc = this.getEditDocument();
-
-    setBodyValueId.addEventListener("click",function(){
-        var edit = doc;
-        if(t.currentState === "HTML"){
-            var getTextAreaId = edit.getElementById("textAreaId");
-            //console.log(getTextAreaId.value);
-            getEditSection.childNodes[1].value = setValueParser(getCreTa.value);
-            edit.body.focus();
-        }else if(t.currentState === "PreView"){
-            return false;
-        }else{
-            edit.body.innerHTML = getCreTa.value;
-            edit.body.focus();
-        }
-       
-    })
+    if(t.currentState === "Edit"){
+        return getCreTa.value;
+    }
+    else if(t.currentState === "HTML"){
+        return setValueParser(getCreTa.value);
+    }else if(t.currentState === "PreView"){
+        return false;
+    }
 };
 
     SimpleEditor.prototype.renderHeader = function(){

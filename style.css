@@ -1,4 +1,4 @@
-iframe{
+iframe> body{
     word-break: break-all;
 }
 body{

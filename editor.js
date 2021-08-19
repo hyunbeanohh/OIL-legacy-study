@@ -92,6 +92,7 @@ var getsetbtn = [
         b = b.replace("</head>",''); 
         b = b.replace("</body>",''); 
         b = b.replace("</html>",''); 
+        b= b.replace(/<body style="word-break: break-all;">/,'');
     
         return b;
     };
@@ -188,6 +189,7 @@ var getsetbtn = [
         var getSection = this.element.root.querySelector("#edit_section");
         getSection.appendChild(createIframeTag);
         var edit = this.element.root.querySelector("#output").contentWindow.document;
+        edit.body.style = "word-break: break-all;"
         edit.body.innerHTML = "<p></br></P>";
         edit.designMode = "On";
         
@@ -457,10 +459,10 @@ var getsetbtn = [
 
             if(t.currentState === "HTML"){
                 edit.designMode= "Off";
-                getIframe.style.display= "";
+                getIframe.style= "";
                 getEditSection.childNodes[1].style.display ="none";
-
                 edit.body.innerHTML = getEditSection.childNodes[1].value;
+                
                 t.currentState="PreView";
                 console.log(t.currentState)
 

@@ -185,13 +185,9 @@ var getsetbtn = [
         createIframeTag.id = "output";
         createIframeTag.name = "textFiled";
         this.editIframe = createIframeTag;
-        
         var getSection = this.element.root.querySelector("#edit_section");
         getSection.appendChild(createIframeTag);
-    
         var edit = this.element.root.querySelector("#output").contentWindow.document;
-        
-        
         edit.body.innerHTML = "<p></br></P>";
         edit.designMode = "On";
         
@@ -486,15 +482,17 @@ var getsetbtn = [
         }
     }
            
-SimpleEditor.prototype.setValue = function(){
+SimpleEditor.prototype.setValue = function(data = "<p></br></p>"){
     var getCreText = document.querySelector("#creText");
+    var edit = this.getEditDocument();
+
     if(t.currentState === "Edit"){
-        return getCreText.value;
+        edit.body.innerHTML = data;
     }
     else if(t.currentState === "HTML"){
-        return setValueParser(getCreText.value);
+        edit.body.innerHTML = setValueParser(data);
     }else if(t.currentState === "PreView"){
-        return false;
+         return ;
     }
 };
    
@@ -514,13 +512,15 @@ SimpleEditor.prototype.getBodyValue =  function(){
     }
 };
 
-SimpleEditor.prototype.setBodyValue=  function(e){
+SimpleEditor.prototype.setBodyValue=  function(data = "<p></br></p>"){
     var getCreTa = document.querySelector("#creText");
+    var doc = this.getEditDocument();
+    var edit = doc;
     if(t.currentState === "Edit"){
-        return getCreTa.value;
+        edit.body.innerHTML = data;
     }
     else if(t.currentState === "HTML"){
-        return setValueParser(getCreTa.value);
+        edit.body.innerHTML =  setValueParser(data);
     }else if(t.currentState === "PreView"){
         return false;
     }

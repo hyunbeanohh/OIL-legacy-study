@@ -358,7 +358,7 @@ var getsetbtn = [
         var getToEdit = this.element.root.querySelector("#toEdit");
         var getToHtml = this.element.root.querySelector("#toHtml");
         var getToPreView = this.element.root.querySelector("#toPreView");
-
+        getToEdit.style.backgroundColor="#f1f2f6";
         var edit = this.getEditDocument();
         var getEditSection = this.element.root.querySelector("#edit_section");
 
@@ -373,10 +373,13 @@ var getsetbtn = [
         t = this;
         t.currentState = "Edit";
         getToEdit.addEventListener("click",function(){
-
+            getToEdit.style.backgroundColor = "#f1f2f6";
+            getToHtml.style.backgroundColor = "";
+            getToPreView.style.backgroundColor ="";
             if(t.currentState === "HTML"){
                 for(var i =0; i<getBtn.length;i++){
                     getBtn[i].removeAttribute("disabled","");
+                    getBtn[i].style.backgroundColor = "";
                 }
                 getBoxId.removeAttribute("disabled","");
                 
@@ -404,13 +407,16 @@ var getsetbtn = [
         }.bind(t));
 
         getToHtml.addEventListener("click",function(e){ // 소스 보기
-            
+            getToEdit.style.backgroundColor = "";
+            getToHtml.style.backgroundColor = "#f1f2f6";
+            getToPreView.style.backgroundColor ="";
             for(var i = 0; i<getBtn.length;i++){
                 getBtn[i].setAttribute("disabled",true);
+                getBtn[i].style.backgroundColor = "white";
             }
             getBoxId.setAttribute("disabled",true);
 
-            if(t.currentState === "Edit"){
+            if(t.currentState === "Edit"){ //eidt -> html
                 edit.designMode = "On";
                
                 getEditSection.appendChild(creTa);
@@ -423,12 +429,15 @@ var getsetbtn = [
                 t.currentState = "HTML";
                 console.log(t.currentState);
                 
-            }else if(t.currentState === "PreView"){
+            }else if(t.currentState === "PreView"){ // 미리 보기 -> html
 
                 edit.designMode = "On";
                 getIframe.style.display= "none";
-                getEditSection.childNodes[1].style.display ="";
+
+                getEditSection.appendChild(creTa);
+                getEditSection.childNodes[1].style = "width:802px; height:348px; resize:none; font-size:16px; outline:none; font-family: Malgum Gothic; color:#000000; border:1px solid black";
                 creTa.value = edit.body.innerHTML;
+
                 t.currentState = "HTML";
                 console.log(t.currentState);
                 
@@ -437,8 +446,12 @@ var getsetbtn = [
         }.bind(t));
     
         getToPreView.addEventListener("click",function(){ // 미리 보기 
+            getToEdit.style.backgroundColor = "";
+            getToHtml.style.backgroundColor = "";
+            getToPreView.style.backgroundColor ="#f1f2f6";
             for(var i = 0; i<getBtn.length;i++){
                 getBtn[i].setAttribute("disabled",true);
+                getBtn[i].style.backgroundColor = "white";
             }
             getBoxId.setAttribute("disabled",true);
 
@@ -485,12 +498,12 @@ var getsetbtn = [
 SimpleEditor.prototype.setValue = function(data = "<p></br></p>"){
     var getCreText = document.querySelector("#creText");
     var edit = this.getEditDocument();
-
+    var getEditSection = this.element.root.querySelector("#edit_section");
     if(t.currentState === "Edit"){
         edit.body.innerHTML = data;
     }
     else if(t.currentState === "HTML"){
-        edit.body.innerHTML = setValueParser(data);
+        getEditSection.childNodes[1].value = setValueParser(data);
     }else if(t.currentState === "PreView"){
          return ;
     }
@@ -514,13 +527,14 @@ SimpleEditor.prototype.getBodyValue =  function(){
 
 SimpleEditor.prototype.setBodyValue=  function(data = "<p></br></p>"){
     var getCreTa = document.querySelector("#creText");
+    var getEditSection = this.element.root.querySelector("#edit_section");
     var doc = this.getEditDocument();
     var edit = doc;
     if(t.currentState === "Edit"){
         edit.body.innerHTML = data;
     }
     else if(t.currentState === "HTML"){
-        edit.body.innerHTML =  setValueParser(data);
+        getEditSection.childNodes[1].value =  setValueParser(data);
     }else if(t.currentState === "PreView"){
         return false;
     }

@@ -183,6 +183,7 @@ var getsetbtn = [
 
     SimpleEditor.prototype.addEditView = function(){
         var createIframeTag = document.createElement("iframe");
+        createIframeTag.style.height = "350px";
         createIframeTag.id = "output";
         createIframeTag.name = "textFiled";
         this.editIframe = createIframeTag;
@@ -197,13 +198,23 @@ var getsetbtn = [
 
     SimpleEditor.prototype.footerView = function(){
         var getFooter = this.element.root.querySelector("#footer");
-    
+        var creResizeBtn = document.createElement("button");
+        var creResizeDiv = document.createElement("div");
+        var creReiszeinnerDiv = document.createElement("div");
+        creResizeDiv.id = "reSizeDiv";
+        creReiszeinnerDiv.id = "resSizeInnerDiv";
+        creResizeBtn.id = "resizeBtn";
+
         for(var i = 0; i<footerbtn.length; i++){
             var creDiv = document.createElement("div");
             creDiv.innerHTML = footerbtn[i].value;
             creDiv.id = footerbtn[i].key;
             getFooter.appendChild(creDiv);
         }
+        getFooter.after(creResizeDiv);
+        creResizeDiv.appendChild(creReiszeinnerDiv);
+        creResizeDiv.appendChild(creResizeBtn);
+        
     };
    
     SimpleEditor.prototype.toolbarEvt = function(){
@@ -356,11 +367,75 @@ var getsetbtn = [
         })
     };
 
+    SimpleEditor.prototype.resizeEvt = function(){
+        var getEditSection = this.element.root.querySelector("#edit_section");
+        var getIframe = getEditSection.childNodes[0];
+        var getResizeBtn = document.getElementById("resizeBtn");
+
+        getResizeBtn.addEventListener("mousedown",initDrag,false);
+        
+        var startX, startY, startWidth, startHeight;
+        
+        
+        function initDrag(e){
+            
+            startX = e.clientX;
+            startY = e.clientY;
+
+            if(t.currentState === "Edit"){
+                startHeight = parseInt(getIframe.offsetHeight, 10);
+
+                document.documentElement.addEventListener('mousemove', doDrag, false);
+                document.documentElement.addEventListener('mouseup', stopDrag, false);
+                
+            }
+            else if(t.currentState === "HTML"){
+                
+                var getTextAreaId = getEditSection.childNodes[1];
+                startHeight = parseInt(getTextAreaId.offsetHeight, 10);
+                
+                document.documentElement.addEventListener('mousemove', doDrag, false);
+                document.documentElement.addEventListener('mouseup', stopDrag, false);
+
+            }else if(t.currentState === "PreView"){
+
+                startHeight = parseInt(getIframe.offsetHeight, 10);
+
+                document.documentElement.addEventListener('mousemove', doDrag, false);
+                document.documentElement.addEventListener('mouseup', stopDrag, false);
+                
+            }
+            
+        }
+        
+        function doDrag(e) {
+            if(t.currentState === "Edit"){
+                getIframe.style.height = (startHeight + e.clientY - startY) + 'px';
+            }
+           
+            else if(t.currentState === "HTML"){
+                var getTextAreaId = getEditSection.childNodes[1];
+                getTextAreaId.style.height = (startHeight + e.clientY - startY) + 'px';
+            }
+            
+            else if(t.currentState === "PreView"){
+                getIframe.style.height = (startHeight + e.clientY - startY) + 'px';
+            }
+        }
+        
+    
+        function stopDrag(e) {
+            document.documentElement.removeEventListener('mousemove', doDrag, false);
+            document.documentElement.removeEventListener('mouseup', stopDrag, false);
+        }
+    }
+
     SimpleEditor.prototype.footerEvt = function(){
         var getToEdit = this.element.root.querySelector("#toEdit");
         var getToHtml = this.element.root.querySelector("#toHtml");
         var getToPreView = this.element.root.querySelector("#toPreView");
-        getToEdit.style.backgroundColor="#f1f2f6";
+        getToEdit.style.backgroundColor="#f1f2f6"; 
+
         var edit = this.getEditDocument();
         var getEditSection = this.element.root.querySelector("#edit_section");
 
@@ -368,28 +443,38 @@ var getsetbtn = [
         var getBtn = this.element.root.querySelectorAll("button");
         var getBoxId = this.element.root.querySelector("#boxId");
         var getIframe = this.element.root.querySelector("Iframe");
-       
+        var getResizeBtn = this.element.root.querySelector("#resizeBtn");
+
         var creTa = document.createElement("textarea");
         creTa.id = "textAreaId";
 
         t = this;
         t.currentState = "Edit";
-        getToEdit.addEventListener("click",function(){
+
+         getToEdit.addEventListener("click",function(){
             getToEdit.style.backgroundColor = "#f1f2f6";
             getToHtml.style.backgroundColor = "";
             getToPreView.style.backgroundColor ="";
+
+            
+
             if(t.currentState === "HTML"){
                 for(var i =0; i<getBtn.length;i++){
                     getBtn[i].removeAttribute("disabled","");
                     getBtn[i].style.backgroundColor = "";
                 }
                 getBoxId.removeAttribute("disabled","");
+                getResizeBtn.removeAttribute("disabled","");
+
                 
+
                 edit.body.designMode = "On";
 
                 getEditSection.childNodes[1].style.display ="none";
                 edit.body.innerHTML = getEditSection.childNodes[1].value;
                 getIframe.style =  "";
+                getEditSection.childNodes[0].style.height = getEditSection.childNodes[1].style.height;
+
                 t.currentState = "Edit";
                 console.log(t.currentState);
                 
@@ -400,7 +485,7 @@ var getsetbtn = [
                     getBtn[i].removeAttribute("disabled","");
                 }
                 getBoxId.removeAttribute("disabled","");
-
+                getResizeBtn.removeAttribute("disabled","");
                 t.currentState = "Edit";
                
                 console.log(t.currentState);
@@ -412,32 +497,40 @@ var getsetbtn = [
             getToEdit.style.backgroundColor = "";
             getToHtml.style.backgroundColor = "#f1f2f6";
             getToPreView.style.backgroundColor ="";
+            
             for(var i = 0; i<getBtn.length;i++){
                 getBtn[i].setAttribute("disabled",true);
                 getBtn[i].style.backgroundColor = "white";
             }
             getBoxId.setAttribute("disabled",true);
 
-            if(t.currentState === "Edit"){ //eidt -> html
+            getResizeBtn.removeAttribute("disabled","");
+            getResizeBtn.style.backgroundColor ="";
+            
+            if(t.currentState === "Edit"){ //edit -> html
                 edit.designMode = "On";
-               
+
+                getResizeBtn.style.backgroundColor ="";
                 getEditSection.appendChild(creTa);
                 creTa.value = edit.body.innerHTML;
-               
+
                 getIframe.style.display = "none";
-                getEditSection.childNodes[1].style = "width:802px; height:348px; resize:none; font-size:16px; outline:none; font-family: Malgum Gothic; color:#000000; border:1px solid black";
+                getEditSection.childNodes[1].style = "width:802px; resize:none; font-size:16px; outline:none; font-family: Malgum Gothic; color:#000000; border:1px solid black";
                 
-                
+                getEditSection.childNodes[1].style.height = getEditSection.childNodes[0].style.height;
+
                 t.currentState = "HTML";
                 console.log(t.currentState);
                 
             }else if(t.currentState === "PreView"){ // 미리 보기 -> html
 
                 edit.designMode = "On";
+                getResizeBtn.style.backgroundColor ="";
                 getIframe.style.display= "none";
 
                 getEditSection.appendChild(creTa);
                 getEditSection.childNodes[1].style = "width:802px; height:348px; resize:none; font-size:16px; outline:none; font-family: Malgum Gothic; color:#000000; border:1px solid black";
+                getEditSection.childNodes[1].style.height = getEditSection.childNodes[0].style.height;
                 creTa.value = edit.body.innerHTML;
 
                 t.currentState = "HTML";
@@ -451,25 +544,33 @@ var getsetbtn = [
             getToEdit.style.backgroundColor = "";
             getToHtml.style.backgroundColor = "";
             getToPreView.style.backgroundColor ="#f1f2f6";
+
             for(var i = 0; i<getBtn.length;i++){
                 getBtn[i].setAttribute("disabled",true);
                 getBtn[i].style.backgroundColor = "white";
             }
+            
             getBoxId.setAttribute("disabled",true);
+            getResizeBtn.removeAttribute("disabled","");
 
             if(t.currentState === "HTML"){
                 edit.designMode= "Off";
+
+                getResizeBtn.style.backgroundColor ="";
+                
+
                 getIframe.style= "";
                 getEditSection.childNodes[1].style.display ="none";
                 edit.body.innerHTML = getEditSection.childNodes[1].value;
-                
+                getEditSection.childNodes[0].style.height = getEditSection.childNodes[1].style.height;
                 t.currentState="PreView";
                 console.log(t.currentState)
 
             }else if(this.currentState === "Edit"){
                 edit.designMode= "Off";
+                getResizeBtn.style.backgroundColor ="";
+                
                 t.currentState="PreView";
-              
                 console.log(t.currentState);
                 
             }
@@ -570,10 +671,12 @@ SimpleEditor.prototype.setBodyValue=  function(data = "<p></br></p>"){
     SimpleEditor.prototype.addContentEvt = function(){
         this.backspacePrevent();
         this.btnCheck();
+        
     }  
     
     SimpleEditor.prototype.addFooterEvt = function(){
-        this.footerEvt();    
+        this.footerEvt();   
+        this.resizeEvt(); 
     };
 
     SimpleEditor.prototype.addAPIEvt = function(){

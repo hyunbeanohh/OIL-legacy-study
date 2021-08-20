@@ -1,6 +1,3 @@
-iframe> body{
-    word-break: break-all;
-}
 body{
     width:70%;
     height:300px;
@@ -11,7 +8,12 @@ body{
     margin-top:-150px;
 }
 
-button{
+#header_section{
+    margin: 0 0 15px -10px;
+    width: 61%;
+}
+
+#header_section > button{
     float: left;
     margin-left: 10px;
     border:none;
@@ -23,14 +25,8 @@ button{
     box-shadow: 3px 3px 3px rgba(0,0,0,0.5);
 }
 
-button:hover{
+#header_section > button:hover{
     background-color:#bfefcf;
-}
-
-
-#header_section{
-    margin: 0 0 15px -10px;
-    width: 61%;
 }
 
 #footer{
@@ -44,6 +40,7 @@ button:hover{
 }
 
 #toEdit,#toHtml,#toPreView{
+    background-color: white;
     display:flex; 
     line-height:30px; 
     width: 15%; 
@@ -53,6 +50,37 @@ button:hover{
     border-right: 1px solid black; 
     cursor: pointer;
     
+}
+#reSizeDiv{
+    margin-top: 0px;
+    padding: 0px;
+    text-align: center;
+    vertical-align: top;
+    font-size: 0px;
+    height: 12px;
+    width: 808px;
+}
+#resSizeInnerDiv{
+    margin: 0px 0px -5px;
+    padding: 0px;
+    height: 2px;
+    line-height: 0;
+    font-size: 0px;
+    border: 1px solid rgb(206, 211, 218);
+    background-color: rgb(238, 238, 238);
+}
+#resizeBtn{
+    outline: none;
+    overflow: hidden;
+    margin: 0px;
+    padding: 0px;
+    display: inline-block;
+    cursor: row-resize;
+    width: 60%;
+    height: 12px;
+    text-align: center;
+    border: 0px solid rgb(0, 0, 0);
+    background: url("http://comp.namoeditor.co.kr/ce4/demo/crosseditor/images/resizebar.png") center 0px no-repeat;
 }
 
 #boxId{
@@ -110,18 +138,15 @@ button:hover{
 .changeBold, .changeItalic, .changeUnderline, .changeStrike{
     box-shadow: 0px -3px rgba(0,0,0,0.5);
 }
-
-
 @media screen and (max-width:1100px){
     #footer{
         font-size: 10px;
     }
-    #editorTextId{
-        display: none;   
-    }
     #output{
         position: relative;
-        left:-190px;
+    }
+    #reSizeDiv,{
+        display: none;
     }
     #getValue, #setValue ,#getBodyValue, #setBodyValue{
         font-size: 10px;

@@ -4,6 +4,7 @@ var toolbtn = [
     {key:"italic", value:"기울기", ui : "fas fa-italic", cmd :"italic", id : "italic"},
     {key:"underline", value:"밑줄", ui : "fas fa-underline" , cmd :"underline", id :"underline"},
     {key:"strike", value:"취소선", ui : "fas fa-strikethrough" , cmd :"strikethrough" , id :"strike"},
+    {key:"emoji", value:"이모티콘", ui :"far fa-smile" , cmd:"none", id :"emoji"}
 ];
 
 var options = [
@@ -28,7 +29,18 @@ var getsetbtn = [
     {id : "getBodyValue", value : "getBodyValue()"},
     {id : "setBodyValue", value : "setBodyValue()"}
 ]
-
+var emoticon = [
+    {title : "윙크", src : '<img alt="윙크" title="윙크" src="http://comp.namoeditor.co.kr/ce4/demo/crosseditor/images/emoticon/02.png" style="vertical-align: baseline; cursor: pointer;">'},
+    {title : "방긋", src : '<img alt="방긋" title="방긋" src="http://comp.namoeditor.co.kr/ce4/demo/crosseditor/images/emoticon/01.png" style="vertical-align: baseline; cursor: pointer;">'},
+    {title : "깔깔", src : '<img alt="깔깔" title="깔깔" src="http://comp.namoeditor.co.kr/ce4/demo/crosseditor/images/emoticon/03.png" style="vertical-align: baseline; cursor: pointer;">'},
+    {title : "사랑", src : '<img alt="사랑" title="사랑" src="http://comp.namoeditor.co.kr/ce4/demo/crosseditor/images/emoticon/04.png" style="vertical-align: baseline; cursor: pointer;">'},
+    {title : "엉엉", src : '<img alt="엉엉" title="엉엉" src="http://comp.namoeditor.co.kr/ce4/demo/crosseditor/images/emoticon/05.png" style="vertical-align: baseline; cursor: pointer;">'},
+    {title : "절규", src : '<img alt="절규" title="절규" src="http://comp.namoeditor.co.kr/ce4/demo/crosseditor/images/emoticon/06.png" style="vertical-align: baseline; cursor: pointer;">'},
+    {title : "파안", src : '<img alt="파안" title="파안" src="http://comp.namoeditor.co.kr/ce4/demo/crosseditor/images/emoticon/07.png" style="vertical-align: baseline; cursor: pointer;">'},
+    {title : "크크", src : '<img alt="크크" title="크크" src="http://comp.namoeditor.co.kr/ce4/demo/crosseditor/images/emoticon/08.png" style="vertical-align: baseline; cursor: pointer;">'},
+    {title : "멋쟁이", src : '<img alt="멋쟁이" title="멋쟁이" src="http://comp.namoeditor.co.kr/ce4/demo/crosseditor/images/emoticon/09.png" style="vertical-align: baseline; cursor: pointer;">'},
+    {title : "헤롱", src : '<img alt="헤롱" title="헤롱" src="http://comp.namoeditor.co.kr/ce4/demo/crosseditor/images/emoticon/10.png" style="vertical-align: baseline; cursor: pointer;">'},
+]
 
 ;(function(global){ // IIFE , 즉시 호출 함수 선언 
          /**
@@ -40,9 +52,10 @@ var getsetbtn = [
          * @property {string} height - editor height type
          */
 
-    function SimpleEditor(node,options,left,top){
+    function SimpleEditor(node,options,width,height){
+        // 넓이는 Editor id 높이는 iframe , textarea id
         this.element = {
-            root: document.getElementById(node),
+            root:  document.getElementById(node.root),
             // Class , 여러가지 사항을 고려해야 함.
             // Json 객체로 받아서 .. target: ~~
             // 이 로직도 옵션 처리해서 부여..
@@ -55,7 +68,7 @@ var getsetbtn = [
             this.getValue(this.options.initValue)
         }
         if (!!this.options.initValue) {
-            this.setValue(this.options.initValue)
+            this.setValue(this.options.initValue) 
         }
         if (!!this.options.initValue) {
             this.getBodyValue(this.options.initValue)
@@ -64,23 +77,24 @@ var getsetbtn = [
             this.setBodyValue(this.options.initValue)
         }
 
-        // this.left = this.setLeft(node,"",left,"");
-        // this.right = this.setTop(node,top);
+        this.width = node.width
+        this.height = node.height
+        
         console.log(this.element.root);
     };
 
     
-    function escapeParser(a){
-        var b = '';
+    // function escapeParser(a){
+    //     var b = '';
     
-        b = a.replace(/&lt;/g, '<');
-        b = b.replace(/&gt;/g,'>'); 
-        b = b.replace(/&nbsp;/g,' ');
-        b = b.replace(/&amp;/g, '&');
-        b = b.replace(/&quot;/g, '"');
+    //     b = a.replace(/&lt;/g, '<');
+    //     b = b.replace(/&gt;/g,'>'); 
+    //     b = b.replace(/&nbsp;/g,' ');
+    //     b = b.replace(/&amp;/g, '&');
+    //     b = b.replace(/&quot;/g, '"');
     
-        return b;
-    };
+    //     return b;
+    // };
 
     function setValueParser(a){
         var b = '';
@@ -96,11 +110,14 @@ var getsetbtn = [
     
         return b;
     };
+
+
+
     
     SimpleEditor.prototype.settingTag = function(){
         var tempDiv = document.createElement("div");
         tempDiv.id = "Editor"
-        this.element.root.append(tempDiv);
+        this.element.root.appendChild(tempDiv);
 
         var tagAttribute = ["header_section","edit_section","footer","getsetArea"];
         
@@ -109,7 +126,20 @@ var getsetbtn = [
             creDiv.id = tagAttribute[i];
             tempDiv.appendChild(creDiv);
         }
-    };SimpleEditor.prototype.addSelect = function(id,name,options){
+    };
+
+    SimpleEditor.prototype.setWidth = function(){
+        var getEditor = this.element.root.querySelector("#Editor");
+        getEditor.style.width = this.width;
+    };
+
+    SimpleEditor.prototype.setHeight = function(){
+       var getEditSection = this.element.root.querySelector("#edit_section");
+       getEditSection.childNodes[0].style.height = this.height;
+       
+    };
+
+    SimpleEditor.prototype.addSelect = function(id,name,options){
         var createSpan = document.createElement("span")
         var getHeaderSection = this.element.root.querySelector("#header_section");
     
@@ -165,6 +195,83 @@ var getsetbtn = [
             getHeaderSection.appendChild(creBtn);
         };
     };
+
+
+    SimpleEditor.prototype.modalView = function(e){
+       
+        var getModalBtn = this.element.root.querySelector("#emoji");
+        
+
+        getModalBtn.addEventListener("click",function(e){
+            var getModalId = document.getElementById("modal")
+            if(!getModalId){
+                var creModalDiv = document.createElement("div");
+                creModalDiv.id = "modal";
+                
+                var creModalContent = document.createElement("div");
+                creModalContent.className = "modal-content";
+                var creModalHeader = document.createElement("div");
+                creModalHeader.className = "modal-header";
+                creModalContent.appendChild(creModalHeader);
+    
+                var creCloseSpan = document.createElement("span");
+                var creTextSpan = document.createElement("span");
+                creTextSpan.className = "closeText";
+                creTextSpan.innerText = "이모티콘"
+                creCloseSpan.className = "close";
+                creCloseSpan.innerText = "X";
+                // 헤더 영역
+    
+                // 바디 영역
+                var creBodyModal = document.createElement("div"); 
+                creBodyModal.className = "modal-body";
+
+
+
+                for(var i = 0; i<emoticon.length; i ++){
+                    var creBodyDiv = document.createElement("a");
+                    creBodyDiv.style = "margin : 5px 5px 0 0; line-height: 30px"
+                    creBodyDiv.innerHTML = emoticon[i].src;
+                    creBodyModal.appendChild(creBodyDiv);
+                }
+                
+                creModalHeader.appendChild(creCloseSpan);
+                creModalHeader.appendChild(creTextSpan);
+                creBodyModal.appendChild(creBodyDiv);
+                creModalContent.appendChild(creBodyModal);
+                creModalDiv.appendChild(creModalContent);
+                
+                document.body.appendChild(creModalDiv);
+                
+                creModalDiv.style.display = "block";
+
+                var creBlockBtn = document.createElement("button");
+                creBlockBtn.style = "position:absolute; width:150%; height:320%; left:-50%; top:-30%; background-color : white; opacity:0.01;"
+                document.body.prepend(creBlockBtn)
+
+                creCloseSpan.addEventListener("click",function(){
+                    creModalDiv.style.display = "none";
+                    document.body.removeChild(creModalDiv);
+                    document.body.removeChild(creBlockBtn);
+                });
+                window.onclick = function(e){
+                    if(e.target === creBlockBtn){
+                        creModalDiv.style.display = "none";
+                        document.body.removeChild(creModalDiv);
+                        document.body.removeChild(creBlockBtn);
+                    }
+                };
+            }else{
+                return;
+            };
+        })
+
+    };
+
+    SimpleEditor.prototype.modalFunction = function(){
+
+
+    }
 
     SimpleEditor.prototype.titleText = function(){
         var getHeaderSection =this.element.root.querySelector("#header_section");
@@ -665,18 +772,19 @@ SimpleEditor.prototype.setBodyValue=  function(data = "<p></br></p>"){
     SimpleEditor.prototype.addHeaderEvt = function(){
         this.toolbarEvt();
         this.newWriteFunction();
+        this.modalView();
         this.fontFunction();
+        this.modalFunction();
       }
       
     SimpleEditor.prototype.addContentEvt = function(){
         this.backspacePrevent();
         this.btnCheck();
-        
+        this.resizeEvt(); 
     }  
     
     SimpleEditor.prototype.addFooterEvt = function(){
         this.footerEvt();   
-        this.resizeEvt(); 
     };
 
     SimpleEditor.prototype.addAPIEvt = function(){
@@ -689,15 +797,20 @@ SimpleEditor.prototype.setBodyValue=  function(data = "<p></br></p>"){
 
     // 에디터 시작 함수
     SimpleEditor.prototype.startEditor = function(){
+        
         this.settingTag();
     
         this.renderHeader();
         this.renderContent();
         this.renderFooter();
+        
+        this.setWidth();
+        this.setHeight();
 
         this.addHeaderEvt();
         this.addContentEvt();
         this.addFooterEvt();
+        
         this.addAPIEvt();
         
     };

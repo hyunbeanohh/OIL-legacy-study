@@ -737,9 +737,11 @@ SimpleEditor.prototype.setValue = function(data = "<p></br></p>"){
     var getEditSection = this.element.root.querySelector("#edit_section");
     if(t.currentState === "Edit"){
         edit.body.innerHTML = data;
+        edit.body.focus();
     }
     else if(t.currentState === "HTML"){
         getEditSection.childNodes[1].value = setValueParser(data);
+        getEditSection.childNodes[1].focus();
     }else if(t.currentState === "PreView"){
          return ;
     }
@@ -768,9 +770,11 @@ SimpleEditor.prototype.setBodyValue=  function(data = "<p></br></p>"){
     var edit = doc;
     if(t.currentState === "Edit"){
         edit.body.innerHTML = data;
+        edit.body.focus();
     }
     else if(t.currentState === "HTML"){
         getEditSection.childNodes[1].value =  setValueParser(data);
+        getEditSection.childNodes[1].focus();
     }else if(t.currentState === "PreView"){
         return false;
     }

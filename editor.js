@@ -200,7 +200,7 @@ var emoticon = [
     SimpleEditor.prototype.modalView = function(e){
         var getEditSection = this.element.root.querySelector("#edit_section");
         var getModalBtn = this.element.root.querySelector("#emoji");
-        
+        var edit = this.getEditDocument();
 
         getModalBtn.addEventListener("click",function(e){
             var getModalId = document.getElementById("modal")
@@ -247,26 +247,25 @@ var emoticon = [
                 
                 for(var i = 0; i<getBodyModal[0].childNodes.length; i++){
                     getBodyModal[0].childNodes[i].addEventListener("click",function(e){
-                        console.log(e.target)
+                        //console.log(e.target)
                         var sel = getEditSection.childNodes[0].contentWindow.document.getSelection(0);
                         var rng = sel.getRangeAt(0);
-                        var saveCaret =  rng.cloneRange(sel);
+                        var node = e.target
+
+                        //sel.removeAllRanges();
+                        rng.deleteContents();
+
+                        rng.insertNode(node);
+                        rng.collapse(false);
+                        
                         sel.removeAllRanges();
                         sel.addRange(rng);
-                        // var tempNode = document.createElement("p");
-                        // tempNode.innerHTML = "<b>test</b>";
-                        var tempNode = e.target
-                        rng.deleteContents();
-                        rng.insertNode(tempNode);
-                        
-                        getEditSection.childNodes[0].focus();
-                        sel.removeAllRanges();
-                        
+
+                        edit.body.focus();
                         creModalDiv.style.display = "none";
                         document.body.removeChild(creModalDiv);
                         document.body.removeChild(creBlockBtn);
-                        sel.addRange(saveCaret);
-
+                        
                     })
                 }
                 creModalDiv.style.display = "block";

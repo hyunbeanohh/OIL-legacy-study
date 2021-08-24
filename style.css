@@ -135,9 +135,19 @@ body{
     border: 1px solid black;;
 }
 
-.changeBold, .changeItalic, .changeUnderline, .changeStrike{
+#header_section>.changeBold{
     box-shadow: 0px -3px rgba(0,0,0,0.5);
 }
+#header_section > .changeItalic {
+    box-shadow: 0px -3px rgba(0,0,0,0.5);
+}
+#header_section > .changeUnderline{
+    box-shadow: 0px -3px rgba(0,0,0,0.5);
+}
+#header_section > .changeStrike{
+    box-shadow: 0px -3px rgba(0,0,0,0.5);
+}
+
 @media screen and (max-width:1100px){
     #footer{
         font-size: 10px;

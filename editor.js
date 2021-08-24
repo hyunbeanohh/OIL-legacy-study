@@ -536,7 +536,7 @@ var emoticon = [
                 document.documentElement.addEventListener('mousemove', doDrag, false);
                 document.documentElement.addEventListener('mouseup', stopDrag, false);
                 
-            }
+            };
             
         }
         
@@ -553,14 +553,14 @@ var emoticon = [
             else if(t.currentState === "PreView"){
                 getIframe.style.height = (startHeight + e.clientY - startY) + 'px';
             }
-        }
-        
+        };
     
         function stopDrag(e) {
             document.documentElement.removeEventListener('mousemove', doDrag, false);
             document.documentElement.removeEventListener('mouseup', stopDrag, false);
-        }
+        };
     }
+    
 
     SimpleEditor.prototype.footerEvt = function(){
         var getToEdit = this.element.root.querySelector("#toEdit");
@@ -625,6 +625,31 @@ var emoticon = [
             }   
         }.bind(t));
 
+        function findPtag(){
+            var searchTag = "</p>";
+            var passTag = "\n";
+            var pos = 0;
+            var passPos;
+            var posArr = [];
+            var exp = new RegExp(passTag, "g");
+
+            while(true){
+                var foundPos = getEditSection.childNodes[1].value.indexOf(searchTag,pos);
+                var foundBlankPos = getEditSection.childNodes[1].value.indexOf(passTag,passPos);
+                if(foundPos == -1) break;
+                console.log("blank:" + foundBlankPos);
+
+                var output = [getEditSection.childNodes[1].value.slice(0,foundPos+4),"\n",getEditSection.childNodes[1].value.slice(foundPos+4)].join('');
+                getEditSection.childNodes[1].value = output;
+                posArr.push(foundPos);
+                console.log("posArr:" + posArr);
+                
+                pos = foundPos + 1;
+                passPos = foundBlankPos +1;
+                getEditSection.childNodes[1].value.replace(/"\n"/g,"\n");
+            }
+        }
+
         getToHtml.addEventListener("click",function(e){ // 소스 보기
             getToEdit.style.backgroundColor = "";
             getToHtml.style.backgroundColor = "#f1f2f6";
@@ -641,7 +666,7 @@ var emoticon = [
             
             if(t.currentState === "Edit"){ //edit -> html
                 edit.designMode = "On";
-
+                
                 getResizeBtn.style.backgroundColor ="";
                 getEditSection.appendChild(creTa);
                 creTa.value = edit.body.innerHTML;
@@ -650,6 +675,9 @@ var emoticon = [
                 getEditSection.childNodes[1].style = "width:802px; resize:none; font-size:16px; outline:none; font-family: Malgum Gothic; color:#000000; border:1px solid black";
                 
                 getEditSection.childNodes[1].style.height = getEditSection.childNodes[0].style.height;
+
+                findPtag(getEditSection.childNodes[1].value)
+               
 
                 t.currentState = "HTML";
                 console.log(t.currentState);

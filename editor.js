@@ -198,7 +198,7 @@ var emoticon = [
 
 
     SimpleEditor.prototype.modalView = function(e){
-       
+        var getEditSection = this.element.root.querySelector("#edit_section");
         var getModalBtn = this.element.root.querySelector("#emoji");
         
 
@@ -225,24 +225,50 @@ var emoticon = [
                 // 바디 영역
                 var creBodyModal = document.createElement("div"); 
                 creBodyModal.className = "modal-body";
-
-
-
                 for(var i = 0; i<emoticon.length; i ++){
-                    var creBodyDiv = document.createElement("a");
-                    creBodyDiv.style = "margin : 5px 5px 0 0; line-height: 30px"
-                    creBodyDiv.innerHTML = emoticon[i].src;
-                    creBodyModal.appendChild(creBodyDiv);
+                    var creBodyAnchor = document.createElement("a");
+                    creBodyAnchor.style = "margin : 5px 5px 0 0; line-height: 30px"
+                    creBodyAnchor.innerHTML = emoticon[i].src;
+                    creBodyModal.appendChild(creBodyAnchor);
                 }
+                
                 
                 creModalHeader.appendChild(creCloseSpan);
                 creModalHeader.appendChild(creTextSpan);
-                creBodyModal.appendChild(creBodyDiv);
+                creBodyModal.appendChild(creBodyAnchor);
                 creModalContent.appendChild(creBodyModal);
                 creModalDiv.appendChild(creModalContent);
                 
                 document.body.appendChild(creModalDiv);
                 
+
+                var getBodyModal = document.getElementsByClassName("modal-body");
+                console.log(getBodyModal[0].childNodes)
+                
+                for(var i = 0; i<getBodyModal[0].childNodes.length; i++){
+                    getBodyModal[0].childNodes[i].addEventListener("click",function(e){
+                        console.log(e.target)
+                        var sel = getEditSection.childNodes[0].contentWindow.document.getSelection(0);
+                        var rng = sel.getRangeAt(0);
+                        var saveCaret =  rng.cloneRange(sel);
+                        sel.removeAllRanges();
+                        sel.addRange(rng);
+                        // var tempNode = document.createElement("p");
+                        // tempNode.innerHTML = "<b>test</b>";
+                        var tempNode = e.target
+                        rng.deleteContents();
+                        rng.insertNode(tempNode);
+                        
+                        getEditSection.childNodes[0].focus();
+                        sel.removeAllRanges();
+                        
+                        creModalDiv.style.display = "none";
+                        document.body.removeChild(creModalDiv);
+                        document.body.removeChild(creBlockBtn);
+                        sel.addRange(saveCaret);
+
+                    })
+                }
                 creModalDiv.style.display = "block";
 
                 var creBlockBtn = document.createElement("button");
@@ -269,8 +295,7 @@ var emoticon = [
     };
 
     SimpleEditor.prototype.modalFunction = function(){
-
-
+        
     }
 
     SimpleEditor.prototype.titleText = function(){
@@ -300,6 +325,7 @@ var emoticon = [
         edit.body.style = "word-break: break-all;"
         edit.body.innerHTML = "<p></br></P>";
         edit.designMode = "On";
+        edit.body.focus();
         
     };
 

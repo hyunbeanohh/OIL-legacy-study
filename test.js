@@ -74,12 +74,7 @@ function getStartEndContainer(caretParentNode) {
 
     var startIndex = 0;
     var endIndex = 0;
-    if (
-      start.parentElement.tagName === "P" ||
-      start.parentElement.tagName === "H1" ||
-      start.parentElement.tagName === "H2" ||
-      start.parentElement.tagName === "H3"
-    ) {
+    if (start.parentElement.tagName === "P" || start.parentElement.tagName === "H1" || start.parentElement.tagName === "H2" || start.parentElement.tagName === "H3") {
       for (var i = 0; i < start.parentElement.childNodes.length; i++) {
         if (start.parentElement.childNodes[i] === start) {
           startIndex = i;
@@ -93,12 +88,7 @@ function getStartEndContainer(caretParentNode) {
         }
       }
     }
-    if (
-      end.parentElement.tagName === "P" ||
-      end.parentElement.tagName === "H1" ||
-      end.parentElement.tagName === "H2" ||
-      end.parentElement.tagName === "H3"
-    ) {
+    if (end.parentElement.tagName === "P" || end.parentElement.tagName === "H1" || end.parentElement.tagName === "H2" || end.parentElement.tagName === "H3") {
       for (var i = 0; i < end.parentElement.childNodes.length; i++) {
         if (end.parentElement.childNodes[i] === end) {
           endIndex = i;

@@ -471,44 +471,77 @@ var emoticon = [
         },true)
     };
     
-    SimpleEditor.prototype.btnCheck = function(){
-        var editChange = this.element.root.querySelector("#output").contentWindow.document;
-        //var editSel = document.getElementById("output").contentWindow.document.getSelection();
+    function test(text){
+        while(true){
+            var startContainer  = getEditSection.getSelection(0).getRangeAt(0).startContainer;
+
+            if(startContainer.tagName === "B"){
+                boldId.className = "changeBold";
+
+            }else{
+                boldId.classList.remove("changeBold");
+            }
         
+            if(startContainer.tagName === "I"){
+                italicId.className = "changeItalic";
+            }else{
+                italicId.classList.remove("changeItalic")
+            }
+
+            if(startContainer.tagName === "U"){
+                underlineId.className = "changeUnderline";
+            }else{
+                underlineId.classList.remove("changeUnderline")
+            }
+
+            if(startContainer.tagName === "STRIKE"){ 
+                strikeId.className = "changeStrike";
+            }else{
+                strikeId.classList.remove("changeStrike")
+            }
+            startContainer = startContainer .parentNode;
+            if(startContainer.parentNode.tagName ==="BODY") break;
+        }
+    }
+
+    SimpleEditor.prototype.btnCheck = function(){
+        var getEditSection = this.element.root.querySelector("#edit_section").childNodes[0].contentWindow.document;
         var boldId = this.element.root.querySelector("#bold");
         var italicId = this.element.root.querySelector("#italic");
         var underlineId =this.element.root.querySelector("#underline");
         var strikeId =this.element.root.querySelector("#strike");
     
-        editChange.addEventListener("selectionchange",function(){
-            //var getOut = this.element.root.querySelector("#output");
-            var boldCheck = editChange.queryCommandState("bold");
-            var italicCheck = editChange.queryCommandState("italic");
-            var underlineCheck = editChange.queryCommandState("underline");
-            var strikeCheck = editChange.queryCommandState("strikethrough");
-    
-            if(boldCheck === true){
-                boldId.className = "changeBold";
-            }else{
-                boldId.classList.remove("changeBold");
+        getEditSection.addEventListener("selectionchange",function(){
+            var startContainer  = getEditSection.getSelection(0).getRangeAt(0).startContainer;
+            var tagName = startContainer.tagName;
+            var arr = [];
+
+            while(true){
+                startContainer = startContainer.parentNode;
+                tagName = startContainer.tagName;
+                arr.push(tagName);
+                if(tagName === "BODY"){
+                    break;
+                }
             }
+            console.log(arr);
             
-            if(italicCheck === true){
-                italicId.className = "changeItalic";
-            }else{
-                italicId.classList.remove("changeItalic")
-            }
-    
-            if(underlineCheck === true){
-                underlineId.className = "changeUnderline";
-            }else{
-                underlineId.classList.remove("changeUnderline")
-            }
-    
-            if(strikeCheck === true){ 
-                strikeId.className = "changeStrike";
-            }else{
-                strikeId.classList.remove("changeStrike")
+            boldId.classList.remove("changeBold");
+            italicId.classList.remove("changeItalic");
+            underlineId.classList.remove("changeUnderline")
+            strikeId.classList.remove("changeStrike");
+
+            
+
+            for(var i = 0 ; i<arr.length; i++){
+                if(arr[i] === "B") boldId.className = "changeBold";
+                
+                if(arr[i] === "I") italicId.className = "changeItalic";
+                
+                if(arr[i] === "U") underlineId.className = "changeUnderline";
+                
+                if(arr[i] === "STRIKE") strikeId.className = "changeStrike";
+                
             }
         })
     };

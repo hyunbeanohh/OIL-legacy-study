@@ -20,13 +20,7 @@ function getStartEndContainer(caretParentNode) {
     var testArr = [];
 
     while (start !== end) {
-      if (
-        start.tagName === "P" ||
-        start.tagName === "H1" ||
-        start.tagName === "H2" ||
-        start.tagName === "H3" ||
-        start.tagName === "LI"
-      ) {
+      if ( start.tagName === "P" || start.tagName === "H1" || start.tagName === "H2" || start.tagName === "H3" || start.tagName === "LI") {
         testArr.push(start);
       } else if (start.tagName === "DIV") {
         if (start.childNodes.length > 0) {
@@ -74,7 +68,14 @@ function getStartEndContainer(caretParentNode) {
 
     var startIndex = 0;
     var endIndex = 0;
-    if (start.parentElement.tagName === "P" || start.parentElement.tagName === "H1" || start.parentElement.tagName === "H2" || start.parentElement.tagName === "H3") {
+    if (start.parentElement.tagName === "P"||
+        start.parentElement.tagName === "H1" || 
+        start.parentElement.tagName === "H2" || 
+        start.parentElement.tagName === "H2" || 
+        start.parentElement.tagName === "H3" || 
+        start.parentElement.tagName === "H4" || 
+        start.parentElement.tagName === "H5" || 
+        start.parentElement.tagName === "H6") {
       for (var i = 0; i < start.parentElement.childNodes.length; i++) {
         if (start.parentElement.childNodes[i] === start) {
           startIndex = i;
@@ -88,6 +89,8 @@ function getStartEndContainer(caretParentNode) {
         }
       }
     }
+
+
     if (end.parentElement.tagName === "P" || end.parentElement.tagName === "H1" || end.parentElement.tagName === "H2" || end.parentElement.tagName === "H3") {
       for (var i = 0; i < end.parentElement.childNodes.length; i++) {
         if (end.parentElement.childNodes[i] === end) {
@@ -109,11 +112,7 @@ function getStartEndContainer(caretParentNode) {
       var stAnch = "";
       var enAnch = "";
 
-      if (
-        headingName === "h1" ||
-        headingName === "h2" ||
-        headingName === "h3"
-      ) {
+      if ( headingName === "h1" || headingName === "h2" || headingName === "h3") {
         arr.flat().forEach(function (el, index) {
           var node = document.createElement(headingName);
           node.innerHTML = el.innerHTML;
@@ -128,26 +127,20 @@ function getStartEndContainer(caretParentNode) {
         });
       }
 
-      stAnch =
-        this.element.caret.startContainer.childNodes[
-          this.element.caret.startOffset
-        ];
-      enAnch =
-        this.element.caret.endContainer.childNodes[
-          this.element.caret.endOffset
-        ];
+      stAnch = this.element.caret.startContainer.childNodes[this.element.caret.startOffset];
+      enAnch = this.element.caret.endContainer.childNodes[this.element.caret.endOffset];
 
       if (stAnch.childNodes.length > 1 && startIndex !== 0) {
-        rng.setStart(
-          stAnch.childNodes[startIndex].childNodes[0],
-          startOffset
-        );
+        rng.setStart(stAnch.childNodes[startIndex].childNodes[0],startOffset);
+
         if (enAnch.childNodes.length > 1 && endIndex !== 0) {
           rng.setEnd(enAnch.childNodes[endIndex].childNodes[0], endOffset);
         } else {
           rng.setEnd(enAnch.childNodes[0], endOffset);
         }
-      } else {
+      } 
+      
+      else {
         rng.setStart(stAnch.childNodes[0], startOffset);
         if (enAnch.childNodes.length > 1 && endIndex !== 0) {
           rng.setEnd(enAnch.childNodes[endIndex].childNodes[0], endOffset);
@@ -158,9 +151,47 @@ function getStartEndContainer(caretParentNode) {
       sel.removeAllRanges();
       sel.addRange(rng);
 
-      // range 저장하는 방법
-      // 1. outerHTML 수정
-      // 2. appendChild를 통해 기존 태그의 자식을 삽입 후 기존 태그를 지운다
-      // 3. 기존 range에 span태그를 생성 후 내용을 지운 뒤에 새로 만든 태그를 넣어준다.
     }
+  };
+
+
+
+  Editor.prototype.addToolbarEvent = function () {
+    var me = this;
+
+    // heading
+    var heading = me.element.main.querySelector(".heading");
+    heading.addEventListener("click", function (e) {
+      var hDiv = me.element.main.querySelector(".headingSelectDiv");
+      hDiv.zIndex = 10;
+
+      if (hDiv.style.display === "none") {
+        hDiv.style.display = "block";
+        me.element.main.querySelector(".fontSelectDiv").style.display =
+          "none";
+      } else {
+        hDiv.style.display = "none";
+      }
+    });
+    var headingli = me.element.main.querySelectorAll(".headingLi");
+    headingli.forEach(function (el) {
+      el.addEventListener("click", function () {
+        switch (el.className.split(" ")[0]) {
+          case "Heading2": {
+            me.addHeadingDeco("h2");
+            break;
+          }
+          case "Heading3": {
+            me.addHeadingDeco("h3");
+            break;
+          }
+          case "Paragraph": {
+            me.addHeadingDeco("paragraph");
+            break;
+          }
+          default:
+            me.addHeadingDeco("h1");
+        }
+      });
+    });
   };

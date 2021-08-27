@@ -40,7 +40,7 @@ var emoticon = [
     {title : "크크", src : '<img alt="크크" title="크크" src="http://comp.namoeditor.co.kr/ce4/demo/crosseditor/images/emoticon/08.png" style="vertical-align: baseline; cursor: pointer;">'},
     {title : "멋쟁이", src : '<img alt="멋쟁이" title="멋쟁이" src="http://comp.namoeditor.co.kr/ce4/demo/crosseditor/images/emoticon/09.png" style="vertical-align: baseline; cursor: pointer;">'},
     {title : "헤롱", src : '<img alt="헤롱" title="헤롱" src="http://comp.namoeditor.co.kr/ce4/demo/crosseditor/images/emoticon/10.png" style="vertical-align: baseline; cursor: pointer;">'},
-]
+];
 
 ;(function(global){ // IIFE , 즉시 호출 함수 선언 
          /**
@@ -82,6 +82,7 @@ var emoticon = [
         this.height = node.height
         
         console.log(this.element.root);
+        console.log(this.element);
     };
 
     
@@ -155,12 +156,6 @@ var emoticon = [
     };
 
     SimpleEditor.prototype.addSelect = function(id,name,options){
-        var createSpan = document.createElement("span")
-        var getHeaderSection = this.element.root.querySelector("#header_section");
-    
-        createSpan.classList.add("select_box")
-        getHeaderSection.appendChild(createSpan);
-            
             
         var select = document.createElement("select");
         select.id = id;
@@ -176,10 +171,9 @@ var emoticon = [
             var option = document.createElement("option");
             option.value = options[i].key;
             option.text = options[i].value;
-            option.setAttribute("data-cmd",`${options[i].cmd}`);
+            //option.setAttribute("data-cmd",`${options[i].cmd}`);
             select.appendChild(option)
         }
-    
         return select;
     };
     
@@ -336,7 +330,7 @@ var emoticon = [
         getSection.appendChild(createIframeTag);
         var edit = this.element.root.querySelector("#output").contentWindow.document;
         edit.body.style = "word-break: break-all;"
-        edit.body.innerHTML = "<p></br></P>";
+        edit.body.innerHTML = "<p></br></p>";
         edit.designMode = "On";
         edit.body.focus();
         
@@ -444,6 +438,219 @@ var emoticon = [
 
     };
 
+    function getStartEndContainer(parentNode){ // 현재 위치한 캐럿의 부모 노드를 찾는 함수.
+        while(parentNode !== null){
+            if(parentNode.tagName === "P" || parentNode.tagName === "H1" ||  parentNode.tagName === "H2"
+            || parentNode.tagName === "H3" || parentNode.tagName === "H4" ||  parentNode.tagName === "H5" 
+            || parentNode.tagName === "H6" ){
+                return parentNode;
+            }
+            parentNode = parentNode.parentNode || parentNode.parentElement;
+        }
+    }
+
+    function getNextSibling(start,end){ // 시작 엘리먼트와 끝 엘리먼트가 같을 때 까지 탐색
+                                        // div태그를 만나면 div태그의 하위 엘리먼트들까지 탐색
+        var siblingArr = [];
+
+        while(start !== end ){
+            if(start.tagName === "P" || start.tagName === "H1" ||  start.tagName === "H2"
+            || start.tagName === "H3" || start.tagName === "H4" ||  start.tagName === "H5" 
+            || start.tagName === "H6" ){
+                siblingArr.push(start);
+            }else if(start.tagName === "DIV"){
+                if(start.childNodes.length > 0){
+                    siblingArr.push(getNextSibling(start.firstElementChild, end).flat());
+                    break;
+                }
+            }
+            if(start.nextElementSibling !== null){
+                start = start.nextElementSibling;
+            }else{
+                while(start.parentElement !== null){
+                    start = start.parentElement;
+    
+                    if(start.nextElementSibling !== null){
+                        start = start.nextElementSibling;
+                        break;
+                    }
+                }
+            }
+        }
+
+        
+        if(start === end){
+            siblingArr.push(start);
+        }
+        return siblingArr.flat();
+    }
+
+    SimpleEditor.prototype.addHeader = function(node){
+        var edit = this.getEditDocument();
+        var curSel = this.element.root.querySelector("#edit_section")
+        .childNodes[0].contentWindow.document.getSelection().getRangeAt(0);
+
+        var sel = edit.getSelection();
+        var rng = edit.createRange();
+
+        var start = curSel.startContainer;
+        var end = curSel.endContainer;
+        console.log(start,end);
+        var parentNodeArr = [];
+
+        var startParent = getStartEndContainer(start);
+        var endParent = getStartEndContainer(end);
+
+        parentNodeArr.push(getNextSibling(startParent,endParent).flat());
+
+        var startIndex = 0;
+        var endIndex = 0;
+
+        if(start.parentElement.tagName === "P"||
+           start.parentElement.tagName === "H1" || 
+           start.parentElement.tagName === "H2" || 
+           start.parentElement.tagName === "H2" || 
+           start.parentElement.tagName === "H3" || 
+           start.parentElement.tagName === "H4" || 
+           start.parentElement.tagName === "H5" || 
+           start.parentElement.tagName === "H6"){
+            for(var i = 0; i< start.parentElement.childNodes.length;i ++){
+                if(start.parentElement.childNodes[i] === start){
+                    startIndex = i;
+                }
+            }
+        }else{
+            for(var i = 0; i<start.parentElement.parentElement.childNodes.length; i++){
+                if(start.parentElement.parentElement.childNodes[i] === start.parentElement){
+                    startIndex = i;
+                }
+            }
+        }
+
+        if(end.parentElement.tagName === "P" || end.parentElement.tagName === "H1" || end.parentElement.tagName === "H2"||
+           end.parentElement.tagName === "H3" || end.parentElement.tagName === "H4" || end.parentElement.tagName === "H5" ||
+           end.parentElement.tagName === "H6" 
+        ){
+            for(var i = 0; i<end.parentElement.childNodes.length; i++){
+                if(end.parentElement.childNodes[i] === end){
+                    endIndex = i;
+                }
+            }
+        }else{
+            for(var i = 0; i<end.parentElement.parentElement.childNodes.length; i++){
+                if(end.parentElement.parentElement.childNodes[i] === end.parentElement){
+                    endIndex = i;
+                }
+            }
+        }
+
+        var startOffset = curSel.startOffset;
+        var endOffset = curSel.endOffset;
+
+        console.log(startOffset, endOffset)
+
+
+        if(parentNodeArr.flat() !== null){
+            var startAnchor = "";
+            var endAnchor = "";
+
+            if(node === "p" || node === "h1" || node === "h2" ||
+               node === "h3" || node === "h4" || node === "h5" ||
+               node === "h6"
+            ){
+                parentNodeArr.flat().forEach(function(el){
+                    var creNode = document.createElement(node);
+                    creNode.innerHTML = el.innerHTML;
+                    el.outerHTML = creNode.outerHTML;
+                    console.log(el)
+                })
+            }else{
+                parentNodeArr.flat().forEach(function(el){
+                    var creNode = document.createElement("p");
+                    el.style.font = "16px";
+                    creNode.innerHTML = el.innerHTML;
+                    el.outerHTML = creNode.outerHTML;
+                    console.log(el)
+                })
+            }
+        
+        
+        startAnchor = curSel.startContainer.childNodes[curSel.startOffset];
+        endAnchor = curSel.endContainer.childNodes[curSel.endOffset];
+
+        console.log(startAnchor,endAnchor);
+
+        if(startAnchor.childNodes.length > 1 && startIndex !== 0){
+            rng.setStart(startAnchor.childNodes[startIndex].childNodes[0],startOffset);
+
+        if(endAnchor.childNodes.length > 1 && endIndex !== 0){
+            rng.setEnd(endAnchor.childNodes[endIndex].childNodes[0],endOffset);
+        }else{
+            rng.setEnd(endAnchor.childNodes[0],endOffset);
+            }
+        }
+
+        else{
+            rng.setStart(startAnchor.childNodes[0],startOffset);
+            if(endAnchor.childNodes.length > 1 && endIndex !== 0){
+                rng.setEnd(endAnchor.childNodes[endIndex].childNodes[0], endOffset);
+            }else{
+                rng.setEnd(endAnchor.childNodes[0],endOffset);
+            }
+        }
+       
+        
+
+        sel.removeAllRanges();
+        sel.addRange(rng);
+
+        edit.body.focus();
+    }
+};
+
+    SimpleEditor.prototype.addHeaderFunction = function(){
+        
+        var getSelectBox = this.element.root.querySelector("#boxId");
+        t = this;
+        
+        getSelectBox.addEventListener("change",function(){
+            var optionValue = getSelectBox.options[getSelectBox.selectedIndex].value;
+            
+            if(optionValue === "h1"){
+                console.log(optionValue);
+                t.addHeader("h1");
+                
+            }
+            else if(optionValue === "h2"){
+                console.log(optionValue);
+                t.addHeader("h2");
+                
+            }
+            else if(optionValue === "h3"){
+                console.log(optionValue);
+                t.addHeader("h3");
+                
+            }
+            else if(optionValue === "h4"){
+                console.log(optionValue);
+                t.addHeader("h4");
+                
+            }
+            else if(optionValue === "h1"){
+                console.log(optionValue);
+                t.addHeader("h5");
+               
+            }
+            else if(optionValue === "h1"){
+                console.log(optionValue);
+                t.addHeader("h6");
+               
+            }
+        })
+       
+    }
+
+
     SimpleEditor.prototype.fontFunction = function(){
         var buttons = this.element.root.querySelectorAll("button");
         var doc = this.getEditDocument();
@@ -471,39 +678,6 @@ var emoticon = [
         },true)
     };
     
-    function test(text){
-        while(true){
-            var startContainer  = getEditSection.getSelection(0).getRangeAt(0).startContainer;
-
-            if(startContainer.tagName === "B"){
-                boldId.className = "changeBold";
-
-            }else{
-                boldId.classList.remove("changeBold");
-            }
-        
-            if(startContainer.tagName === "I"){
-                italicId.className = "changeItalic";
-            }else{
-                italicId.classList.remove("changeItalic")
-            }
-
-            if(startContainer.tagName === "U"){
-                underlineId.className = "changeUnderline";
-            }else{
-                underlineId.classList.remove("changeUnderline")
-            }
-
-            if(startContainer.tagName === "STRIKE"){ 
-                strikeId.className = "changeStrike";
-            }else{
-                strikeId.classList.remove("changeStrike")
-            }
-            startContainer = startContainer .parentNode;
-            if(startContainer.parentNode.tagName ==="BODY") break;
-        }
-    }
-
     SimpleEditor.prototype.btnCheck = function(){
         var getEditSection = this.element.root.querySelector("#edit_section").childNodes[0].contentWindow.document;
         var boldId = this.element.root.querySelector("#bold");
@@ -524,7 +698,7 @@ var emoticon = [
                     break;
                 }
             }
-            console.log(arr);
+            //console.log(arr);
             
             boldId.classList.remove("changeBold");
             italicId.classList.remove("changeItalic");
@@ -535,13 +709,9 @@ var emoticon = [
 
             for(var i = 0 ; i<arr.length; i++){
                 if(arr[i] === "B") boldId.className = "changeBold";
-                
                 if(arr[i] === "I") italicId.className = "changeItalic";
-                
                 if(arr[i] === "U") underlineId.className = "changeUnderline";
-                
                 if(arr[i] === "STRIKE") strikeId.className = "changeStrike";
-                
             }
         })
     };
@@ -852,6 +1022,7 @@ SimpleEditor.prototype.setBodyValue=  function(data = "<p></br></p>"){
         this.toolbarEvt();
         this.newWriteFunction();
         this.modalView();
+        this.addHeaderFunction();
         this.fontFunction();
       }
       

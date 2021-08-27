@@ -115,11 +115,13 @@ var emoticon = [
 
     function findPtag(str){
         var searchTag = "</p><";
+        var h1Tag = "</h1><"
         var pos = 0;
 
         while(true){
             var foundPos = str.value.indexOf(searchTag,pos);
-            //var foundBlankPos = str.value.indexOf(passTag,passPos);
+            var foundH1Pos = str.value.indexOf(h1Tag,pos);
+           console.log(foundPos);
             if(foundPos == -1) break;
             var output = [str.value.slice(0,foundPos+4),"\n",str.value.slice(foundPos+4)].join('');
             var replaceAll = output.replaceAll("<p/><","<p>\n<");
@@ -214,7 +216,7 @@ var emoticon = [
         getModalBtn.addEventListener("click",function(e){
             var getModalId = document.getElementById("modal")
             if(getModalId === null){
-                var creModalDiv = document.createElement("div");
+                var creModalDiv = document.createElement("div" );
                 creModalDiv.id = "modal";
                 
                 var creModalContent = document.createElement("div");
@@ -598,13 +600,23 @@ var emoticon = [
                 rng.setEnd(endAnchor.childNodes[0],endOffset);
             }
         }
-       
-        
 
         sel.removeAllRanges();
         sel.addRange(rng);
-
         edit.body.focus();
+
+        edit.body.addEventListener("keyup",function(e){
+            if(e.keyCode === 13){   
+                var crePtag = document.createElement("P");
+                crePtag.innerHTML = "</br>";
+                console.log(curSel.endContainer.childNodes);
+                if(curSel.endContainer.childNodes[curSel.endContainer.childNodes.length-1].innerHTML === "<br>"){
+                    curSel.endContainer.childNodes[curSel.endContainer.childNodes.length-1].remove();
+                    curSel.endContainer.childNodes[curSel.endContainer.childNodes.length-1].after(crePtag);
+                    
+                }
+            }
+        })
     }
 };
 

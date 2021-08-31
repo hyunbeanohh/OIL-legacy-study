@@ -907,7 +907,6 @@ function getValue(){
 };
 
 function setValue(data = "<p></br></p>"){
-    var getCreText = document.querySelector("#creText");
     var edit = getEditDocument();
     var getEditSection = this.element.root.querySelector("#edit_section");
     if(t.currentState === "Edit"){
@@ -1013,21 +1012,21 @@ function startEditor(){
     
 }
 
-     return {
+     return { //사용자 영역
         startEditor : function(){
             return startEditor();
         },
         getValue: function(){
              return getValue();
          },
-        setValue : function(data = "<p></br></p>"){
-            return setValue(data = "<p></br></p>");
+        setValue : function(data){
+            return setValue(data);
         },
         getBodyValue : function(){
             return getBodyValue();
         },
-        setBodyValue : function(data = "<p></br></p>"){
-            return setBodyValue(data = "<p></br></p>");
+        setBodyValue : function(data){
+            return setBodyValue(data);
         }
 
         

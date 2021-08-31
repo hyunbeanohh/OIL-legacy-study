@@ -37,24 +37,24 @@
         
         var getValueHandler = document.getElementById("getValue");
         getValueHandler.addEventListener("click" , function(){
-            var temp = editor.getValue();
+            var temp = test.getValue();
             getCreText.value = temp;
         });
 
         var getBodyValueHandler = document.getElementById("getBodyValue");
         getBodyValueHandler.addEventListener("click",function(){
-            var temp = editor.getBodyValue();
+            var temp = test.getBodyValue();
             getCreText.value = temp;
         });
         
         var setValueHandler = document.getElementById("setValue");
         setValueHandler.addEventListener("click",function(){
-            editor.setValue(getCreText.value);
+            test.setValue(getCreText.value);
         })
 
         var setBodyValueHandler = document.getElementById("setBodyValue");
         setBodyValueHandler.addEventListener("click",function(){
-            editor.setBodyValue(getCreText.value)
+            test.setBodyValue(getCreText.value)
         });
     </script>
 </body>

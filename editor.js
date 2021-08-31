@@ -587,12 +587,12 @@ function addHeaderFunction(){
             addHeader("h4");
             
         }
-        else if(optionValue === "h1"){
+        else if(optionValue === "h5"){
             console.log(optionValue);
             addHeader("h5");
            
         }
-        else if(optionValue === "h1"){
+        else if(optionValue === "h6"){
             console.log(optionValue);
             addHeader("h6");
            

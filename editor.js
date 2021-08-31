@@ -156,14 +156,14 @@ var editor = function(node) {
         };
      };
 
-     function modalView(){ 
+     function modalView(e){ 
         var getEditSection = this.element.root.querySelector("#edit_section");
         var getModalBtn = this.element.root.querySelector("#emoji");
-        var edit = getEditDocument();
+        var edit = this.element.root.querySelector("#edit_section").childNodes[0].contentWindow.document;
 
         getModalBtn.addEventListener("click",function(e){
             var getModalId = document.getElementById("modal")
-            if(getModalId === null){
+            if(getModalId === null){    
                 var creModalDiv = document.createElement("div" );
                 creModalDiv.id = "modal";
                 
@@ -205,7 +205,7 @@ var editor = function(node) {
                 var creBlockBtn = document.createElement("button");
                 creBlockBtn.id = "closeBtn";
                 creBlockBtn.style = "position:absolute; width:150%; height:320%; left:-50%; top:-30%; background-color : white; opacity:0.01;"
-                document.body.appendChild(creBlockBtn)
+                document.body.appendChild(creBlockBtn);
 
                 creCloseSpan.addEventListener("click",function(){
                     creModalDiv.style.display = "none";
@@ -216,13 +216,13 @@ var editor = function(node) {
                 var getBodyModal = document.getElementsByClassName("modal-body");
                 for(var i = 0; i<getBodyModal[0].childNodes.length; i++){
                     getBodyModal[0].childNodes[i].addEventListener("click",function(e){
-                        //console.log(e.target)
-                        var sel = getEditSection.childNodes[0].contentWindow.document.getSelection(0);
+                        console.log(e.target)
+                        var sel = edit.getSelection(0);
                         var rng = sel.getRangeAt(0);
                         
                         var node = e.target
                         var cloneNode = node.cloneNode();
-                        //sel.removeAllRanges();
+                        sel.removeAllRanges();
                         rng.deleteContents();
 
                         rng.insertNode(cloneNode);
@@ -232,6 +232,7 @@ var editor = function(node) {
                         sel.addRange(rng);
 
                         edit.body.focus();
+
                         creModalDiv.style.display = "none";
                         creBlockBtn.style.display = "none";
                     })
@@ -239,13 +240,16 @@ var editor = function(node) {
                 
             }else{
                 var getModalId = document.getElementById("modal");
+                var getBlockBtn = document.getElementById("closeBtn");
                 getModalId.style.display = "block";
+                getBlockBtn.style.display = "block";
             }
 
         })
         window.onclick = function(e){
             var getModalId = document.getElementById("modal");
             var getBlockBtn = document.getElementById("closeBtn");
+           console.log(e.target)
             if(e.target === getBlockBtn){
                 console.log(e.target)
                 getModalId.style.display = "none";
@@ -269,12 +273,16 @@ var editor = function(node) {
 
     function addEditView(){
         var createIframeTag = document.createElement("iframe");
+        createIframeTag.style.width = "810px";
         createIframeTag.style.height = "350px";
         createIframeTag.id = "output";
         createIframeTag.name = "textFiled";
+
         this.editIframe = createIframeTag;
+        
         var getSection = this.element.root.querySelector("#edit_section");
         getSection.appendChild(createIframeTag);
+
         var edit = this.element.root.querySelector("#output").contentWindow.document;
         edit.body.style = "word-break: break-all;"
         edit.body.innerHTML = "<p></br></p>";
@@ -284,15 +292,25 @@ var editor = function(node) {
 
     function footerView(){
         var getFooter = this.element.root.querySelector("#footer");
+        
         var creResizeBtn = document.createElement("button");
         var creResizeDiv = document.createElement("div");
         var creReiszeinnerDiv = document.createElement("div");
+
+        var edit = this.element.root.querySelector("#edit_section")
+
         creResizeDiv.id = "reSizeDiv";
         creReiszeinnerDiv.id = "resSizeInnerDiv";
         creResizeBtn.id = "resizeBtn";
 
+        getFooter.style.width = edit.childNodes[0].style.width; 
+        creResizeDiv.style.width = edit.childNodes[0].style.width;
+        creReiszeinnerDiv.style.width = edit.childNodes[0].style.width;
+        creResizeBtn.style.width = edit.childNodes[0].style.width;
+
         for(var i = 0; i<footerbtn.length; i++){
             var creDiv = document.createElement("div");
+            
             creDiv.innerHTML = footerbtn[i].value;
             creDiv.id = footerbtn[i].key;
             getFooter.appendChild(creDiv);
@@ -300,6 +318,8 @@ var editor = function(node) {
         getFooter.after(creResizeDiv);
         creResizeDiv.appendChild(creReiszeinnerDiv);
         creResizeDiv.appendChild(creResizeBtn);
+
+
      };
 
     function toolbarEvt(){
@@ -428,16 +448,16 @@ var editor = function(node) {
      };
 
     function addHeader(node){
-        var edit = getEditDocument();
-        var curSel = this.element.root.querySelector("#edit_section")
-        .childNodes[0].contentWindow.document.getSelection().getRangeAt(0);
+        var edit = this.element.root.querySelector("#edit_section").childNodes[0].contentWindow.document;
+
+        var curSel = edit.getSelection().getRangeAt(0);
 
         var sel = edit.getSelection();
         var rng = edit.createRange();
 
         var start = curSel.startContainer;
         var end = curSel.endContainer;
-        console.log(start,end);
+   
         var parentNodeArr = [];
 
         var startParent = getStartEndContainer(start);
@@ -543,6 +563,9 @@ var editor = function(node) {
 
         sel.removeAllRanges();
         sel.addRange(rng);
+
+        console.log(sel,rng);
+
         edit.body.focus();
 
         edit.body.addEventListener("keyup",function(e){
@@ -668,7 +691,7 @@ function btnCheck(){
 function resizeEvt(){
     var getEditSection = this.element.root.querySelector("#edit_section");
     var getIframe = getEditSection.childNodes[0];
-    var getResizeBtn = document.getElementById("resizeBtn");
+    var getResizeBtn = this.element.root.querySelector("#resizeBtn");
 
     getResizeBtn.addEventListener("mousedown",initDrag,false);
 
@@ -695,7 +718,7 @@ function resizeEvt(){
         }
         else if(t.currentState === "HTML"){
             
-            var getTextAreaId = getEditSection.childNodes[1];
+            var getTextAreaId = getEditSection.childNodes[2];
             startHeight = parseInt(getTextAreaId.offsetHeight, 10);
             
             document.documentElement.addEventListener('mousemove', doDrag, false);
@@ -704,7 +727,6 @@ function resizeEvt(){
         }else if(t.currentState === "PreView"){
 
             startHeight = parseInt(getIframe.offsetHeight, 10);
-
             document.documentElement.addEventListener('mousemove', doDrag, false);
             document.documentElement.addEventListener('mouseup', stopDrag, false);
             
@@ -717,7 +739,7 @@ function resizeEvt(){
         }
        
         else if(t.currentState === "HTML"){
-            var getTextAreaId = getEditSection.childNodes[1];
+            var getTextAreaId = getEditSection.childNodes[2];
             getTextAreaId.style.height = (startHeight + e.clientY - startY) + 'px';
         }
         
@@ -771,13 +793,13 @@ function footerEvt(){
             getBoxId.removeAttribute("disabled","");
             getResizeBtn.removeAttribute("disabled","");
 
-            
 
             edit.body.designMode = "On";
 
             getEditSection.childNodes[1].style.display ="none";
             edit.body.innerHTML = getEditSection.childNodes[1].value;
             getIframe.style =  "";
+            getEditSection.childNodes[0].style.width = getEditSection.childNodes[1].style.width;
             getEditSection.childNodes[0].style.height = getEditSection.childNodes[1].style.height;
 
             t.currentState = "Edit";
@@ -801,7 +823,7 @@ function footerEvt(){
     getToHtml.addEventListener("click",function(e){ // 소스 보기
         getToEdit.style.backgroundColor = "";
         getToHtml.style.backgroundColor = "#f1f2f6";
-        getToPreView.style.backgroundColor ="";
+        getToPreView.style.backgroundColor = "";
         
         for(var i = 0; i<getBtn.length;i++){
             getBtn[i].setAttribute("disabled",true);
@@ -810,18 +832,18 @@ function footerEvt(){
         getBoxId.setAttribute("disabled",true);
 
         getResizeBtn.removeAttribute("disabled","");
-        getResizeBtn.style.backgroundColor ="";
+        getResizeBtn.style.backgroundColor = "";
         
         if(t.currentState === "Edit"){ //edit -> html
             edit.designMode = "On";
             
-            getResizeBtn.style.backgroundColor ="";
+            getResizeBtn.style.backgroundColor = "";
             getEditSection.appendChild(creTa);
             creTa.value = edit.body.innerHTML;
 
             getIframe.style.display = "none";
-            getEditSection.childNodes[1].style = "width:802px; resize:none; font-size:16px; outline:none; font-family: Malgum Gothic; color:#000000; border:1px solid black";
-            
+            getEditSection.childNodes[1].style = "resize:none; font-size:16px; outline:none; font-family: Malgum Gothic; color:#000000; border:1px solid black";
+            getEditSection.childNodes[1].style.width = getEditSection.childNodes[0].style.width;
             getEditSection.childNodes[1].style.height = getEditSection.childNodes[0].style.height;
             var Text = getEditSection.childNodes[1]
             findPtag(Text)
@@ -833,11 +855,12 @@ function footerEvt(){
         }else if(t.currentState === "PreView"){ // 미리 보기 -> html
 
             edit.designMode = "On";
-            getResizeBtn.style.backgroundColor ="";
-            getIframe.style.display= "none";
+            getResizeBtn.style.backgroundColor = "";
+            getIframe.style.display = "none";
 
             getEditSection.appendChild(creTa);
-            getEditSection.childNodes[1].style = "width:802px; height:348px; resize:none; font-size:16px; outline:none; font-family: Malgum Gothic; color:#000000; border:1px solid black";
+            getEditSection.childNodes[1].style = "resize:none; font-size:16px; outline:none; font-family: Malgum Gothic; color:#000000; border:1px solid black";
+            getEditSection.childNodes[1].style.width = getEditSection.childNodes[0].style.width;
             getEditSection.childNodes[1].style.height = getEditSection.childNodes[0].style.height;
             creTa.value = edit.body.innerHTML;
 
@@ -862,14 +885,15 @@ function footerEvt(){
         getResizeBtn.removeAttribute("disabled","");
 
         if(t.currentState === "HTML"){
-            edit.designMode= "Off";
+            edit.designMode = "Off";
 
             getResizeBtn.style.backgroundColor ="";
             
 
-            getIframe.style= "";
+            getIframe.style = "";
             getEditSection.childNodes[1].style.display ="none";
             edit.body.innerHTML = getEditSection.childNodes[1].value;
+            getEditSection.childNodes[0].style.width = getEditSection.childNodes[1].style.width;
             getEditSection.childNodes[0].style.height = getEditSection.childNodes[1].style.height;
             t.currentState="PreView";
             console.log(t.currentState)
@@ -954,7 +978,6 @@ function setBodyValue(data = "<p></br></p>"){
 };
 
 function renderHeader(){
-    addSelect();
     addSelectBtn();
     addBtn();
     titleText();

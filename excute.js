@@ -1,13 +1,15 @@
-var editor = new SimpleEditor({
-    root:"root",
-    // width:"1200px",
-    // height:"600px"
+var test = editor({
+    root:"wrap",
+    // width: "1200px",
+    // height:"700px"
 });
-editor.startEditor()
+test.startEditor();
 
-// var editor2 = new SimpleEditor({
-//     root: "wrap",
-//     width: "2000px",
-//     height:"700px"
+// var test2 = editor({
+//     root:"root",
+//     width: "1000px",
+//     height: "500px"
 // })
-// editor2.startEditor();
+// test2.startEditor();
+
+// console.log(test === test2);

@@ -209,7 +209,7 @@ body{
     background-color: #ecf0f1;
     height:30px;
 }
-.modal-body{
+#modal-body{
     word-break: break-all;
 	padding: 2px 16px;
 }

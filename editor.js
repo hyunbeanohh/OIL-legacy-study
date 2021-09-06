@@ -5,7 +5,7 @@ var editor = function(node) {
         {key:"italic", value:"기울기", ui : "fas fa-italic", cmd :"italic", id : "italic"},
         {key:"underline", value:"밑줄", ui : "fas fa-underline" , cmd :"underline", id :"underline"},
         {key:"strike", value:"취소선", ui : "fas fa-strikethrough" , cmd :"strikethrough" , id :"strike"},
-        {key:"emoji", value:"이모티콘", ui :"far fa-smile" , cmd:"none", id :"emoji"}
+       
     ];
     
     var options = [
@@ -48,7 +48,8 @@ var editor = function(node) {
     var editor = this.element.root;// 새롭게 생성되는 에디터 객체를 가지고 있는 변수
     var editorWidth = this.width;
     var editorHeight = this.height;
-    var creBodyModalTemp= null; // 모달의 Body영역을 가지고 있는 변수
+
+    var creBodyModalTemp = null; // 모달의 Body영역을 가지고 있는 변수
     var creDivModalTemp = null; // 모달의 DIV 영역을 가지고 있는 변수
     var creBlockBtnTemp = null; // 모달이 생성될 때, document 영역 전체에 위치하는 BlockBtn를 가지는 변수
     var tempSelection = null;
@@ -56,8 +57,9 @@ var editor = function(node) {
 
     var templateBtnOptions = this.createBtn;
     var templateToolbarOptions = this.createToolbar;
+    console.log(templateToolbarOptions);
+    console.log(templateToolbarOptions);
 
-    
 
     function setValueParser(a){
         var b = '';
@@ -178,77 +180,80 @@ var editor = function(node) {
 
      function modalView(e){
         
-
         var getModalBtn = editor.querySelector("#emoji");
-        var creModalDiv = document.createElement("div");
-        creModalDiv.id = "modal";
-        creDivModalTemp = creModalDiv;
-        
-
-        var creModalContent = document.createElement("div");
-        creModalContent.className = "modal-content";
-        var creModalHeader = document.createElement("div");
-        creModalHeader.className = "modal-header";
-        creModalContent.appendChild(creModalHeader);
-
-        var creCloseSpan = document.createElement("span");
-        var creTextSpan = document.createElement("span");
-        creTextSpan.className = "closeText";
-        creTextSpan.innerText = "이모티콘"
-        creCloseSpan.className = "close";
-        creCloseSpan.innerText = "X";
-        // 헤더 영역
-
-        // 바디 영역
-        var creBodyModal = document.createElement("div"); 
-        creBodyModal.id = "modal-body";
-        creBodyModalTemp = creBodyModal
-
-        for(var i = 0; i<emoticon.length; i ++){
-            var creBodyAnchor = document.createElement("a");
-            creBodyAnchor.style = "margin : 5px 5px 0 0; line-height: 30px"
-            creBodyAnchor.innerHTML = emoticon[i].src;
-            creBodyModal.appendChild(creBodyAnchor);
-        }
-        
-        
-        creModalHeader.appendChild(creCloseSpan);
-        creModalHeader.appendChild(creTextSpan);
-        creBodyModal.appendChild(creBodyAnchor);
-        creModalContent.appendChild(creBodyModal);
-        creModalDiv.appendChild(creModalContent);
-        
-        editor.appendChild(creDivModalTemp);
-        creModalDiv.style.display = "none";
-
-        var creBlockBtn = document.createElement("button");
-        creBlockBtn.id = "closeBtn";
-        creBlockBtn.style = "display: none; position:absolute; width:150%; height:320%; left:-50%; top:-30%; background-color : white; opacity:0.01;"
-        creBlockBtnTemp = creBlockBtn;
-        editor.appendChild(creBlockBtnTemp);
-
-        creCloseSpan.addEventListener("click",function(){
-            creModalDiv.style.display = "none";
-            creBlockBtn.style.display = "none";
-
-        });
-
-        getModalBtn.addEventListener("click",function(e){
+        if(getModalBtn){
+            var creModalDiv = document.createElement("div");
+            creModalDiv.id = "modal";
+            creDivModalTemp = creModalDiv;
             
-            var getModalId = creDivModalTemp;
-            var getBlockBtn = creBlockBtnTemp;
-            getModalId.style.display = "block";
-            getBlockBtn.style.display = "block";
-        
-            window.onclick = function(e){
+    
+            var creModalContent = document.createElement("div");
+            creModalContent.className = "modal-content";
+            var creModalHeader = document.createElement("div");
+            creModalHeader.className = "modal-header";
+            creModalContent.appendChild(creModalHeader);
+    
+            var creCloseSpan = document.createElement("span");
+            var creTextSpan = document.createElement("span");
+            creTextSpan.className = "closeText";
+            creTextSpan.innerText = "이모티콘"
+            creCloseSpan.className = "close";
+            creCloseSpan.innerText = "X";
+            // 헤더 영역
+    
+            // 바디 영역
+            var creBodyModal = document.createElement("div"); 
+            creBodyModal.id = "modal-body";
+            creBodyModalTemp = creBodyModal
+    
+            for(var i = 0; i<emoticon.length; i ++){
+                var creBodyAnchor = document.createElement("a");
+                creBodyAnchor.style = "margin : 5px 5px 0 0; line-height: 30px"
+                creBodyAnchor.innerHTML = emoticon[i].src;
+                creBodyModal.appendChild(creBodyAnchor);
+            }
+            
+            
+            creModalHeader.appendChild(creCloseSpan);
+            creModalHeader.appendChild(creTextSpan);
+            creBodyModal.appendChild(creBodyAnchor);
+            creModalContent.appendChild(creBodyModal);
+            creModalDiv.appendChild(creModalContent);
+            
+            editor.appendChild(creDivModalTemp);
+            creModalDiv.style.display = "none";
+    
+            var creBlockBtn = document.createElement("button");
+            creBlockBtn.id = "closeBtn";
+            creBlockBtn.style = "display: none; position:absolute; width:150%; height:320%; left:-50%; top:-30%; background-color : white; opacity:0.01;"
+            creBlockBtnTemp = creBlockBtn;
+            editor.appendChild(creBlockBtnTemp);
+    
+            creCloseSpan.addEventListener("click",function(){
+                creModalDiv.style.display = "none";
+                creBlockBtn.style.display = "none";
+    
+            });
+    
+            getModalBtn.addEventListener("click",function(e){
+                
                 var getModalId = creDivModalTemp;
                 var getBlockBtn = creBlockBtnTemp;
-                if(e.target === getBlockBtn){
-                    getModalId.style.display = "none";
-                    getBlockBtn.style.display = "none";
-                }
-            };
-        });
+                getModalId.style.display = "block";
+                getBlockBtn.style.display = "block";
+            
+                window.onclick = function(e){
+                    var getModalId = creDivModalTemp;
+                    var getBlockBtn = creBlockBtnTemp;
+                    if(e.target === getBlockBtn){
+                        getModalId.style.display = "none";
+                        getBlockBtn.style.display = "none";
+                    }
+                };
+            });
+        
+        }
+       
      };
 
 
@@ -340,45 +345,52 @@ var editor = function(node) {
         var strikeId = editor.querySelector("#strike");
         var edit = editor.querySelector("#output").contentWindow.document;
     
-        boldId.addEventListener("click",function(e){
-           
-            if(boldId.className === ""){
-                boldId.className = "changeBold";
-            }else{
-                boldId.classList.remove("changeBold");
+        if(boldId !== null){
+                boldId.addEventListener("click",function(e){
+            
+                    if(boldId.className === ""){
+                        boldId.className = "changeBold";
+                    }else{
+                        boldId.classList.remove("changeBold");
+                }
+                edit.body.focus();
+            });
         }
-        edit.body.focus();
-    });
-
+      
+        if(italicId !== null){
+            italicId.addEventListener("click",function(e){
+                if(italicId.className === ""){
+                    italicId.className = "changeItalic";
+                }else{
+                    italicId.classList.remove("changeItalic")
+                }
+                edit.body.focus();
+            });
+        }
     
-        italicId.addEventListener("click",function(e){
-            if(italicId.className === ""){
-                italicId.className = "changeItalic";
-            }else{
-                italicId.classList.remove("changeItalic")
-            }
-            edit.body.focus();
-        });
-    
-        underlineId.addEventListener("click",function(e){
+        if(underlineId !== null){
+            underlineId.addEventListener("click",function(e){
+        
+                if(underlineId.className === ""){
+                    underlineId.className = "changeUnderline";
+                }else{
+                    underlineId.classList.remove("changeUnderline");
+                }
+                edit.body.focus();
+            });
+        }
+        if(strikeId !== null){
+            strikeId.addEventListener("click",function(e){
            
-            if(underlineId.className === ""){
-                underlineId.className = "changeUnderline";
-            }else{
-                underlineId.classList.remove("changeUnderline");
-            }
-            edit.body.focus();
-    });
-    
-        strikeId.addEventListener("click",function(e){
-           
-            if(strikeId.className === ""){
-                strikeId.className = "changeStrike";
-            }else{
-                strikeId.classList.remove("changeStrike");
-            }
-            edit.body.focus();
-        });
+                if(strikeId.className === ""){
+                    strikeId.className = "changeStrike";
+                }else{
+                    strikeId.classList.remove("changeStrike");
+                }
+                edit.body.focus();
+            });
+        }
+     
      };
 
      function newWriteFunction(){
@@ -416,28 +428,31 @@ var editor = function(node) {
         var edit = editor.querySelector("#edit_section").childNodes[0].contentWindow.document;
         var getModalDiv = editor.querySelector("#modal");
         var getBlockBtn = editor.querySelector("#closeBtn");
+        
+        if(getModalDiv !== null){
+            creBodyModalTemp.addEventListener("click",function(e){
+            
+                edit.body.focus();
+    
+                var sel = edit.getSelection(0);
+                var tempRange = sel.getRangeAt(0);
+    
+                var node = e.target
+                var cloneNode = node.cloneNode();
+                
+                tempRange.deleteContents();
+    
+                tempRange.insertNode(cloneNode);
+                tempRange.collapse(false);
+                
+                sel.removeAllRanges();
+                sel.addRange(tempRange);
+    
+                getModalDiv.style.display = "none";
+                getBlockBtn.style.display = "none";
+            })
+        }
      
-        creBodyModalTemp.addEventListener("click",function(e){
-            
-            edit.body.focus();
-
-            var sel = edit.getSelection(0);
-            var tempRange = sel.getRangeAt(0);
-
-            var node = e.target
-            var cloneNode = node.cloneNode();
-            
-            tempRange.deleteContents();
-
-            tempRange.insertNode(cloneNode);
-            tempRange.collapse(false);
-            
-            sel.removeAllRanges();
-            sel.addRange(tempRange);
-
-            getModalDiv.style.display = "none";
-            getBlockBtn.style.display = "none";
-        })
         
      }
 
@@ -670,13 +685,24 @@ function fontFunction(){
     var buttons = editor.querySelectorAll("button");
     var doc = getEditDocument();
 
-    for(var i = 0; i<buttons.length; i++){
+    if(templateToolbarOptions === undefined){
+        for(var i = 0; i<buttons.length; i++){
     
-        buttons[i].addEventListener('click',function(){
-        var cmd = this.getAttribute('data-cmd');
-        doc.execCommand(cmd,false,null);
-        })
+            buttons[i].addEventListener('click',function(){
+            var cmd = this.getAttribute('data-cmd');
+            doc.execCommand(cmd,false,null);
+            })
+        }
+    }else{
+        for(var i = 0; i<templateToolbarOptions.length; i++){
+    
+            buttons[i].addEventListener('click',function(){
+            var cmd = this.getAttribute('data-cmd');
+            doc.execCommand(cmd,false,null);
+            })
+        }
     }
+  
 };
 
 function backspacePrevent(){
@@ -717,10 +743,10 @@ function btnCheck(){
         }
         //console.log(arr);
         
-        boldId.classList.remove("changeBold");
-        italicId.classList.remove("changeItalic");
-        underlineId.classList.remove("changeUnderline")
-        strikeId.classList.remove("changeStrike");
+        if(boldId !== null)boldId.classList.remove("changeBold");
+        if(italicId !== null)italicId.classList.remove("changeItalic");
+        if(underlineId !== null)underlineId.classList.remove("changeUnderline")
+        if(strikeId !== null)strikeId.classList.remove("changeStrike");
 
         
 
@@ -1056,10 +1082,34 @@ function createTemplateBtn(){
 }
 
 function createTemplateToolbar(){
-     
+    var getHeaderSection = editor.querySelector("#header_section");
+    var creBtnSection = document.createElement("div");
+    creBtnSection.id = "btn_section";
+
+    for(var i = 0; i<templateToolbarOptions.length; i++){
+        var creBtn = document.createElement("button");
+        var creUI = document.createElement("i");
+
+        
+        creBtn.type = "button";
+        creBtn.title = templateToolbarOptions[i].value;
+        creBtn.id = templateToolbarOptions[i].id;
+        creBtn.setAttribute("data-cmd",`${templateToolbarOptions[i].cmd}`)
+
+        if(templateToolbarOptions[i].width !== null){
+            creBtn.style.width = templateToolbarOptions[i].width;
+        };
+        if(templateToolbarOptions[i].height !== null){
+            creBtn.style.height = templateToolbarOptions[i].height;
+        };
+
+        creUI.className = templateToolbarOptions[i].ui;
+        creBtn.appendChild(creUI);
+        
+        creBtnSection.appendChild(creBtn);
+    };
+    getHeaderSection.appendChild(creBtnSection);
 }
-
-
 
 
 function renderHeader(){
@@ -1071,7 +1121,7 @@ function renderHeader(){
     };
 
     if(templateBtnOptions !== undefined) createTemplateBtn();
-    
+
     titleText();
     modalView();
 

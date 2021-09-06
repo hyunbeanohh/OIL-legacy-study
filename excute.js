@@ -2,13 +2,18 @@ var test = editor({
     root:"root",
     // createBtn : {
     //     ui: 'fab fa-instagram',
-    //     // url: "./test.png",
+    //     url: "./test.png",
     //     id : 'instagram',
     //     function :function(){alert("hi")},
     // },
-    // createToolbar : {
-    //     id: 'test',
-    // }
+    createToolbar : 
+        [
+            {key:"bold", value:"강조", ui : "fas fa-bold", cmd :"bold", id : "bold", width:"10%",height:"20px"},
+            {key:"italic", value:"기울기", ui : "fas fa-italic", cmd :"italic", id : "italic"},
+            {key:"newWirte", value:"새글", ui : "far fa-newspaper" ,id : "newWrite", cmd : "none"},
+            {key:"emoji", value:"이모티콘", ui :"far fa-smile" , cmd:"none", id :"emoji"},
+
+        ],
 });
 test.startEditor();
 

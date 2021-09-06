@@ -130,16 +130,16 @@ body{
     border: 1px solid black;;
 }
 
-#header_section>.changeBold{
+#btn_section>.changeBold{
     box-shadow: 0px -3px rgba(0,0,0,0.5);
 }
-#header_section > .changeItalic {
+#btn_section > .changeItalic {
     box-shadow: 0px -3px rgba(0,0,0,0.5);
 }
-#header_section > .changeUnderline{
+#btn_section > .changeUnderline{
     box-shadow: 0px -3px rgba(0,0,0,0.5);
 }
-#header_section > .changeStrike{
+#btn_section > .changeStrike{
     box-shadow: 0px -3px rgba(0,0,0,0.5);
 }
 

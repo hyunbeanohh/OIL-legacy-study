@@ -24,12 +24,6 @@ var editor = function(node) {
         // {key:"setBodyValue", value:"setBodyValue"},
         // {key:"getBodyValue", value:"getBodyValue"},
     ];
-    var getsetbtn = [
-        {id : "getValue", value : "getValue()"},
-        {id : "setValue", value : "setValue()"},
-        {id : "getBodyValue", value : "getBodyValue()"},
-        {id : "setBodyValue", value : "setBodyValue()"}
-    ]
     var emoticon = [
         {title : "윙크", src : '<img alt="윙크" title="윙크" src="http://comp.namoeditor.co.kr/ce4/demo/crosseditor/images/emoticon/02.png" style="vertical-align: baseline; cursor: pointer;">'},
         {title : "방긋", src : '<img alt="방긋" title="방긋" src="http://comp.namoeditor.co.kr/ce4/demo/crosseditor/images/emoticon/01.png" style="vertical-align: baseline; cursor: pointer;">'},
@@ -43,18 +37,25 @@ var editor = function(node) {
         {title : "헤롱", src : '<img alt="헤롱" title="헤롱" src="http://comp.namoeditor.co.kr/ce4/demo/crosseditor/images/emoticon/10.png" style="vertical-align: baseline; cursor: pointer;">'},
     ];
 
-    var editor = null; // 새롭게 생성되는 에디터 객체를 가지고 있는 변수
+    this.element = {
+        root: document.getElementById(node.root)
+    }
+    this.width = node.width;
+    this.height = node.height;
+    this.createBtn = node.createBtn;
+    this.createToolbar = node.createToolbar;
+
+    var editor = this.element.root;// 새롭게 생성되는 에디터 객체를 가지고 있는 변수
     var creBodyModalTemp= null; // 모달의 Body영역을 가지고 있는 변수
     var creDivModalTemp = null; // 모달의 DIV 영역을 가지고 있는 변수
     var creBlockBtnTemp = null; // 모달이 생성될 때, document 영역 전체에 위치하는 BlockBtn를 가지는 변수
     var tempSelection = null;
     var tempRange = null;
 
-    this.element = {
-        root: document.getElementById(node.root)
-    }
-    this.width = node.width;
-    this.height = node.height;
+    var templateBtnOptions = this.createBtn;
+    var templateToolbarOptions = this.createToolbar;
+
+    
 
     function setValueParser(a){
         var b = '';
@@ -92,19 +93,19 @@ var editor = function(node) {
 
 
     function setWidth(){
-        editor = this.element.root;
+        
         var getEditor = editor.querySelector("#Editor");
         getEditor.style.width = this.width;
     };
 
     function setHeight(){
-        editor = this.element.root;
+        
          var getEditSection = editor.querySelector("#edit_section");
             getEditSection.childNodes[0].style.height = this.height;
     };
 
     function settingTag(){
-        editor = this.element.root;
+        
         var editorDiv = document.createElement("div");
         editorDiv.id = "Editor"
         editor.appendChild(editorDiv);
@@ -139,16 +140,11 @@ var editor = function(node) {
         return select;
      };
 
-     function addSelectBtn(){
-        editor = this.element.root;
-        var getHeaderSection = editor.querySelector("#header_section");
-        var select = addSelect('boxId','boxName',options);
-        getHeaderSection.appendChild(select); 
-     };
-
      function addBtn(){
-        editor = this.element.root;
+
         var getHeaderSection = editor.querySelector("#header_section");
+        var creBtnSection = document.createElement("div");
+        creBtnSection.id = "btn_section";
         
         for(var i = 0; i<toolbtn.length; i++){
             var creBtn = document.createElement("button");
@@ -163,12 +159,20 @@ var editor = function(node) {
             creUI.className = toolbtn[i].ui;
             creBtn.appendChild(creUI);
             
-            getHeaderSection.appendChild(creBtn);
+            creBtnSection.appendChild(creBtn);
         };
+        getHeaderSection.appendChild(creBtnSection);
+     };
+     
+     function addSelectBtn(){
+        
+        var getHeaderSection = editor.querySelector("#header_section");
+        var select = addSelect('boxId','boxName',options);
+        getHeaderSection.appendChild(select); 
      };
 
      function modalView(e){
-        editor = this.element.root;
+        
 
         var getModalBtn = editor.querySelector("#emoji");
         var creModalDiv = document.createElement("div");
@@ -244,7 +248,7 @@ var editor = function(node) {
 
 
     function titleText(){
-        editor = this.element.root;
+        
         var getHeaderSection = editor.querySelector("#header_section");
         var creSpan = document.createElement("span");
         var txt = document.createTextNode("💻");
@@ -280,7 +284,7 @@ var editor = function(node) {
      };
      
     function footerView(){
-        editor = this.element.root;
+        
         var getFooter = this.element.root.querySelector("#footer");
         
         var creResizeBtn = document.createElement("button");
@@ -313,7 +317,7 @@ var editor = function(node) {
      };
 
     function toolbarEvt(){
-        editor = this.element.root;
+        
         var boldId = editor.querySelector("#bold");
         var italicId = editor.querySelector("#italic");
         var underlineId = editor.querySelector("#underline");
@@ -362,7 +366,7 @@ var editor = function(node) {
      };
 
      function newWriteFunction(){
-        editor = this.element.root;
+        
         var getnewWriteId = editor.querySelector("#newWrite");
         var doc = getEditDocument();
         var boldId = editor.querySelector("#bold");
@@ -393,7 +397,6 @@ var editor = function(node) {
 
      function modalEvt(){
 
-        var editor = this.element.root;
         var edit = editor.querySelector("#edit_section").childNodes[0].contentWindow.document;
         var getModalDiv = editor.querySelector("#modal");
         var getBlockBtn = editor.querySelector("#closeBtn");
@@ -470,7 +473,7 @@ var editor = function(node) {
      
 
     function addHeader(node){
-        editor = this.element.root;
+        
         var edit = editor.querySelector("#edit_section").childNodes[0].contentWindow.document;
 
         var curSel = edit.getSelection(0).getRangeAt(0);
@@ -607,41 +610,47 @@ var editor = function(node) {
 };
 
 function addHeaderFunction(){
-    editor = this.element.root;
-    var getSelectBox = editor.querySelector("#boxId");
     
+    var getSelectBox = editor.querySelector("#boxId");
+    var edit = getEditDocument();
     getSelectBox.addEventListener("change",function(){
         var optionValue = getSelectBox.options[getSelectBox.selectedIndex].value;
         
         if(optionValue === "h1"){
             console.log(optionValue);
             addHeader("h1");
+            edit.body.focus();
         }
         else if(optionValue === "h2"){
             console.log(optionValue);
             addHeader("h2");
+            edit.body.focus();
         }
         else if(optionValue === "h3"){
             console.log(optionValue);
             addHeader("h3");
+            edit.body.focus();
         }
         else if(optionValue === "h4"){
             console.log(optionValue);
             addHeader("h4");
+            edit.body.focus();
         }
         else if(optionValue === "h5"){
             console.log(optionValue);
             addHeader("h5");
+            edit.body.focus();
         }
         else if(optionValue === "h6"){
             console.log(optionValue);
             addHeader("h6");
+            edit.body.focus();
         }
     })
 };
 
 function fontFunction(){
-    editor = this.element.root;
+    
     var buttons = editor.querySelectorAll("button");
     var doc = getEditDocument();
 
@@ -655,8 +664,8 @@ function fontFunction(){
 };
 
 function backspacePrevent(){
-    editor = this.element.root;
-    var edit = editor.querySelector("#output").contentWindow.document;
+    
+    var edit = getEditDocument();
     edit.addEventListener("keyup",function(evt){
         if(evt.defaultPrevented){
             return
@@ -670,7 +679,7 @@ function backspacePrevent(){
 };
 
 function btnCheck(){
-    editor = this.element.root;
+    
     var getEditSection = editor.querySelector("#edit_section").childNodes[0].contentWindow.document;
     var boldId = editor.querySelector("#bold");
     var italicId = editor.querySelector("#italic");
@@ -709,7 +718,7 @@ function btnCheck(){
 };
 
 function resizeEvt(){
-    editor = this.element.root;
+    
     var getEditSection = editor.querySelector("#edit_section");
     var getIframe = getEditSection.childNodes[0];
     var getResizeBtn =editor.querySelector("#resizeBtn");
@@ -779,7 +788,7 @@ function resizeEvt(){
 };
 
 function footerEvt(){
-    editor = this.element.root;
+    
     var getToEdit = editor.querySelector("#toEdit");
     var getToHtml = editor.querySelector("#toHtml");
     var getToPreView = editor.querySelector("#toPreView");
@@ -932,8 +941,11 @@ function footerEvt(){
     }.bind(t));
 };
 
+
+// 사용자가 사용할 수 있는 API 함수 시작
+
 function getValue(){
-    editor = this.element.root;
+    
 
     var getEditSection = editor.querySelector("#edit_section");
     var doc = getEditDocument();
@@ -955,7 +967,7 @@ function getValue(){
 };
 
 function setValue(data = "<p></br></p>"){
-    editor = this.element.root;
+    
     var edit = getEditDocument();
     var getEditSection = editor.querySelector("#edit_section");
     if(t.currentState === "Edit"){
@@ -971,7 +983,7 @@ function setValue(data = "<p></br></p>"){
 };
 
 function getBodyValue(){
-    editor = this.element.root;
+    
     var getEditSection =editor.querySelector("#edit_section");
     var doc = getEditDocument();
     var edit = doc;
@@ -987,7 +999,7 @@ function getBodyValue(){
 };
 
 function setBodyValue(data = "<p></br></p>"){
-    editor = this.element.root;
+    
     var getEditSection = editor.querySelector("#edit_section");
     var doc = getEditDocument();
     var edit = doc;
@@ -1002,6 +1014,35 @@ function setBodyValue(data = "<p></br></p>"){
         return false;
     }
 };
+
+if(templateBtnOptions !== null){
+    function createTemplateBtn(){
+    
+        var getBtnSection = editor.querySelector("#btn_section");
+        var creBtn = document.createElement("button");
+        var creIElement = document.createElement("i");
+
+        creBtn.id = templateBtnOptions.id;
+        
+        if(templateBtnOptions.ui !== null && !templateBtnOptions.url){
+            creIElement.className = templateBtnOptions.ui;
+            creBtn.appendChild(creIElement);
+        }
+        else if(templateBtnOptions.url !== null &&!templateBtnOptions.ui){
+            var creImage = document.createElement("img");
+            creImage.style = "width:70%; height:15px"
+            creImage.setAttribute("src",templateBtnOptions.url);
+            creBtn.appendChild(creImage);
+        }
+        
+        creBtn.addEventListener("click",templateBtnOptions.function);
+        getBtnSection.appendChild(creBtn);
+    }
+}else{
+    return;
+}
+
+
 
 function renderHeader(){
     addSelectBtn();
@@ -1042,6 +1083,7 @@ function addAPIEvt(){
     setValue();
     getBodyValue();
     setBodyValue();
+    createTemplateBtn(createTemplateBtn);
 };
 
 function startEditor(){
@@ -1077,6 +1119,9 @@ function startEditor(){
         },
         setBodyValue : function(data){
             return setBodyValue(data);
+        },
+        createTemplateBtn : function(options){
+            return createTemplateBtn(options);
         }
     }
 };

@@ -9,13 +9,12 @@ body{
 }
 
 #header_section{
-    margin: 0 0 15px -10px;
-    width: 61%;
+    width: 60%;
 }
 
-#header_section > button{
+#btn_section > button{
     float: left;
-    margin-left: 10px;
+    margin: 0px 10px 0px 0px;
     border:none;
     outline: none;
     width: 30px;
@@ -27,6 +26,11 @@ body{
 
 #header_section > button:hover{
     background-color:#bfefcf;
+}
+
+#editorTextId{
+    margin : 0px 0px 0px 150px;
+    position: absolute;
 }
 
 #footer{
@@ -84,7 +88,7 @@ body{
 }
 
 #boxId{
-    border-radius: 1px solid black; 
+    margin-bottom: 10px;
     float:right;
     width: 150px;
     height: 23px;
@@ -103,11 +107,6 @@ body{
 #boldId,#italicId,#underlineId,#strikeId {
     box-shadow: 0px -3px rgba(0,0,0,0.5);
 
-}
-
-#editorTextId{
-    position: relative;
-    left:25%;
 }
 
 #getValue, #setValue ,#getBodyValue, #setBodyValue{

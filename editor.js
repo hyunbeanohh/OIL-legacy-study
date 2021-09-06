@@ -57,8 +57,8 @@ var editor = function(node) {
 
     var templateBtnOptions = this.createBtn;
     var templateToolbarOptions = this.createToolbar;
-    console.log(templateToolbarOptions);
-    console.log(templateToolbarOptions);
+    // console.log(templateToolbarOptions.createTemplateObj["width"]);
+    // console.log(templateToolbarOptions);
 
 
     function setValueParser(a){
@@ -1084,28 +1084,33 @@ function createTemplateBtn(){
 function createTemplateToolbar(){
     var getHeaderSection = editor.querySelector("#header_section");
     var creBtnSection = document.createElement("div");
+    if(templateToolbarOptions.width !== null){
+        creBtnSection.style.width = templateToolbarOptions.width;
+    }
+    if(templateToolbarOptions.height !== null){
+        creBtnSection.style.height = templateToolbarOptions.height;
+    }
     creBtnSection.id = "btn_section";
 
-    for(var i = 0; i<templateToolbarOptions.length; i++){
+    for(var i = 0; i<templateToolbarOptions.createTemplateObj.length; i++){
         var creBtn = document.createElement("button");
         var creUI = document.createElement("i");
 
         
         creBtn.type = "button";
-        creBtn.title = templateToolbarOptions[i].value;
-        creBtn.id = templateToolbarOptions[i].id;
-        creBtn.setAttribute("data-cmd",`${templateToolbarOptions[i].cmd}`)
+        creBtn.title = templateToolbarOptions.createTemplateObj[i].value;
+        creBtn.id = templateToolbarOptions.createTemplateObj[i].id;
+        creBtn.setAttribute("data-cmd",`${templateToolbarOptions.createTemplateObj[i].cmd}`)
 
-        if(templateToolbarOptions[i].width !== null){
-            creBtn.style.width = templateToolbarOptions[i].width;
+        if(templateToolbarOptions.createTemplateObj[i]["width"] !== null){
+            creBtn.style.width = templateToolbarOptions.createTemplateObj[i].width;
         };
-        if(templateToolbarOptions[i].height !== null){
-            creBtn.style.height = templateToolbarOptions[i].height;
+        if(templateToolbarOptions.createTemplateObj[i]["height"] !== null){
+            creBtn.style.height = templateToolbarOptions.createTemplateObj[i].height;
         };
 
-        creUI.className = templateToolbarOptions[i].ui;
+        creUI.className = templateToolbarOptions.createTemplateObj[i].ui;
         creBtn.appendChild(creUI);
-        
         creBtnSection.appendChild(creBtn);
     };
     getHeaderSection.appendChild(creBtnSection);

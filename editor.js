@@ -46,6 +46,8 @@ var editor = function(node) {
     this.createToolbar = node.createToolbar;
 
     var editor = this.element.root;// 새롭게 생성되는 에디터 객체를 가지고 있는 변수
+    var editorWidth = this.width;
+    var editorHeight = this.height;
     var creBodyModalTemp= null; // 모달의 Body영역을 가지고 있는 변수
     var creDivModalTemp = null; // 모달의 DIV 영역을 가지고 있는 변수
     var creBlockBtnTemp = null; // 모달이 생성될 때, document 영역 전체에 위치하는 BlockBtn를 가지는 변수
@@ -93,21 +95,24 @@ var editor = function(node) {
 
 
     function setWidth(){
-        
         var getEditor = editor.querySelector("#Editor");
-        getEditor.style.width = this.width;
+        getEditor.style.width = editorWidth;
     };
 
     function setHeight(){
-        
          var getEditSection = editor.querySelector("#edit_section");
-            getEditSection.childNodes[0].style.height = this.height;
+            getEditSection.childNodes[0].style.height = editorHeight;
     };
 
     function settingTag(){
         
         var editorDiv = document.createElement("div");
         editorDiv.id = "Editor"
+        if(!editorWidth){
+            editorDiv.style.width = "810px";
+        }else{
+            editorDiv.style.width = editorWidth;
+        }
         editor.appendChild(editorDiv);
 
         var tagAttribute = ["header_section","edit_section","footer","getsetArea"];
@@ -250,10 +255,15 @@ var editor = function(node) {
     function titleText(){
         
         var getHeaderSection = editor.querySelector("#header_section");
-        var creSpan = document.createElement("span");
+        var creSpan = document.createElement("div");
         var txt = document.createTextNode("💻");
         creSpan.id = "editorTextId";
         creSpan.appendChild(txt);
+        if(editorWidth){
+            creSpan.style.marginLeft = parseInt(editorWidth,10)/2 + "px";
+        }else{
+            creSpan.style.left = "20%";
+        }
         getHeaderSection.appendChild(creSpan);
      };
 
@@ -261,8 +271,14 @@ var editor = function(node) {
 
     function addEditView(){
         var createIframeTag = document.createElement("iframe");
-        createIframeTag.style.width = "810px";
-        createIframeTag.style.height = "350px";
+        if(!editorWidth && !editorHeight){
+            createIframeTag.style.width = "810px";
+            createIframeTag.style.height = "350px";
+        }else{
+            createIframeTag.style.width = editorWidth;
+            createIframeTag.style.height = editorHeight;
+        }
+        
         createIframeTag.id = "output";
         createIframeTag.name = "textFiled";
 
@@ -1015,40 +1031,51 @@ function setBodyValue(data = "<p></br></p>"){
     }
 };
 
-if(templateBtnOptions !== null){
-    function createTemplateBtn(){
-    
-        var getBtnSection = editor.querySelector("#btn_section");
-        var creBtn = document.createElement("button");
-        var creIElement = document.createElement("i");
 
-        creBtn.id = templateBtnOptions.id;
-        
-        if(templateBtnOptions.ui !== null && !templateBtnOptions.url){
-            creIElement.className = templateBtnOptions.ui;
-            creBtn.appendChild(creIElement);
-        }
-        else if(templateBtnOptions.url !== null &&!templateBtnOptions.ui){
-            var creImage = document.createElement("img");
-            creImage.style = "width:70%; height:15px"
-            creImage.setAttribute("src",templateBtnOptions.url);
-            creBtn.appendChild(creImage);
-        }
-        
-        creBtn.addEventListener("click",templateBtnOptions.function);
-        getBtnSection.appendChild(creBtn);
+function createTemplateBtn(){
+
+    var getBtnSection = editor.querySelector("#btn_section");
+    var creBtn = document.createElement("button");
+    var creIElement = document.createElement("i");
+
+    creBtn.id = templateBtnOptions.id;
+    
+    if(templateBtnOptions.ui !== null && !templateBtnOptions.url){
+        creIElement.className = templateBtnOptions.ui;
+        creBtn.appendChild(creIElement);
     }
-}else{
-    return;
+    else if(templateBtnOptions.url !== null &&!templateBtnOptions.ui){
+        var creImage = document.createElement("img");
+        creImage.style = "width:70%; height:13px"
+        creImage.setAttribute("src",templateBtnOptions.url);
+        creBtn.appendChild(creImage);
+    }
+    
+    creBtn.addEventListener("click",templateBtnOptions.function);
+    getBtnSection.appendChild(creBtn);
 }
+
+function createTemplateToolbar(){
+     
+}
+
 
 
 
 function renderHeader(){
     addSelectBtn();
-    addBtn();
+    if(templateToolbarOptions === undefined){
+        addBtn();
+    }else{
+        createTemplateToolbar();
+    };
+
+    if(templateBtnOptions !== undefined) createTemplateBtn();
+    
     titleText();
     modalView();
+
+    
 };
 
 function renderContent(){
@@ -1083,7 +1110,7 @@ function addAPIEvt(){
     setValue();
     getBodyValue();
     setBodyValue();
-    createTemplateBtn(createTemplateBtn);
+    
 };
 
 function startEditor(){
@@ -1122,6 +1149,9 @@ function startEditor(){
         },
         createTemplateBtn : function(options){
             return createTemplateBtn(options);
+        },
+        createTemplateToolbar : function(options){
+            return createaTemplateToolbar(options);
         }
     }
 };

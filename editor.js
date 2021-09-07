@@ -40,12 +40,17 @@ var editor = function(node) {
     this.element = {
         root: document.getElementById(node.root)
     }
+    this.id = node.root;
     this.width = node.width;
     this.height = node.height;
     this.createBtn = node.createBtn;
     this.createToolbar = node.createToolbar;
+    //this.event = null;
+
+    //this.event.OnInitCompleted.call(this);
 
     var editor = this.element.root;// 새롭게 생성되는 에디터 객체를 가지고 있는 변수
+    var editorId = this.id;
     var editorWidth = this.width;
     var editorHeight = this.height;
 
@@ -57,7 +62,8 @@ var editor = function(node) {
 
     var templateBtnOptions = this.createBtn;
     var templateToolbarOptions = this.createToolbar;
-    console.log(templateToolbarOptions.createTemplateObj);
+    //console.log(templateToolbarOptions.createTemplateObj);
+    console.log(editorId)
 
 
     function setValueParser(a){
@@ -1131,7 +1137,7 @@ function createTemplateToolbar(){
     };
     getHeaderSection.appendChild(creBtnSection);
 }
-
+this.event = null;
 
 function renderHeader(){
     addSelectBtn();
@@ -1202,7 +1208,39 @@ function startEditor(){
     
 }
 
+// function getinstanceId(){
+//     return editorId;
+// }
+    var insArr = [];
+
      return { //사용자 영역
+
+        // getinstance : function(node){
+        //     var ins = editor(node);
+        //     insArr.push(ins);
+        //     return ins;
+            
+        // },
+        // get : function(id){
+        //     var insList = null;
+        //     insArr.map(function(instance){
+        //         if(instance.getinstanceId() === id){
+        //             insList = instance;
+        //             return instance;
+        //         }
+        //     })
+        // },
+        
+        // startEditor : function(id,params){
+        //     var ins = this.get(id);
+        //     if(ins === null){
+        //         ins = this.getinstance(node);
+        //     }
+        //     ins.startEditor(id,params)
+        //     return ins;
+        //     //return startEditor();
+        // },
+
         startEditor : function(){
             return startEditor();
         },
@@ -1223,6 +1261,12 @@ function startEditor(){
         },
         createTemplateToolbar : function(options){
             return createaTemplateToolbar(options);
+        },
+        OnInitCompleted : function(){
+            console.warn("OnInitCompleted");
+            if (events.OnInitCompleted) {
+                events.OnInitCompleted.call(this, _self);
+            }
         }
     }
 };

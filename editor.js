@@ -57,8 +57,7 @@ var editor = function(node) {
 
     var templateBtnOptions = this.createBtn;
     var templateToolbarOptions = this.createToolbar;
-    // console.log(templateToolbarOptions.createTemplateObj["width"]);
-    // console.log(templateToolbarOptions);
+    console.log(templateToolbarOptions.createTemplateObj);
 
 
     function setValueParser(a){
@@ -141,7 +140,6 @@ var editor = function(node) {
             var option = document.createElement("option");
             option.value = options[i].key;
             option.text = options[i].value;
-            //option.setAttribute("data-cmd",`${options[i].cmd}`);
             select.appendChild(option)
         }
         return select;
@@ -402,25 +400,27 @@ var editor = function(node) {
         var underlineId = editor.querySelector("#underline");
         var strikeId = editor.querySelector("#strike");
  
-         getnewWriteId.addEventListener("click",function(){
-             var confirmVal = window.confirm('저장되어 있던 글이 모두 삭제됩니다.');
-             var edit = doc;
+         if(getnewWriteId !== null){
+            getnewWriteId.addEventListener("click",function(){
+                var confirmVal = window.confirm('저장되어 있던 글이 모두 삭제됩니다.');
+                var edit = doc;
+               
+                if(confirmVal === true){
+                    edit.body.innerHTML = "<p></br></p>";
+                    
+                    if(boldId !== null)boldId.className = "bold";
+                    if(italicId !== null)italicId.className = "italic";
+                    if(underlineId !== null)underlineId.className = "underline";
+                    if(strikeId !== null)strikeId.className = "strike";
+                    this.curState = "Edit";
+                    console.log(this.curState);
+                    edit.body.focus();
             
-             if(confirmVal === true){
-                 edit.body.innerHTML = "<p></br></p>";
-                 
-                 boldId.className = "bold";
-                 italicId.className = "italic";
-                 underlineId.className = "underline";
-                 strikeId.className = "strike";
-                 this.curState = "Edit";
-                 console.log(this.curState);
-                 edit.body.focus();
-         
-             }else{
-                 return
-             }
-         })
+                }else{
+                    return
+                }
+            })
+         }
      };
 
      function modalEvt(){
@@ -693,16 +693,20 @@ function fontFunction(){
             doc.execCommand(cmd,false,null);
             })
         }
-    }else{
-        for(var i = 0; i<templateToolbarOptions.length; i++){
-    
-            buttons[i].addEventListener('click',function(){
-            var cmd = this.getAttribute('data-cmd');
-            doc.execCommand(cmd,false,null);
-            })
+    }else if(templateToolbarOptions !== undefined){
+        for(var i = 0; i<templateToolbarOptions.createTemplateObj.length; i++){
+            if(templateToolbarOptions.createTemplateObj[i]["function"] === undefined){
+                buttons[i].addEventListener('click',function(){
+                var cmd = this.getAttribute('data-cmd');
+                doc.execCommand(cmd,false,null);
+                })
+            }else if(templateToolbarOptions.createTemplateObj[i]["function"] !== undefined){
+                var templateToolBtnFunction = templateToolbarOptions.createTemplateObj[i]["function"]
+                
+                buttons[i].addEventListener("click",templateToolBtnFunction);
+            }
         }
     }
-  
 };
 
 function backspacePrevent(){
@@ -1094,7 +1098,7 @@ function createTemplateToolbar(){
 
     for(var i = 0; i<templateToolbarOptions.createTemplateObj.length; i++){
         var creBtn = document.createElement("button");
-        var creUI = document.createElement("i");
+        var creIElement = document.createElement("i");
 
         
         creBtn.type = "button";
@@ -1109,8 +1113,20 @@ function createTemplateToolbar(){
             creBtn.style.height = templateToolbarOptions.createTemplateObj[i].height;
         };
 
-        creUI.className = templateToolbarOptions.createTemplateObj[i].ui;
-        creBtn.appendChild(creUI);
+        if(templateToolbarOptions.createTemplateObj[i]["url"] === undefined 
+        && templateToolbarOptions.createTemplateObj[i]["ui"] !== null)
+        creIElement.className = templateToolbarOptions.createTemplateObj[i].ui;
+        
+        if(templateToolbarOptions.createTemplateObj[i]["ui"] === undefined 
+        && templateToolbarOptions.createTemplateObj[i]["url"]){
+            creImage = document.createElement("img");
+            creImage.style = "width:70%; height:13px";
+            creImage.setAttribute("src",templateToolbarOptions.createTemplateObj[i]["url"]);
+            creBtn.appendChild(creImage)
+        }
+
+        
+        creBtn.appendChild(creIElement);
         creBtnSection.appendChild(creBtn);
     };
     getHeaderSection.appendChild(creBtnSection);

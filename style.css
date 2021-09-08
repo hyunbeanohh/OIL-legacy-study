@@ -166,11 +166,12 @@ body{
 }
 
 #modal{
-    position: absolute;
+    position: relative;
     z-index: 1;
-    left: 20%;
-    top:35%;
     display: none;
+    bottom: 350px;
+    right: 250px;
+    
 }
 
 .modal-content{
@@ -209,7 +210,6 @@ body{
 	padding: 2px 16px;
 }
 .closeText{
-
     position: relative;
     left: 35%;
     top: 20%;

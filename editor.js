@@ -5,10 +5,11 @@ var editor = function(node) {
         {key:"italic", value:"기울기", ui : "fas fa-italic", cmd :"italic", id : "italic"},
         {key:"underline", value:"밑줄", ui : "fas fa-underline" , cmd :"underline", id :"underline"},
         {key:"strike", value:"취소선", ui : "fas fa-strikethrough" , cmd :"strikethrough" , id :"strike"},
-       
+        {key:"emoji", value:"이모티콘", ui : "far fa-smile", cmd : "null", id:"emoji"}
     ];
     
     var options = [
+        {key:"P", value:"기본", cmd: "P"},
         {key:"h1", value:"제목1", cmd :"h1"},
         {key:"h2", value:"제목2", cmd :"h2"},
         {key:"h3", value:"제목3", cmd :"h3"},
@@ -188,6 +189,15 @@ var editor = function(node) {
         if(getModalBtn){
             var creModalDiv = document.createElement("div");
             creModalDiv.id = "modal";
+
+            if(editorHeight){
+                creModalDiv.style.right = parseInt(editorWidth,10)/10 + "px"; 
+            }
+
+            if(editorWidth){
+                creModalDiv.style.bottom = "500px";
+            }
+            
             creDivModalTemp = creModalDiv;
             
     
@@ -225,6 +235,7 @@ var editor = function(node) {
             creModalDiv.appendChild(creModalContent);
             
             editor.appendChild(creDivModalTemp);
+            
             creModalDiv.style.display = "none";
     
             var creBlockBtn = document.createElement("button");
@@ -683,6 +694,11 @@ function addHeaderFunction(){
             addHeader("h6");
             edit.body.focus();
         }
+        else if(optionValue ==="P"){
+            console.log(optionValue);
+            addHeader("P");
+            edit.body.focus();
+        }
     })
 };
 
@@ -723,7 +739,7 @@ function backspacePrevent(){
             return
         }
         var handled = false;
-        if(event.keyCode === 8 && edit.body.innerHTML === ""){
+        if(evt.keyCode === 8 && edit.body.innerHTML === ""){
             handled = true;
             edit.body.innerHTML = "<p></br></p>";
         }
@@ -1137,9 +1153,40 @@ function createTemplateToolbar(){
     };
     getHeaderSection.appendChild(creBtnSection);
 }
-this.event = null;
 
-function renderHeader(){
+
+this.params = node;
+this.event = EVENT(this.params.event);
+var nodeParams = this.event;
+console.log(nodeParams);
+
+function EVENT(evt){
+    var self = this;
+    return{
+        onInitCompleted : function(){
+            console.warn("onInitComplted");
+            if(evt.onInitCompleted !== undefined){
+                evt.onInitCompleted.call(this,self);
+            }else{
+                console.log('No onInitComplted')
+            }
+        },
+        onInitUICompleted : function(){
+            console.warn("onInitUICompleted");
+            if(evt.onInitUICompleted !== undefined){
+                evt.onInitUICompleted.call(this);
+            }else{
+                console.log('No onInitComplted')
+            }
+        },
+        OnEditorCompleted : function () {
+            console.warn("OnEditorCompleted");
+        },
+    }
+}
+
+
+function createUI(){
     addSelectBtn();
     if(templateToolbarOptions === undefined){
         addBtn();
@@ -1151,17 +1198,20 @@ function renderHeader(){
 
     titleText();
     modalView();
+    addEditView();
+    footerView();
 
+    //nodeParams.onInitUICompleted.call(this);
     
 };
 
-function renderContent(){
-    addEditView();
-};
+// function renderContent(){
+//     addEditView();
+// };
 
-function renderFooter(){
-    footerView();
-};
+// function renderFooter(){
+//     footerView();
+// };
 
 function addHeaderEvt(){
     toolbarEvt();
@@ -1193,9 +1243,9 @@ function addAPIEvt(){
 function startEditor(){
     settingTag();
 
-    renderHeader();
-    renderContent();
-    renderFooter();
+    createUI();
+    // renderContent();
+    // renderFooter();
     
     setWidth();
     setHeight();
@@ -1206,6 +1256,7 @@ function startEditor(){
     
     addAPIEvt();
     
+    nodeParams.OnEditorCompleted.call(this);
 }
 
 // function getinstanceId(){
@@ -1262,11 +1313,5 @@ function startEditor(){
         createTemplateToolbar : function(options){
             return createaTemplateToolbar(options);
         },
-        OnInitCompleted : function(){
-            console.warn("OnInitCompleted");
-            if (events.OnInitCompleted) {
-                events.OnInitCompleted.call(this, _self);
-            }
-        }
     }
 };

@@ -38,21 +38,16 @@ var editor = function(node) {
         {title : "헤롱", src : '<img alt="헤롱" title="헤롱" src="http://comp.namoeditor.co.kr/ce4/demo/crosseditor/images/emoticon/10.png" style="vertical-align: baseline; cursor: pointer;">'},
     ];
 
-    this.element = {
+    var element = {
         root: document.getElementById(node.root)
     }
-    this.id = node.root;
-    this.width = node.width;
-    this.height = node.height;
-    this.createBtn = node.createBtn;
-    this.createToolbar = node.createToolbar;
 
-    var editor = this.element.root;// 새롭게 생성되는 에디터 객체를 가지고 있는 변수 
+    var editor = element.root;// 새롭게 생성되는 에디터 객체를 가지고 있는 변수 
     editor.style.marginBottom = "30px"; // 생성되는 에디터마다 마진의 바텀 값을 30px 부여
 
-    var editorId = this.id;
-    var editorWidth = this.width;
-    var editorHeight = this.height;
+    var editorId = node.root;
+    var editorWidth = node.width;
+    var editorHeight = node.height;
 
     var creBodyModalTemp = null; // 모달의 Body영역을 가지고 있는 변수
     var creDivModalTemp = null; // 모달의 DIV 영역을 가지고 있는 변수
@@ -60,8 +55,8 @@ var editor = function(node) {
     var tempSelection = null; // 각 에디터가 생성 될 때, 임시Selection 변수
     var tempRange = null; // 각 에디터가 생성될 때, 임시Range 변수
 
-    var templateBtnOptions = this.createBtn; // 사용자 API 함수, 툴바 영역에 새로운 버튼 추가
-    var templateToolbarOptions = this.createToolbar; // 사용자 API 함수, 툴바 영역에 새로운 툴바와 버튼 추가
+    var templateBtnOptions = node.createBtn;// 사용자 API 함수, 툴바 영역에 새로운 버튼 추가
+    var templateToolbarOptions = node.createToolbar; // 사용자 API 함수, 툴바 영역에 새로운 툴바와 버튼 추가
 
 
     function setValueParser(a){
@@ -301,10 +296,10 @@ var editor = function(node) {
 
         this.editIframe = createIframeTag;
         
-        var getSection = this.element.root.querySelector("#edit_section");
+        var getSection = element.root.querySelector("#edit_section");
         getSection.appendChild(createIframeTag);
 
-        var edit = this.element.root.querySelector("#output").contentWindow.document;
+        var edit = element.root.querySelector("#output").contentWindow.document;
         edit.body.style = "word-break: break-all;"
         edit.body.innerHTML = "<p></br></p>";
         edit.designMode = "On";
@@ -318,7 +313,7 @@ var editor = function(node) {
      
     function footerView(){
         
-        var getFooter = this.element.root.querySelector("#footer");
+        var getFooter = element.root.querySelector("#footer");
         
         var creResizeBtn = document.createElement("button");
         var creResizeDiv = document.createElement("div");
@@ -1011,11 +1006,11 @@ function footerEvt(){
 
 function getValue(){
     
-
     var getEditSection = editor.querySelector("#edit_section");
-    var doc = getEditDocument();
     var getIframe = editor.querySelector("Iframe");
+    var doc = getEditDocument();
     var edit = doc;
+
     var fullHtml = edit.body.parentNode.outerHTML;
     if(t.currentState === "Edit"){
         return fullHtml;
@@ -1079,7 +1074,6 @@ function setBodyValue(data = "<p></br></p>"){
         return false;
     }
 };
-
 
 function createTemplateBtn(){
 
@@ -1152,35 +1146,28 @@ function createTemplateToolbar(){
 }
 
 
-this.params = node;
-this.event = EVENT(this.params.event);
-var nodeParams = this.event;
-console.log(nodeParams);
-
 function EVENT(evt){
-    var self = this;
+    var t = this;
+    var getInitTextArea = document.getElementById("onInitTextArea");
+    
+    if(evt === undefined){
+        return false;
+    }
+    
     return{
         onInitCompleted : function(){
-            console.warn("onInitComplted");
             if(evt.onInitCompleted !== undefined){
-                evt.onInitCompleted.call(this,self);
-            }else{
-                console.log('No onInitComplted')
+                console.warn("Object in onInitCompleted");
+                console.log(editor);
+                evt.onInitCompleted.call(this,t)
             }
-        },
-        onInitUICompleted : function(){
-            console.warn("onInitUICompleted");
-            if(evt.onInitUICompleted !== undefined){
-                evt.onInitUICompleted.call(this);
-            }else{
-                console.log('No onInitComplted')
-            }
-        },
-        OnEditorCompleted : function () {
-            console.warn("OnEditorCompleted");
-        },
+        }
     }
 }
+
+this.params = node;
+this.event = EVENT(this.params.event);
+var objectParams = this.event;
 
 
 function createUI(){
@@ -1197,8 +1184,6 @@ function createUI(){
     modalView();
     addEditView();
     footerView();
-
-    //nodeParams.onInitUICompleted.call(this);
     
 };
 
@@ -1241,9 +1226,7 @@ function startEditor(){
     settingTag();
 
     createUI();
-    // renderContent();
-    // renderFooter();
-    
+
     setWidth();
     setHeight();
 
@@ -1252,42 +1235,16 @@ function startEditor(){
     addFooterEvt();
     
     addAPIEvt();
-    
-    nodeParams.OnEditorCompleted.call(this);
+    if(objectParams && window.onInitCompleted) objectParams.onInitCompleted();
+    window.onInitCompleted(engine);
+
 }
 
 // function getinstanceId(){
 //     return editorId;
-// }
-    var insArr = [];
 
-     return { //사용자 영역
 
-        // getinstance : function(node){
-        //     var ins = editor(node);
-        //     insArr.push(ins);
-        //     return ins;
-            
-        // },
-        // get : function(id){
-        //     var insList = null;
-        //     insArr.map(function(instance){
-        //         if(instance.getinstanceId() === id){
-        //             insList = instance;
-        //             return instance;
-        //         }
-        //     })
-        // },
-        
-        // startEditor : function(id,params){
-        //     var ins = this.get(id);
-        //     if(ins === null){
-        //         ins = this.getinstance(node);
-        //     }
-        //     ins.startEditor(id,params)
-        //     return ins;
-        //     //return startEditor();
-        // },
+     var engine = { //사용자 영역
 
         startEditor : function(){
             return startEditor();
@@ -1311,4 +1268,5 @@ function startEditor(){
             return createaTemplateToolbar(options);
         },
     }
+    return engine;
 };

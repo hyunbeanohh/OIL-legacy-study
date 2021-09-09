@@ -18,6 +18,12 @@ var test = editor({
     //     width: "300px",
     //     height: "0px"
     // }
+    event:{
+        onInitCompleted: function(){
+            var getInitTextArea = document.getElementById("onInitTextArea");
+            test.setBodyValue(getInitTextArea.value);
+        }
+    }
 });
 test.startEditor();
 
@@ -43,15 +49,12 @@ var test2 = editor({
     //     // width:"100px",
     //     // height:"80px"
     // },
-    event:{
-        onInitCompleted: function(editor){
-            console.warn("onInitCompleted");
-            console.log(editor);
-        },
-        onInitUICompleted: function(){
-            console.warn("onInitUICompleted");
-        }
-    }
+    // event:{
+    //     onInitCompleted: function(editor){
+    //         var getInitTextArea = document.getElementById("onInitTextArea");
+    //         test2.setBodyValue(getInitTextArea.value);
+    //     }
+    // }
 })
 test2.startEditor();
 

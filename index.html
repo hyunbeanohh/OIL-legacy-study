@@ -28,22 +28,21 @@
         </div>
         <textarea id = "creText"></textarea>
     </div>
-    <script src = "excute.js"></script> 
-    <!-- 사용자 API 영역 -->
 
+    <textarea id ="onInitTextArea" title = "initTiext" style="position : absolute; left : -10000px; width: 730px; height: 450px; font-size: 13px;"><p>welcome to SimpleEditor</p></textarea>
     <script> 
         
-        var getCreText = document.querySelector("#creText");
+        var getCreText = document.getElementById("creText");
         var getValueHandler = document.getElementById("getValue");
         getValueHandler.addEventListener("click" , function(){
-            var temp = test.getValue();
-            getCreText.value = temp;
+            var getValueText = test.getValue();
+            getCreText.value = getValueText;
         });
 
         var getBodyValueHandler = document.getElementById("getBodyValue");
         getBodyValueHandler.addEventListener("click",function(){
-            var temp = test.getBodyValue();
-            getCreText.value = temp;
+            var getBodyValueText = test.getBodyValue();
+            getCreText.value = getBodyValueText;
         });
         
         var setValueHandler = document.getElementById("setValue");
@@ -56,8 +55,19 @@
             test.setBodyValue(getCreText.value)
         });
 
+        var getInitTextArea = document.getElementById("onInitTextArea");
+        function onInitCompleted(engine){
+            console.log(engine)
+            engine.setBodyValue(getInitTextArea.value);
+        }
+       
+    
        
     </script>
+    <script src = "excute.js"></script> 
+    <!-- 사용자 API 영역 -->
+
+   
 </body>
 </html>
 

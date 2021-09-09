@@ -46,11 +46,10 @@ var editor = function(node) {
     this.height = node.height;
     this.createBtn = node.createBtn;
     this.createToolbar = node.createToolbar;
-    //this.event = null;
 
-    //this.event.OnInitCompleted.call(this);
+    var editor = this.element.root;// 새롭게 생성되는 에디터 객체를 가지고 있는 변수 
+    editor.style.marginBottom = "30px"; // 생성되는 에디터마다 마진의 바텀 값을 30px 부여
 
-    var editor = this.element.root;// 새롭게 생성되는 에디터 객체를 가지고 있는 변수
     var editorId = this.id;
     var editorWidth = this.width;
     var editorHeight = this.height;
@@ -58,13 +57,11 @@ var editor = function(node) {
     var creBodyModalTemp = null; // 모달의 Body영역을 가지고 있는 변수
     var creDivModalTemp = null; // 모달의 DIV 영역을 가지고 있는 변수
     var creBlockBtnTemp = null; // 모달이 생성될 때, document 영역 전체에 위치하는 BlockBtn를 가지는 변수
-    var tempSelection = null;
-    var tempRange = null;
+    var tempSelection = null; // 각 에디터가 생성 될 때, 임시Selection 변수
+    var tempRange = null; // 각 에디터가 생성될 때, 임시Range 변수
 
-    var templateBtnOptions = this.createBtn;
-    var templateToolbarOptions = this.createToolbar;
-    //console.log(templateToolbarOptions.createTemplateObj);
-    console.log(editorId)
+    var templateBtnOptions = this.createBtn; // 사용자 API 함수, 툴바 영역에 새로운 버튼 추가
+    var templateToolbarOptions = this.createToolbar; // 사용자 API 함수, 툴바 영역에 새로운 툴바와 버튼 추가
 
 
     function setValueParser(a){
@@ -189,7 +186,7 @@ var editor = function(node) {
         if(getModalBtn){
             var creModalDiv = document.createElement("div");
             creModalDiv.id = "modal";
-
+            
             if(editorHeight){
                 creModalDiv.style.right = parseInt(editorWidth,10)/10 + "px"; 
             }
@@ -242,7 +239,7 @@ var editor = function(node) {
             creBlockBtn.id = "closeBtn";
             creBlockBtn.style = "display: none; position:absolute; width:150%; height:320%; left:-50%; top:-30%; background-color : white; opacity:0.01;"
             creBlockBtnTemp = creBlockBtn;
-            editor.appendChild(creBlockBtnTemp);
+            //editor.appendChild(creBlockBtnTemp);
     
             creCloseSpan.addEventListener("click",function(){
                 creModalDiv.style.display = "none";

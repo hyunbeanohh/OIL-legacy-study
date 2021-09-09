@@ -43,15 +43,15 @@ var test2 = editor({
     //     // width:"100px",
     //     // height:"80px"
     // },
-    // event:{
-    //     onInitCompleted: function(editor){
-    //         console.warn("onInitCompleted");
-    //         console.log(editor);
-    //     },
-    //     onInitUICompleted: function(){
-    //         console.warn("onInitUICompleted");
-    //     }
-    // }
+    event:{
+        onInitCompleted: function(editor){
+            console.warn("onInitCompleted");
+            console.log(editor);
+        },
+        onInitUICompleted: function(){
+            console.warn("onInitUICompleted");
+        }
+    }
 })
 test2.startEditor();
 

@@ -1,0 +1,67 @@
+{
+    "webtoonList" : [
+        {
+            "id" : 1,
+            "title" : "키다리 스튜디오 사전 과제",
+            "artist" : "오현빈",
+            "day" : "mon",
+            "thumbnail" : "https://ifh.cc/g/PhOGfM.png"
+        },
+        {
+            "id" : 2,
+            "title" : "디어 도어",
+            "artist" : "Pluto",
+            "day" : "mon",
+            "thumbnail" : "https://ifh.cc/g/TApaUy.jpg"
+        },
+        {
+            "id" : 3,
+            "title" : "장군 정육점",
+            "artist" : "갯생",
+            "day" : "mon",
+            "thumbnail" : "https://ifh.cc/g/Gjk1lN.jpg"
+        },
+        {
+            "id" : 4,
+            "title" : "바나나툰",
+            "artist" : "와나나",
+            "day" : "tue",
+            "thumbnail" : "https://ifh.cc/g/8jGKGE.png"
+        },
+        {
+            "id" : 5,
+            "title" : "4컷용사",
+            "artist" : "고지라군",
+            "day" : "tue",
+            "thumbnail" : "https://ifh.cc/g/KBlSLI.jpg"
+        },
+        {
+            "id" : 6,
+            "title" : "애늙은이",
+            "artist" : "환댕",
+            "day" : "tue",
+            "thumbnail" : "https://ifh.cc/g/LgSKUP.png"
+        },
+        {
+            "id" : 7,
+            "title" : "레바툰",
+            "artist" : "레바",
+            "day" : "wed",
+            "thumbnail" : "https://ifh.cc/g/LEIklg.png"
+        },
+        {
+            "id" :  8,
+            "title" : "데스크레센도",
+            "artist" : "빌뱅,턱시도펭귄",
+            "day" : "wed",
+            "thumbnail" : "https://ifh.cc/g/Fbowjv.jpg"
+        },
+        {
+            "id" : 9,
+            "title" : "이름 없는 가게",
+            "artist" : "하몽",
+            "day" : "wed",
+            "thumbnail" : "https://ifh.cc/g/HNcrh4.jpg"
+        }
+    ]
+}

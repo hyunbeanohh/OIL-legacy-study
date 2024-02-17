@@ -1,0 +1,76 @@
+{
+    "webtoons" : [
+        {
+            "id" : 1,
+            "title" : "키다리 스튜디오 사전 과제",
+            "artist" : "오현빈",
+            "genre" : ["주니어","프론트 엔드"],
+            "score" : 9.9,
+            "thumbnail" : "https://ifh.cc/g/PhOGfM.png"
+        },
+        {
+            "id" : 2,
+            "title" : "디어 도어",
+            "artist" : "Pluto",
+            "genre" : ["BL","로맨스"],
+            "score" : 9.7,
+            "thumbnail" : "https://ifh.cc/g/TApaUy.jpg"
+        },
+        {
+            "id" : 3,
+            "title" : "장군 정육점",
+            "artist" : "갯생",
+            "genre" : ["BL","액션"],
+            "score" : 9.6,
+            "thumbnail" : "https://ifh.cc/g/Gjk1lN.jpg"
+        },
+        {
+            "id" : 4,
+            "title" : "바나나툰",
+            "artist" : "와나나",
+            "genre" : ["일상","개그"],
+            "score" : 10.0,
+            "thumbnail" : "https://ifh.cc/g/8jGKGE.png"
+        },
+        {
+            "id" : 5,
+            "title" : "4컷용사",
+            "artist" : "고지라군",
+            "genre" : ["모험","판타지"],
+            "score" : 9.9,
+            "thumbnail" : "https://ifh.cc/g/KBlSLI.jpg"
+        },
+        {
+            "id" : 6,
+            "title" : "애늙은이",
+            "artist" : "환댕",
+            "genre" : ["액션","모험"],
+            "score" : 9.2,
+            "thumbnail" : "https://ifh.cc/g/LgSKUP.png"
+        },
+        {
+            "id" : 7,
+            "title" : "레바툰",
+            "artist" : "레바",
+            "genre" : ["일상","개그"],
+            "day" : "wed",
+            "thumbnail" : "https://ifh.cc/g/LEIklg.png"
+        },
+        {
+            "id" :  8,
+            "title" : "데스크레센도",
+            "artist" : "빌뱅,턱시도펭귄",
+            "genre" : ["액션","판타지"],
+            "day" : "wed",
+            "thumbnail" : "https://ifh.cc/g/Fbowjv.jpg"
+        },
+        {
+            "id" : 9,
+            "title" : "이름 없는 가게",
+            "artist" : "하몽",
+            "genre" : ["액션","판타지"],
+            "day" : "wed",
+            "thumbnail" : "https://ifh.cc/g/HNcrh4.jpg"
+        }
+    ]
+}

@@ -1,0 +1,10 @@
+.pressed{
+    color:black
+}
+
+.active:active{
+    color:blanchedalmond;
+}
+.focus:focus{
+    color:red;
+}

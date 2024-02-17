@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="./editor.js"></script>
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSEditor</title>
+</head>
+
+<body>
+
+    <div id= "root"></div>
+    
+    <div id = "wrap"></div>
+
+
+    <div id="editorAPI" style="width: 60%;">
+        <p style="margin-top:30px; border-top:1px dashed black" ></p>
+        <div style="display: flex; justify-content: center;">
+            <div id="getValue" type ="button" value = "getValue">getValue()</div>
+            <div id="setValue" type ="button" value = "setValue">setValue()</div>
+            <div id="getBodyValue" type ="button" value = "getBodyValue">getBodyValue()</div>
+            <div id="setBodyValue" type ="button" value = "setBodyValue">setBodyValue()</div>
+        </div>
+        <textarea id = "creText"></textarea>
+    </div>
+
+    <textarea id ="onInitTextArea" title = "initTiext" style="position : absolute; left : -10000px; width: 730px; height: 450px; font-size: 13px;"><p>welcome to SimpleEditor</p></textarea>
+    <script> 
+        
+        var getCreText = document.getElementById("creText");
+        var getValueHandler = document.getElementById("getValue");
+        getValueHandler.addEventListener("click" , function(){
+            var getValueText = test.getValue();
+            getCreText.value = getValueText;
+        });
+
+        var getBodyValueHandler = document.getElementById("getBodyValue");
+        getBodyValueHandler.addEventListener("click",function(){
+            var getBodyValueText = test.getBodyValue();
+            getCreText.value = getBodyValueText;
+        });
+        
+        var setValueHandler = document.getElementById("setValue");
+        setValueHandler.addEventListener("click",function(){
+            test.setValue(getCreText.value);
+        })
+
+        var setBodyValueHandler = document.getElementById("setBodyValue");
+        setBodyValueHandler.addEventListener("click",function(){
+            test.setBodyValue(getCreText.value)
+        });
+
+        var getInitTextArea = document.getElementById("onInitTextArea");
+        function onInitCompleted(engine){
+            console.log(engine)
+            engine.setBodyValue(getInitTextArea.value);
+        }
+       
+    
+       
+    </script>
+    <script src = "excute.js"></script> 
+    <!-- 사용자 API 영역 -->
+
+   
+</body>
+</html>
+

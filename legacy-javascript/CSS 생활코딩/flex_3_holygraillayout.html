@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container{
+            display: flex;
+            flex-direction: column;
+            width: 800px;
+            border: 1px solid black;
+        }
+        header{
+            border-bottom: 1px solid black;
+            padding-left:20px
+        }
+        footer{
+            border-top:1px solid gray;
+            padding:20px;
+            text-align: center;
+        }
+        .content{
+            display: flex;
+        }
+        .content nav{
+            border-right: 1px solid gray;
+        }
+        .content aside{
+            border-left: 1px solid gray;
+        }
+        nav,aside{
+            flex-basis: 150px;
+            flex-shrink: 0;
+        }
+        main{
+            padding:10px
+        }
+        nav{
+            order:-1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>holy grail layout</h1>
+        </header>
+        <section class="content">  
+            <nav>
+                <ul>
+                    <li>html</li>
+                    <li>css</li>
+                    <li>javascript</li>
+                </ul>
+            </nav>
+            <main>
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Soluta reprehenderit dolore exercitationem sunt. Eligendi fugiat tempore, consequatur quae quidem quam earum, aperiam error dolorum sed provident, perferendis magnam amet ratione.
+                Beatae doloremque voluptate possimus quisquam, a dolores. Molestias amet odit adipisci iusto voluptatibus labore culpa dolorem hic tempora velit, officia ex quis voluptates harum architecto! Vitae officia sequi eos nemo.
+                Deleniti harum expedita suscipit quia aliquid distinctio, nobis eum odit perspiciatis rem ea officiis fuga id error architecto illum doloremque voluptatem? Fugit, omnis accusantium delectus reiciendis molestiae placeat sunt vel?
+                Qui velit vitae expedita repellat consectetur eius mollitia deleniti quae. Tempore ipsa quam molestiae odit labore quasi dolores minima expedita eum enim. Autem dolorem sint, at error assumenda voluptatem aliquid.
+                Sint quia dolor ullam sunt quidem mollitia harum repellat nemo, nisi, ex nesciunt. Fugiat non excepturi maiores delectus quia sint, quidem hic consectetur aperiam minima quisquam, autem mollitia, eius dolore!
+                Assumenda reprehenderit ducimus, blanditiis dolores reiciendis possimus quo vero eos dolorem mollitia tempora! Adipisci dignissimos ea atque excepturi aperiam qui sapiente expedita veniam eius quam, praesentium eos iure! Autem, nam!
+                Animi illum culpa quaerat quisquam omnis tempora quidem. Tempora sunt, dolores tenetur ducimus earum aperiam odit dolorem commodi ipsam? Nesciunt amet facere dolore minus quod, iste ducimus laudantium tempora alias.
+                Amet eaque cupiditate sequi molestias unde ea quod eos neque cum esse autem expedita, blanditiis fugit nostrum corrupti sit, vitae architecto, tempore quo? Maiores aliquid dolores reiciendis ab quis optio.
+                Aut, itaque quaerat nisi culpa ad est repellendus. Suscipit ipsam voluptatem tempore cum soluta laudantium reprehenderit voluptas sed necessitatibus quae quasi labore rerum, alias eligendi, beatae similique veritatis inventore cumque.
+                Ipsum sapiente rem odit minima repellendus alias laudantium voluptatum fugit vel, vero blanditiis tempore pariatur, placeat obcaecati voluptas culpa? Voluptatum beatae a earum assumenda quas exercitationem vitae qui alias et.
+            </main>
+            <aside>
+                부가적인 요소(광고)
+            </aside>
+        </section>
+        <footer>
+            <a href="https://naver.com">홈페이지</a>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+ /* .content{
+  width: 150px;
+  height: 150px;
+  position: absolute;
+  left: 50%;
+  top:  50%;
+  margin: -75px 0 0 -75px;
+  /*
+  relativ 는 contetn div 안에서만 놀수있고  ,
+  absolute는 브라우저 전체 좌표에서 놀수있다.
+  */
+  /*
+  div중앙정렬 하는방법
+  */
+
+
+.btn{
+  text-align: center;
+  border: 1px solid black;
+  width: 200px;
+  padding: 25px;
+  transition: 0.3S;
+}
+.btn:hover{
+  color:white;
+  background-color: black;
+}
+.frame{
+  position: relative;
+  width: 500px;
+  height: 500px;
+  border : 1px solid black;
+}
+.red{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 150px;
+  height: 150px;
+  background-color: red;
+  
+}

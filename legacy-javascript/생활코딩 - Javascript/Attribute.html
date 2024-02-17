@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body id = "start">
+    <ul>
+    <li><a href="./533">html</a></li>
+    <li><a href="./534">css</a></li>
+    <li><a href="./544">Javascript</a>
+        <ul>
+            <li><a href="./535">Javascript</a></li>
+            <li><a href="./536">DOM</a></li>
+            <li><a href="./537">BOM</a></li>
+        </ul>
+    </li>
+</ul>
+
+<script>
+    function traverse (target,callback){
+        if(target.nodeType === Node.ELEMENT_NODE){ //elementNode가 1이다.
+            if(target.nodeName === 'A'){
+                callback(target)   
+            }
+        let c = target.childNodes
+
+        for(let i = 0 ; i<c.length; i++){
+            traverse(c[i],callback)
+        }
+    }
+}
+        traverse(document.getElementById('start'),function(elem){
+            console.log(elem)
+        })
+    
+</script>
+</body>
+</html>

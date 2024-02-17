@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf">
+  </head>
+  <body>
+    <h1>object</h1>
+    <h2>Create</h2>
+    <script>
+      var cowokers = {
+        "programmer":"egoing",
+        "Designer":"Mr.oh"
+      };
+      document.write("programmer : " + cowokers.programmer + "<br>");
+      document.write("Designer : " + cowokers.Designer + "<br>");
+
+      cowokers.bookkepper = "duuu";
+      document.write("bookkepper :" +cowokers.bookkepper + "<br>");
+
+      cowokers["Data Handler"] = "MR.Kim";
+      document.write("Date Handler :" + cowokers["Data Handler"] +  "<br>");
+
+    </script>
+    <h2>Iterater</h2>
+    <script>
+      for(var key in cowokers){
+        document.write(key+ ': ' +cowokers[key] +'<br>');
+      }
+    </script>
+
+    <h2>Property & Method</h2>
+    <script>
+      cowokers.showAll = function(){
+        for(var key in this){
+          document.write(key+ ': ' +this[key] +'<br>');
+        }
+      }
+      cowokers.showAll();
+    </script>
+  </body>
+</html>

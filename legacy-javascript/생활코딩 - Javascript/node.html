@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul id="target">
+        <li>HTML</li>
+        <li>CSS</li>
+    </ul>
+    <input type="button" onclick="callAppendChild()" value = "appendChild()"/>
+    <input type="button" onclick="callInsertBefore()" value = "insertBefore()"/>
+    <input type="button" onclick="callRemoveChild()" value = "removeChild()"/>
+    <input type="button" onclick="callReplaceChild()" value = "replaceChild()"/>
+    <script>
+        function callAppendChild(){
+            let target = document.getElementById('target')
+            let li = document.createElement('li')
+            let text = document.createTextNode('Javascript')
+            li.appendChild(text)
+            target.appendChild(li)
+        }
+        function callInsertBefore(){
+            let target = document.getElementById('target')
+            let li = document.createElement('li')
+            let text = document.createTextNode('jQuery')
+            li.appendChild(text)
+            target.insertBefore(li,target.firstChild) // li = 공백문자임 , target.Before 공백 문자 뒤에 추가.
+        }
+        function callRemoveChild(){
+            let target = document.getElementById('target')
+            target.parentNode.removeChild(target)
+        }
+        function callReplaceChild(){
+            let a = document.createElement('a')
+            a.setAttribute('href','https://www.nasver.com')
+            a.appendChild(document.createTextNode('web browser Javascript'))
+            let target = document.getElementById('target')
+            target.replaceChild(a,target.firstChild)
+        }
+    </script>
+</body>
+</html>

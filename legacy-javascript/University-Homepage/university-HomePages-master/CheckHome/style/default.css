@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css?family=Nanum+Myeongjo&display=swap');
+
+a{
+  text-decoration: none;
+}
+.IMSI_title{
+  margin-top: 0;
+
+  color:#003c8a;
+  font-weight: 700;
+  font-size: 3.2em;
+  letter-spacing: -0.1em;
+}
+.IMSI_category{
+  margin-top: 10px;
+  text-align: left;
+  font-weight: 500;
+  font-size: 1.2em;
+  letter-spacing: -0.1em;
+  margin: 0;
+
+}
+.IMSI_text{
+
+  margin-top: 0;
+  text-align: left;
+  font-weight: 300;
+  font-size: 1.2em;
+  letter-spacing: -0.1em;
+}
+.point{
+  font-weight: 900;
+  color:#003c8a;
+}
+p:not(.IMSI_text):(.IMSI_category){
+  margin: 0;
+  line-height: 60px;
+  text-shadow: 0px 1px 2px rgba(0,0,0,0.1);
+}
+
+body{
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  background-image: url("../img/IMSI_Background.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+}
+.logo{
+  margin-top:50px;
+}
+.IMSI_Subframe{
+  position: relative;
+  width: 850px;
+  height: 650px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top:5px;
+  padding: 10px;
+}
+.IMSI_Left{
+  margin-top: 10px;
+  position: absolute;
+  left: 10;
+  width: 425px;
+  height:625px;
+  border-right: 1px solid white;
+}
+.copyright{
+  margin-top: 10px;
+}
+.IMSI_content_frame{
+  margin-left: auto;
+  margin-right: auto;
+  width: 350px;
+}
+.IMSI_SuganText{
+  margin-bottom: 0;
+  margin-top: 0;
+  text-align: left;
+  font-weight: 300;
+  font-size: 1.2em;
+  letter-spacing: -0.1em;
+}
+
+.IMSI_Right{
+  margin-top: 10px;
+  position: absolute;
+  right: 0;
+  width: 425px;
+  height:625px;
+}
+.IMSI_Button{
+  margin-bottom: 5px;
+  margin-left: auto;
+  margin-right: auto;
+  color: white;
+  border: 1px solid #003c8a;
+  background-color: #003c8a;
+  text-align: center;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  width: 390;
+  transition: 0.2s;
+  border-radius: 10px;
+
+}
+.IMSI_Button:hover{
+  border: 1px solid #0a1b7a;
+  background-color: #0a1b7a;
+}
+iframe{
+  border-radius: 10px;
+}

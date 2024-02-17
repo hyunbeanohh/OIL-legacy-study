@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>기본동작의 취소</title>
+</head>
+<body>
+    <!-- <p><label>prvent evnet on</label>
+        <input type="checkbox" id="prevent" name="eventprevent">
+    </p>
+    <p>
+        <a href="https://www.naver.com" onclick="if(document.getElementById('prevent').checked)return false;">naver.com</a>
+    </p>
+    <p>
+        <form action="https://www.naver.com" onsubmit="if(document.getElementById('prevent').checked)return false;">
+            <input type="submit"/>
+        </form>
+    </p> -->
+    <script>    
+        document.querySelector('a').onclick = (event) =>{
+            if(document.getElementById('prevent').checked){
+                return false;
+            }
+        document.querySelector('form').onclick = (event) =>{
+            if(document.getElementById('prevent').checked){
+                return false;
+                }
+            }
+        }
+    </script>
+</body>
+</html>

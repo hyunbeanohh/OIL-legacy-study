@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "allowJs": true,
+        "target": "ES5",
+        "outDir": "./dist",
+        "moduleResolution": "Node", // Promise 인식
+        "lib": ["ES2015","DOM","DOM.Iterable"], //Primise , DOM 관련 에러가 생기지 않도록 설정
+        "noImplicitAny": true,
+        "esModuleInterop": true,
+        "typeRoots": ["./node_modules/@types","./types"], // @가 없으면 만든 폴더, -> 타입선언이 안되어 있는 라이브러리 같은 경우는 직접 선언하여 수정할 수 있다.
+        "strict": true,
+    },
+    "include": ["./src/**/*"] // src폴더 내부만 컴파일 실시
+}

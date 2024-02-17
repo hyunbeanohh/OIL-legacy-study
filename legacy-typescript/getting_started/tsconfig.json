@@ -1,0 +1,7 @@
+{
+    "compilerOptions": {
+        "allowJs": true,
+        "checkJs": true,  //@ts-check 와 같은 역할
+        "noImplicitAny": true // 모든 타입에 대해서 any를 넣어줌.
+    }
+}
